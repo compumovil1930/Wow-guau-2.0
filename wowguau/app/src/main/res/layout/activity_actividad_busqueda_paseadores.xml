@@ -45,7 +45,8 @@
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:srcCompat="@drawable/ic_placeholder" />
+        app:srcCompat="@drawable/ic_placeholder"
+        tools:srcCompat="@drawable/ic_placeholder" />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -95,7 +96,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
                 android:background="@android:drawable/btn_default"
-                android:drawableLeft="@android:drawable/sym_def_app_icon"
+                android:drawableLeft="@drawable/ic_man_profile"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
                 android:text=" Cesar Millan \n Experiencia: 25 años \n Rating: 4.9 \n Ciudad: Bogotá \n Disponibilidad: 7 - 9 am Lunes a Sábado" />
@@ -107,7 +108,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
                 android:background="@android:drawable/btn_default"
-                android:drawableLeft="@android:drawable/sym_def_app_icon"
+                android:drawableLeft="@drawable/ic_girl_profile"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
                 android:text=" Victoria Stiwel\n Experiencia: 16 años \n Rating: 4.8 \n Ciudad: Bogotá \n Disponibilidad: 8 - 6 pm Lunes a Sábado" />
@@ -119,7 +120,7 @@
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
                 android:background="@android:drawable/btn_default"
-                android:drawableLeft="@android:drawable/sym_def_app_icon"
+                android:drawableLeft="@drawable/ic_man_profile"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
                 android:text=" Cesar Millan \n Experiencia: 25 años \n Rating: 4.9 \n Ciudad: Bogotá \n Disponibilidad: 7 - 9 am Lunes a Sábado" />
