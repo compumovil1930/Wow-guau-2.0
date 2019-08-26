@@ -5,4 +5,11 @@
     <string name="login">Ingresar</string>
     <string name="fpassword">Olvidé mi contraseña</string>
     <string name="caccount">Crear cuenta</string>
+    <string name="welcome">Bienvenido, Andrés</string>
+
+    <string name="search_walk">Buscar paseos</string>
+    <string name="search_dog_walker">Buscar paseadores</string>
+    <string name="track_your_puppy">Monitorea a tu consentido</string>
+    <string name="update_puppy_info">Actualiza información de tu consentido</string>
+    <string name="update_your_info">Actualiza tu información</string>
 </resources>
