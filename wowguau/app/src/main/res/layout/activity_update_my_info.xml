@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context=".Signup_p">
+    tools:context=".update_my_info">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tv_update_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="Registra a tu consentido"
-        android:textSize="20sp" />
+        android:layout_marginBottom="30dp"
+        android:text="Tu información"
+        android:textSize="24sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/it_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="nombre"
@@ -56,13 +57,14 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="raza">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/it_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="raza"
+                    android:hint="cédula"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +72,7 @@
                 android:id="@+id/tv_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sexo"
+                android:text="Género"
                 android:textSize="18sp" />
 
             <RadioGroup
@@ -82,47 +84,43 @@
                     android:id="@+id/rb_man"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Macho" />
+                    android:text="Hombre" />
 
                 <RadioButton
                     android:id="@+id/rb_woman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hembra" />
+                    android:text="Mujer" />
+
             </RadioGroup>
 
-            <TextView
-                android:id="@+id/tv_certification"
+            <EditText
+                android:id="@+id/editText5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Carné de vacunación"
-                android:textSize="18sp" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@color/wg_light_grey"
-                android:padding="10dp"
-                app:srcCompat="@drawable/m_p" />
-
-            <TextView
-                android:id="@+id/tv_experience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Observaciones"
-                android:textSize="18sp" />
+                android:ems="10"
+                android:hint="fecha de nacimiento"
+                android:inputType="date" />
 
             <EditText
-                android:id="@+id/et_expereience"
+                android:id="@+id/editText4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Detalla información y cuidados especiales"
-                android:textSize="16sp" />
+                android:hint="telefono"
+                android:inputType="phone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="dirección">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/button_update_info"
@@ -131,9 +129,8 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:background="@color/wg_green"
-                android:text="Registrar" />
+                android:text="Guardar" />
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
