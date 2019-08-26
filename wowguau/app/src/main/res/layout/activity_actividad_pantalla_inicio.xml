@@ -36,7 +36,7 @@
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -46,17 +46,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="20dp">
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/buscar_paseo_btn"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_walking_with_dog"
                 android:text="Buscar Paseos" />
 
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/buscar_paseadores_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_search_black_24dp"

@@ -37,7 +37,6 @@
         android:id="@+id/imageButton"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@android:drawable/btn_default_material"
         android:contentDescription="TODO"
         android:foregroundGravity="fill_horizontal"
         android:scaleType="fitCenter"

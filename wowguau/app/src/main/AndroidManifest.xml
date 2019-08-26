@@ -12,15 +12,17 @@
         <activity android:name=".ActividadBusquedaPaseadores"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".ActividadPantallaInicio" />
-        <activity android:name=".Login" />
-        <activity android:name=".Password_recovery" />
-        <activity android:name=".ActividadPerfilPaseador" />
-        <activity android:name=".Signup_p">
+        <activity android:name=".Login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".Password_recovery" />
+        <activity android:name=".ActividadPerfilPaseador" />
+        <activity android:name=".Signup_p">
+
         </activity>
     </application>
 
