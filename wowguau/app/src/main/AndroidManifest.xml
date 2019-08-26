@@ -21,9 +21,7 @@
         </activity>
         <activity android:name=".Password_recovery" />
         <activity android:name=".ActividadPerfilPaseador" />
-        <activity android:name=".Signup_p">
-
-        </activity>
+        <activity android:name=".Signup_p" />
     </application>
 
 </manifest>

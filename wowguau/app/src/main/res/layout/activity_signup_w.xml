@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:layout_margin="30dp"
     android:orientation="vertical"
-    tools:context=".Signup_p">
+    tools:context=".Signup_w">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="Registra a tu consentido"
+        android:text="Registra tu información"
         android:textSize="20sp" />
 
     <ScrollView
@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/it_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="nombre"
@@ -59,10 +60,11 @@
                 android:hint="raza">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/it_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="raza"
+                    android:hint="cédula"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -70,7 +72,7 @@
                 android:id="@+id/tv_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sexo"
+                android:text="Género"
                 android:textSize="18sp" />
 
             <RadioGroup
@@ -82,20 +84,49 @@
                     android:id="@+id/rb_man"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Macho" />
+                    android:text="Hombre" />
 
                 <RadioButton
                     android:id="@+id/rb_woman"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hembra" />
+                    android:text="Mujer" />
+
             </RadioGroup>
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="fecha de nacimiento"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="telefono"
+                android:inputType="phone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="dirección">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:hint="hint" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
                 android:id="@+id/tv_certification"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Carné de vacunación"
+                android:text="Certificación"
                 android:textSize="18sp" />
 
             <ImageButton
@@ -111,7 +142,7 @@
                 android:id="@+id/tv_experience"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Observaciones"
+                android:text="Descripción"
                 android:textSize="18sp" />
 
             <EditText
@@ -121,7 +152,7 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Detalla información y cuidados especiales"
+                android:text="Describe tu trayectoria profesional."
                 android:textSize="16sp" />
 
             <Button
