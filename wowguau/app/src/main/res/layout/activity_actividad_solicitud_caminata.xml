@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="0.5"
-            android:background="#76FF03"
+            android:background="#FF7ED957"
             android:padding="10dp"
             android:text="@string/btnSolicitar" />
     </LinearLayout>
