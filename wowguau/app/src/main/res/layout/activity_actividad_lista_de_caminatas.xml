@@ -4,23 +4,89 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".actividad_lista_de_caminatas">
+    tools:context=".ActividadListaCaminatas">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLineSuperior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.15" />
+    <ImageButton
+        android:id="@+id/imgBtnLocation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnListar"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideLineInferior"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/ic_placeholder" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideLineInferior"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#00BCD4"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9"
-        />
+    <ImageButton
+        android:id="@+id/imgBtnListar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imgBtnFiltro"
+        app:layout_constraintStart_toEndOf="@id/imgBtnLocation"
+        app:layout_constraintTop_toBottomOf="@+id/guideLineInferior"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/ic_notepad" />
+
+    <ImageButton
+        android:id="@+id/imgBtnFiltro"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnListar"
+        app:layout_constraintTop_toBottomOf="@+id/guideLineInferior"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/ic_filter" />
+
+    <ScrollView
+        android:id="@+id/scrollViewListaCaminatas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideLineInferior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideLineSuperior">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:dividerPadding="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtViewMap2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/btn_default"
+                android:drawableStart="@drawable/google_map"
+                android:drawablePadding="20dp"
+                android:padding="10dp"
+                android:text="Caminata en Chapinero \nBogota DC \nResponsable: Cesar Millan \nDuracion aproximada: 1H"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+            <TextView
+                android:id="@+id/txtViewMap1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/btn_default"
+                android:drawableStart="@drawable/google_map"
+                android:drawablePadding="20dp"
+                android:padding="10dp"
+                android:text="Caminata en Cedritos \nBogota DC \nResponsable: VictorialStilwell \nDuracion aproximada: 45min"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/txtViewTituloListaCaminatas"
@@ -35,50 +101,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:id="@+id/scrollViewListaCaminatas"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideLineInferior"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideLineSuperior" >
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="left" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:dividerPadding="10dp"
-            android:orientation="vertical">
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineSuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
 
-
-            <TextView
-                android:id="@+id/txtViewMaps2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="0.5"
-                android:background="@android:drawable/btn_default"
-                android:drawableStart="@drawable/google_map"
-                android:drawablePadding="20dp"
-                android:padding="10dp"
-                android:text="Caminata en Chapinero \nBogota DC \nResponsable: Cesar Millan \nDuracion aproximada: 1H"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                />
-            <TextView
-                android:id="@+id/txtViewMap1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="0.5"
-                android:background="@android:drawable/btn_default"
-                android:drawableStart="@drawable/google_map"
-                android:drawablePadding="20dp"
-                android:padding="10dp"
-                android:text="Caminata en Cedritos \nBogota DC \nResponsable: VictorialStilwell \nDuracion aproximada: 45min"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
-
-        </LinearLayout>
-    </ScrollView>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineInferior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00BCD4"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 </androidx.constraintlayout.widget.ConstraintLayout>
