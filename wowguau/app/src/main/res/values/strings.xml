@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">wow-guau</string>
-    <string name="email">email</string>
-    <string name="password">contraseña</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
     <string name="login">Ingresar</string>
     <string name="fpassword">Olvidé mi contraseña</string>
     <string name="caccount">Crear cuenta</string>

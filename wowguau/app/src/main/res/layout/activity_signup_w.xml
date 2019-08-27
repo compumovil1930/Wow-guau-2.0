@@ -49,7 +49,7 @@
                     android:id="@+id/it_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="nombre"
+                    android:hint="Nombre"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -57,14 +57,14 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="raza">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/it_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="cédula"
+                    android:hint="Cédula"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,31 +95,31 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/et_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="fecha de nacimiento"
+                android:hint="Fecha de nacimiento"
                 android:inputType="date" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="telefono"
+                android:hint="Telefono"
                 android:inputType="phone" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="dirección">
+                android:hint="Dirección">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="dirección" />
+                    />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -152,7 +152,7 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Describe tu trayectoria profesional."
+                android:hint="Describe tu trayectoria profesional."
                 android:textSize="16sp" />
 
             <Button

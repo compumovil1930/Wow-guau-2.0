@@ -9,40 +9,28 @@
     tools:context=".Login">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_walk"
         android:layout_width="match_parent"
         android:layout_height="230dp"
         android:layout_marginBottom="20dp"
         app:srcCompat="@drawable/walk" />
 
-    <TextView
-        android:id="@+id/tv_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:text="@string/email" />
-
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/email" />
-
-    <TextView
-        android:id="@+id/tv_password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/password" />
+        android:hint="@string/email"
+        android:inputType="textPersonName" />
 
     <EditText
-        android:id="@+id/editText3"
+        android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
         android:ems="10"
+        android:hint="Contraseña"
         android:inputType="textPassword" />
 
     <Button
@@ -66,7 +54,7 @@
         android:textAlignment="center" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_create_account"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"

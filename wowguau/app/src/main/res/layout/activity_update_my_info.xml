@@ -95,7 +95,7 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/et_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -103,7 +103,7 @@
                 android:inputType="date" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -111,6 +111,7 @@
                 android:inputType="phone" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="dirección">
@@ -118,8 +119,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    />
+                    android:layout_marginBottom="20dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
