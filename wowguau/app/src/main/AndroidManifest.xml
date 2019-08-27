@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActividadSolicitudCaminata"></activity>
+        <activity android:name=".ActividadSolicitudPaseador"></activity>
+        <activity android:name=".ActividadSolicitudCaminata" />
         <activity android:name=".ActividadListaCaminatas" />
         <activity android:name=".ActividadBusquedaPaseadores" />
         <activity android:name=".MainActivity" />
