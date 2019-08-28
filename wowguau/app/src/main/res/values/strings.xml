@@ -12,4 +12,9 @@
     <string name="track_your_puppy">Monitorea a tu consentido</string>
     <string name="update_puppy_info">Actualiza información de tu consentido</string>
     <string name="update_your_info">Actualiza tu información</string>
+    <string name="caminata_en">Caminata en </string>
+    <string name="solicitar">Solicitar</string>
+    <string name="duraci_n_aproximada">Duración aproximada:</string>
+    <string name="mapa">mapa</string>
+    <string name="responsable">Responsable:</string>
 </resources>
