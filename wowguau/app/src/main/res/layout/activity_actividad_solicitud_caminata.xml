@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActividadSolicitudCaminata">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineSuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineInferior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <TextView
+        android:id="@+id/txtViewTituloSolicitudCaminata"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Caminata Chapinero"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/guideLineSuperior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:dividerPadding="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@id/guideLineInferior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineSuperior"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_weight="0.5"
+            android:background="@android:drawable/btn_default"
+            android:drawablePadding="20dp"
+            android:padding="10dp"
+            android:drawableTop="@drawable/google_map"
+            android:text="Bogota DC \nResponsable: Cesar Millan \nDuracion aproximada: 1H"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            />
+
+        <Button
+            android:id="@+id/btnSolicitar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_weight="0.5"
+            android:background="#FF7ED957"
+            android:padding="10dp"
+            android:text="@string/btnSolicitar" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

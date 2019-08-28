@@ -7,8 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class ActividadPantallaInicio extends AppCompatActivity {
-
+public class ActividadPantallaInicio extends AppCompatActivity
+{
+    Button btnBuscarPaseos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,19 @@ public class ActividadPantallaInicio extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        btnBuscarPaseos = findViewById(R.id.buscar_paseo_btn);
+        btnBuscarPaseos.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                Intent i= new Intent(getApplicationContext(), ActividadListaCaminatas.class);
+                startActivity(i);
+            }
+        });
+
+
 
     }
 }

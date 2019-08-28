@@ -13,6 +13,9 @@
         <activity android:name=".ActividadMonitorearMascota" />
         <activity android:name=".ActividadSeleccionMascotaMonitorear" />
         <activity android:name=".ActividadComentariosPaseador" />
+        <activity android:name=".ActividadSolicitudPaseador"></activity>
+        <activity android:name=".ActividadSolicitudCaminata" />
+        <activity android:name=".ActividadListaCaminatas" />
         <activity android:name=".ActividadBusquedaPaseadores" />
         <activity android:name=".MainActivity" />
         <activity android:name=".ActividadPantallaInicio" />
