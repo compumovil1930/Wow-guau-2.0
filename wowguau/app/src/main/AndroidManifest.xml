@@ -4,19 +4,18 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_paw"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityCrearCaminata"></activity>
+        <activity android:name=".ActivityCrearCaminata"/>
         <activity android:name=".ActividadSolicitudCaminataExitosa" />
-        <activity android:name=".update_my_info"></activity>
+        <activity android:name=".update_my_info"/>
         <activity android:name=".Password_recovery" />
         <activity android:name=".ActividadPerfilPaseador" />
         <activity android:name=".Signup_p"/>
         <activity android:name=".Signup_w"/>
-        <activity android:name=".ActividadSolicitudCaminataExitosa"></activity>
         <activity android:name=".ActividadMonitorearMascota" />
         <activity android:name=".ActividadSeleccionMascota" />
         <activity android:name=".ActividadComentariosPaseador" />
