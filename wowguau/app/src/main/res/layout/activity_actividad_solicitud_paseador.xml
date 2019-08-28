@@ -6,6 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ActividadSolicitudPaseador">
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBoton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"/>
+
+    <Button
+        android:id="@+id/btnAceptarTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aceptar Todos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineBoton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
     <ImageButton
         android:id="@+id/imgBtnAvatar"
         android:layout_width="0dp"
@@ -13,7 +30,7 @@
         android:scaleType="fitCenter"
         tools:srcCompat="@tools:sample/avatars[11]"
         app:layout_constraintTop_toBottomOf="@id/guideLineInferior"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBoton"
         app:layout_constraintStart_toEndOf="@id/imgBtnLista"
         app:layout_constraintEnd_toEndOf="parent"
         android:contentDescription="TODO" />
@@ -25,7 +42,7 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_notepad"
         app:layout_constraintTop_toBottomOf="@id/guideLineInferior"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBoton"
         app:layout_constraintStart_toEndOf="@id/imgBtnLocation"
         app:layout_constraintEnd_toStartOf="@id/imgBtnAvatar"
         android:contentDescription="TODO" />
@@ -35,7 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBoton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/imgBtnLista"
         app:layout_constraintTop_toBottomOf="@id/guideLineInferior"
@@ -66,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -81,6 +98,20 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:dividerPadding="10dp"
-            android:orientation="vertical"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtViewMascota1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/btn_default"
+                android:drawableStart="@drawable/dog_png"
+                android:drawablePadding="20dp"
+                android:padding="10dp"
+                android:text="Sexo: Macho\nEdad: 3 Anios\nPeso: 25 kg\nNota: Sin necesidades especiales\nCiudad: Bogota"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
