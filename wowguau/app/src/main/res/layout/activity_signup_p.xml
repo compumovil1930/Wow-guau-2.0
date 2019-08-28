@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="30dp"
+    android:layout_margin="50dp"
     android:orientation="vertical"
     tools:context=".Signup_p">
 
@@ -48,7 +48,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="nombre"
+                    android:hint="Nombre"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -56,13 +56,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="raza">
+                >
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="raza"
+                    android:hint="Raza"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -121,11 +121,11 @@
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:text="Detalla información y cuidados especiales"
+                android:hint="Detalla información y cuidados especiales"
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/button_update_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"

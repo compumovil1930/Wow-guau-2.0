@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context=".Signup_w">
+    tools:context=".update_my_info">
 
     <TextView
-        android:id="@+id/titulo"
+        android:id="@+id/tv_update_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:text="Tu información"
-        android:textSize="20sp" />
+        android:textSize="24sp" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -111,6 +111,7 @@
                 android:inputType="phone" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ti_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Dirección">
@@ -118,53 +119,18 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    />
+                    android:layout_marginBottom="20dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/tv_certification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Certificación"
-                android:textSize="18sp" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:background="@color/wg_light_grey"
-                android:padding="10dp"
-                app:srcCompat="@drawable/m_p" />
-
-            <TextView
-                android:id="@+id/tv_experience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Descripción"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/et_expereience"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:hint="Describe tu trayectoria profesional."
-                android:textSize="16sp" />
-
             <Button
-                android:id="@+id/button_register"
+                android:id="@+id/button_update_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:background="@color/wg_green"
-                android:text="Registrar" />
+                android:text="Guardar" />
 
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>

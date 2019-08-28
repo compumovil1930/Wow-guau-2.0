@@ -47,6 +47,7 @@
         android:id="@+id/scrollViewListaCaminatas"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:padding="15dp"
         app:layout_constraintBottom_toTopOf="@+id/guideLineInferior"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +57,6 @@
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:dividerPadding="10dp"
             android:orientation="vertical">
             <TextView

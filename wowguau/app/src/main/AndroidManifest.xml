@@ -11,6 +11,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ActivityCrearCaminata"></activity>
         <activity android:name=".ActividadSolicitudCaminataExitosa" />
+        <activity android:name=".update_my_info"></activity>
+        <activity android:name=".Password_recovery" />
+        <activity android:name=".ActividadPerfilPaseador" />
+        <activity android:name=".Signup_p"/>
+        <activity android:name=".Signup_w"/>
+        <activity android:name=".ActividadSolicitudCaminataExitosa"></activity>
         <activity android:name=".ActividadMonitorearMascota" />
         <activity android:name=".ActividadSeleccionMascota" />
         <activity android:name=".ActividadComentariosPaseador" />
@@ -21,15 +27,13 @@
         <activity android:name=".ActividadPantallaInicioPaseador" />
         <activity android:name=".ActividadPantallaInicioDueno" />
         <activity android:name=".Login">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Password_recovery" />
-        <activity android:name=".ActividadPerfilPaseador" />
-        <activity android:name=".Signup_p" />
     </application>
 
 </manifest>
