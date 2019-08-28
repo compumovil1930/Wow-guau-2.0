@@ -107,11 +107,11 @@
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
                 android:background="@android:drawable/btn_default"
-                android:drawableStart="@drawable/dog_png"
+                android:drawableStart="@drawable/ic_dog"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
                 android:text="FITO\nSexo: Macho\nEdad: 3 Anios\nPeso: 25 kg\nNota: Sin necesidades especiales\nCiudad: Bogota"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
             <TextView
                 android:id="@+id/textViewMascota2"
@@ -119,7 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:background="@android:drawable/btn_default"
-                android:drawableStart="@drawable/dog_png"
+                android:drawableStart="@drawable/ic_dog"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
                 android:text="RUSIA\nSexo: Hembra\nEdad: 10 Anios\nPeso: 25 kg\nNota: Alergica a los gatos\nCiudad: Bogota"

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActividadPantallaInicio">
+    tools:context=".ActividadPantallaInicioDueno">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bienvenido Andrés!"
@@ -91,7 +91,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawableStart="@drawable/ic_logout"
-                android:text="Cerrar sesión" />
+                android:text="@string/cerrar_sesi_n" />
         </LinearLayout>
     </ScrollView>
 
