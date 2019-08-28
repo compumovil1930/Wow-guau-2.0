@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ActividadSolicitudPaseador">
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineBoton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9"/>
+
+    <Button
+        android:id="@+id/btnAceptarTodos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aceptar Todos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineBoton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageButton
+        android:id="@+id/imgBtnAvatar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        tools:srcCompat="@tools:sample/avatars[11]"
+        app:layout_constraintTop_toBottomOf="@id/guideLineInferior"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBoton"
+        app:layout_constraintStart_toEndOf="@id/imgBtnLista"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="TODO" />
+
+    <ImageButton
+        android:id="@+id/imgBtnLista"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_notepad"
+        app:layout_constraintTop_toBottomOf="@id/guideLineInferior"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBoton"
+        app:layout_constraintStart_toEndOf="@id/imgBtnLocation"
+        app:layout_constraintEnd_toStartOf="@id/imgBtnAvatar"
+        android:contentDescription="TODO" />
+
+    <ImageButton
+        android:id="@+id/imgBtnLocation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@id/guideLineBoton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imgBtnLista"
+        app:layout_constraintTop_toBottomOf="@id/guideLineInferior"
+        app:srcCompat="@drawable/ic_placeholder" />
+
+    <TextView
+        android:id="@+id/txtViewTituloSolicitudPaseador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tituloSolicitudPaseador"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/guideLineSuperior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineSuperior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.15" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideLineInferior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.7" />
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/guideLineSuperior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guideLineInferior"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerPadding="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtViewMascota1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/btn_default"
+                android:drawableStart="@drawable/dog_png"
+                android:drawablePadding="20dp"
+                android:padding="10dp"
+                android:text="FITO\nSexo: Macho\nEdad: 3 Anios\nPeso: 25 kg\nNota: Sin necesidades especiales\nCiudad: Bogota"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+
+            <TextView
+                android:id="@+id/textViewMascota2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_weight="0.5"
+                android:background="@android:drawable/btn_default"
+                android:drawableStart="@drawable/dog_png"
+                android:drawablePadding="20dp"
+                android:padding="10dp"
+                android:text="RUSIA\nSexo: Hembra\nEdad: 10 Anios\nPeso: 25 kg\nNota: Alergica a los gatos\nCiudad: Bogota"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
