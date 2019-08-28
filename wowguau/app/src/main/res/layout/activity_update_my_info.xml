@@ -49,7 +49,7 @@
                     android:id="@+id/it_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="nombre"
+                    android:hint="Nombre"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -64,7 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:hint="cédula"
+                    android:hint="Cédula"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="fecha de nacimiento"
+                android:hint="Fecha de nacimiento"
                 android:inputType="date" />
 
             <EditText
@@ -107,14 +107,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="telefono"
+                android:hint="Telefono"
                 android:inputType="phone" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti_address"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="dirección">
+                android:hint="Dirección">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
