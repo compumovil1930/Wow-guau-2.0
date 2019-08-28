@@ -10,7 +10,7 @@
         android:id="@+id/boton_solicitar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/solicitar"
+        android:text="@string/btnSolicitar"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
