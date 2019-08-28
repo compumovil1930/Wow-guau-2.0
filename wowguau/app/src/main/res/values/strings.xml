@@ -19,4 +19,11 @@
     <string name="caminatas_disponibles">Caminatas Disponibles</string>
     <string name="btnSolicitar">Solicitar</string>
     <string name="tituloSolicitudPaseador">¡Alguien esta solicitando un paseador!</string>
+    <string name="pagar">Pagar</string>
+    <string name="sabemos_que_son_parte_de_tu_familia">Sabemos que son parte de tu familia</string>
+    <string name="selecciona_a_qui_n_quieres_monitorear">Selecciona a quién quieres monitorear</string>
+    <string name="selecciona_a_qui_n_quieres_pasear">Selecciona a quién le quieres solicitar un paseo</string>
+    <string name="selecciona_a_qui_n_quieres_actualizar">Selecciona a quién le vas a actualizar los datos</string>
+    <string name="contrasena">contraseña</string>
+    <string name="ingresar">Ingresar</string>
 </resources>
