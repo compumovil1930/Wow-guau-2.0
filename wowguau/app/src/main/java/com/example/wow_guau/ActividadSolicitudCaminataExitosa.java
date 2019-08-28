@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-public class ActividadReservaCaminataExitosa extends AppCompatActivity {
+public class ActividadSolicitudCaminataExitosa extends AppCompatActivity {
     TextView localidad;
     TextView ciudad;
     TextView nombre_responsable;
@@ -17,6 +15,6 @@ public class ActividadReservaCaminataExitosa extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actividad_reserva_caminata_exitosa);
+        setContentView(R.layout.activity_actividad_solicitud_caminata_exitosa);
     }
 }

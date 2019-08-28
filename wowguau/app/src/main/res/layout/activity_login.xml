@@ -65,8 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@string/email" />
+                android:hint="@string/email"
+                android:inputType="textPersonName" />
 
             <TextView
                 android:id="@+id/tv_password"
@@ -80,6 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp"
                 android:ems="10"
+                android:hint="contraseña"
                 android:inputType="textPassword" />
 
             <Button
@@ -103,7 +104,7 @@
                 android:textAlignment="center" />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/btn_crear_cuenta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
