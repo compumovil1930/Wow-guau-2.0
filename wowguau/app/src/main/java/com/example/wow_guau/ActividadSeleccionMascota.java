@@ -31,7 +31,7 @@ public class ActividadSeleccionMascota extends AppCompatActivity {
             cv1.setOnClickListener(vl);
             cv2.setOnClickListener(vl);
         }
-        else if(getIntent().getStringExtra("texto").equals("pasear")){
+        else if(getIntent().getStringExtra("texto").equals("paseo")){
             descripcion.setText(getString(R.string.selecciona_a_qui_n_quieres_pasear));
             View.OnClickListener vl = new View.OnClickListener() {
                 @Override

@@ -24,4 +24,6 @@
     <string name="selecciona_a_qui_n_quieres_monitorear">Selecciona a quién quieres monitorear</string>
     <string name="selecciona_a_qui_n_quieres_pasear">Selecciona a quién le quieres solicitar un paseo</string>
     <string name="selecciona_a_qui_n_quieres_actualizar">Selecciona a quién le vas a actualizar los datos</string>
+    <string name="contrasena">contraseña</string>
+    <string name="ingresar">Ingresar</string>
 </resources>
