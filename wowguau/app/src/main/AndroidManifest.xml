@@ -9,58 +9,75 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityCrearCaminata"
+        <activity android:name=".ActividadRegistroUsuario"></activity>
+        <activity
+            android:name=".ActivityCrearCaminata"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadSolicitudCaminataExitosa"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadSolicitudCaminataExitosa"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".update_my_info"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".update_my_info"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Password_recovery"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Password_recovery"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadPerfilPaseador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadPerfilPaseador"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Signup_p"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Signup_p"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Signup_w"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Signup_w"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadMonitorearMascota"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadMonitorearMascota"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadSeleccionMascota"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadSeleccionMascota"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadComentariosPaseador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadComentariosPaseador"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadSolicitudPaseador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadSolicitudPaseador"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadSolicitudCaminata"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadSolicitudCaminata"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadListaCaminatas"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadListaCaminatas"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadBusquedaPaseadores"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadBusquedaPaseadores"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadPantallaInicioPaseador"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadPantallaInicioPaseador"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ActividadPantallaInicioDueno"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActividadPantallaInicioDueno"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".Login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Login"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

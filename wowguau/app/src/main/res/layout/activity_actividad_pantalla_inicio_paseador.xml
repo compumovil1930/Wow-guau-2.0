@@ -4,18 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="50dp"
+    android:layout_margin="20dp"
     android:orientation="vertical"
     tools:context=".ActividadPantallaInicioPaseador">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="540dp">
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_confirmar_paseo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/wg_light_grey"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_empezar_paseo">
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/confirmar_paseo" />
+
+                <TextView
+                    android:id="@+id/tv_confirmar_paseo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/confirmar_paseo"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView7"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_welcome"
@@ -42,7 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cl_dar_paseo"
+                android:id="@+id/cl_empezar_paseo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -80,14 +114,14 @@
                 android:id="@+id/cl_crear_paseo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="9dp"
                 android:background="@color/wg_light_grey"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="10dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_dar_paseo">
+                app:layout_constraintTop_toBottomOf="@+id/cl_confirmar_paseo">
 
                 <ImageView
                     android:id="@+id/imageView5"
@@ -156,7 +190,7 @@
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_cancelar_paseo">
+                app:layout_constraintTop_toBottomOf="@+id/cl_actualizar_mis_datos">
 
                 <ImageView
                     android:id="@+id/imageView8"
@@ -178,6 +212,40 @@
                     app:layout_constraintStart_toEndOf="@+id/imageView8"
                     app:layout_constraintTop_toTopOf="parent" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_actualizar_mis_datos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/wg_light_grey"
+                android:clickable="true"
+                android:focusable="true"
+                android:padding="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_cancelar_paseo">
+
+                <ImageView
+                    android:id="@+id/imageView_actualizar_datos"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/actualizar_datos" />
+
+                <TextView
+                    android:id="@+id/textView_actualizar_datos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:text="@string/actualizar_mis_datos"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_actualizar_datos"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

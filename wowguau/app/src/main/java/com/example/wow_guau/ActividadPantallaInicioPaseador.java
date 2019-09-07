@@ -9,21 +9,32 @@ import android.view.View;
 import android.widget.Toast;
 
 public class ActividadPantallaInicioPaseador extends AppCompatActivity {
-    ConstraintLayout cl_dar_paseo;
+    ConstraintLayout cl_confirmar_paseo;
     ConstraintLayout cl_crear_paseo;
     ConstraintLayout cl_cancelar_paseo;
     ConstraintLayout cl_cerrar_sesion;
-
+    ConstraintLayout cl_actualizar_mis_datos;
+    ConstraintLayout cl_empezar_paseo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividad_pantalla_inicio_paseador);
-        cl_dar_paseo = findViewById(R.id.cl_dar_paseo);
+        cl_confirmar_paseo = findViewById(R.id.cl_confirmar_paseo);
         cl_crear_paseo = findViewById(R.id.cl_crear_paseo);
         cl_cancelar_paseo = findViewById(R.id.cl_cancelar_paseo);
         cl_cerrar_sesion = findViewById(R.id.cl_cerrar_sesion);
+        cl_actualizar_mis_datos = findViewById(R.id.cl_actualizar_mis_datos);
+        cl_empezar_paseo = (ConstraintLayout)findViewById(R.id.cl_empezar_paseo);
+
+        cl_empezar_paseo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent i= new Intent(getApplicationContext(), EmpezarPaseo.class);
+                //startActivity(i);
+            }
+        });
 
         cl_crear_paseo.setOnClickListener(new View.OnClickListener()
         {
@@ -35,7 +46,7 @@ public class ActividadPantallaInicioPaseador extends AppCompatActivity {
             }
         });
 
-        cl_dar_paseo.setOnClickListener(new View.OnClickListener()
+        cl_confirmar_paseo.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
@@ -54,6 +65,14 @@ public class ActividadPantallaInicioPaseador extends AppCompatActivity {
                 Intent i= new Intent(getApplicationContext(), ActividadSeleccionMascota.class);
                 i.putExtra("texto", "cancelar");
                 startActivity(i);
+            }
+        });
+
+        cl_actualizar_mis_datos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Intent i= new Intent(getApplicationContext(), ActualizarDatosPaseador.class);
+                //startActivity(i);
             }
         });
 
