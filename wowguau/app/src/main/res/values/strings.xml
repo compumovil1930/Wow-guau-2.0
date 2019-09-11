@@ -28,9 +28,14 @@
     <string name="selecciona_a_qui_n_quieres_cancelar">Selecciona a quién vas a cancelar el paseo</string>
     <string name="contrasena">contraseña</string>
     <string name="ingresar">Ingresar</string>
-    <string name="dar_paseo">Dar paseo</string>
+    <string name="dar_paseo">Empezar paseo</string>
     <string name="crear_paseo">Crear paseo</string>
     <string name="cancelar_paseo">Cancelar paseo</string>
     <string name="cerrar_sesi_n">Cerrar sesión</string>
-    <string name="crear_caminata">Crear caminata</string>
+    <string name="crear_caminata">Crear paseo</string>
+    <string name="confirmar_paseo">Confirmar paseo</string>
+    <string name="bienvenida_registro_usuario">Bienvenido a WowGuau</string>
+    <string name="registro_soy_dueño">Soy dueño de mascota(s)</string>
+    <string name="registro_soy_paseador">Soy paseador</string>
+    <string name="actualizar_mis_datos">Actualizar mis datos</string>
 </resources>
