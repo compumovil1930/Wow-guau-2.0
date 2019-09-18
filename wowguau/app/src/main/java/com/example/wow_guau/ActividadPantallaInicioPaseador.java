@@ -17,8 +17,7 @@ public class ActividadPantallaInicioPaseador extends AppCompatActivity {
     ConstraintLayout cl_empezar_paseo;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividad_pantalla_inicio_paseador);
         cl_confirmar_paseo = findViewById(R.id.cl_confirmar_paseo);
