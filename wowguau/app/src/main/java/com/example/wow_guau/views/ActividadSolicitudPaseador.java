@@ -1,8 +1,10 @@
-package com.example.wow_guau;
+package com.example.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.wow_guau.R;
 
 public class ActividadSolicitudPaseador extends AppCompatActivity
 {

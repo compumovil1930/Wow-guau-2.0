@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context=".update_my_info">
+    tools:context=".views.update_my_info">
 
     <TextView
         android:id="@+id/tv_update_info"

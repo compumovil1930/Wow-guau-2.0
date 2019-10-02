@@ -1,10 +1,12 @@
-package com.example.wow_guau;
+package com.example.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.wow_guau.R;
 
 public class Password_recovery extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.wow_guau;
+package com.example.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.wow_guau.R;
 
 public class Login extends AppCompatActivity {
     Button btn_login;
@@ -42,7 +43,7 @@ public class Login extends AppCompatActivity {
         btn_crear_cuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(getApplicationContext() , Signup_w.class);
+                //Intent i = new Intent(getApplicationContext() , Signup_walker.class);
                 Intent i = new Intent(getApplicationContext() , ActividadRegistroUsuario.class);
                 startActivity(i);
             }

@@ -1,10 +1,12 @@
-package com.example.wow_guau;
+package com.example.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.wow_guau.R;
 
 public class ActividadSolicitudCaminataExitosa extends AppCompatActivity {
     TextView localidad;

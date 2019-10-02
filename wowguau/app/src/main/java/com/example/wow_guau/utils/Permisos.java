@@ -7,8 +7,6 @@ import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.wow_guau.Signup_walker;
-
 public class Permisos {
     public final static int MY_PERMISSIONS_REQUEST_READ_STORAGE = 1;
     public final static int MY_PERMISSIONS_REQUEST_CAMERA = 2;
