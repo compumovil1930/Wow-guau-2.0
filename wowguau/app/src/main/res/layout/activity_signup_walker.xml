@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context=".Signup_w">
+    tools:context=".Signup_walker">
 
     <TextView
         android:id="@+id/titulo"
@@ -38,7 +38,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+
                 android:background="@color/wg_light_grey"
+                android:clickable="true"
                 android:padding="10dp"
                 app:srcCompat="@drawable/camera" />
 
@@ -51,6 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nombre"
+                    android:inputType="textPersonName"
                     android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -66,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:hint="Cédula"
+                    android:inputType="number"
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -152,8 +156,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:hint="Describe tu trayectoria profesional."
+                android:inputType="textMultiLine"
                 android:textSize="16sp" />
 
             <Button
