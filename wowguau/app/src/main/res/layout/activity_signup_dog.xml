@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="Registra a tu consentido"
+        android:text="@string/registra_a_tu_consentido"
+        android:textAlignment="center"
         android:textSize="20sp" />
 
     <ScrollView
@@ -41,30 +42,21 @@
                 android:padding="10dp"
                 app:srcCompat="@drawable/camera" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nombre"
-                    android:textSize="16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:ems="10"
+                android:hint="Nombre"
+                android:inputType="textPersonName" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:hint="Raza"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/et_raza"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Raza"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -125,7 +117,7 @@
                 android:textSize="16sp" />
 
             <Button
-                android:id="@+id/button_update_info"
+                android:id="@+id/button_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"

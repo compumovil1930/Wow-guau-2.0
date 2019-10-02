@@ -25,8 +25,8 @@ public class ActividadRegistroUsuario extends AppCompatActivity {
         cl_soy_dueno_mascota.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent i= new Intent(getApplicationContext(), Signup_walker.class);
-//                startActivity(i);
+                Intent i= new Intent(getApplicationContext(), Signup_owner.class);
+                startActivity(i);
             }
         });
 

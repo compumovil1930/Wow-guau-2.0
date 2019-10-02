@@ -41,4 +41,6 @@
     <string name="recuperar">Recuperar</string>
     <string name="bienvenido_paseador">Bienvenido paseador</string>
     <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
+    <string name="registra_tus_datos">Registra tus datos</string>
+    <string name="registra_a_tu_consentido">Registra a tu consentido</string>
 </resources>

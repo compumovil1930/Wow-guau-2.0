@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="50dp"
+    android:layout_margin="25dp"
     android:orientation="vertical"
     tools:context=".views.Signup_walker">
 
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
-        android:text="Registra tus datos"
+        android:text="@string/registra_tus_datos"
         android:textAlignment="center"
         android:textSize="24sp" />
 
@@ -44,34 +44,21 @@
                 android:padding="10dp"
                 app:srcCompat="@drawable/camera" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/it_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nombre"
-                    android:inputType="textPersonName"
-                    android:textSize="16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
+                android:ems="10"
+                android:hint="Nombre"
+                android:inputType="textPersonName" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/it_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:hint="Cédula"
-                    android:inputType="number"
-                    android:textSize="16sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:id="@+id/et_cedula"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Cédula"
+                android:inputType="number" />
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -115,17 +102,13 @@
                 android:hint="Telefono"
                 android:inputType="phone" />
 
-            <com.google.android.material.textfield.TextInputLayout
+            <EditText
+                android:id="@+id/et_direccion"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Dirección">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    />
-            </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Dirección"
+                android:inputType="text" />
 
             <TextView
                 android:id="@+id/tv_certification"
