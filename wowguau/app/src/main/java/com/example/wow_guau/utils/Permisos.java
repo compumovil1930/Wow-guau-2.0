@@ -12,6 +12,7 @@ public class Permisos {
     public final static int MY_PERMISSIONS_REQUEST_CAMERA = 2;
     public final static int REQUEST_IMAGE_CAPTURE = 3;
     public final static int IMAGE_PICKER_REQUEST = 4;
+    public final static int RAZAS_PICKER = 5;
 
     public static void requestPermission(Activity context, String permiso, String justificacion, int idCode) {
         if (ContextCompat.checkSelfPermission(context, permiso) != PackageManager.PERMISSION_GRANTED) {

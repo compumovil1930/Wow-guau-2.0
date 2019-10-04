@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="25dp"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".views.Signup_dog">
 
@@ -12,12 +13,13 @@
         android:id="@+id/titulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="16dp"
         android:text="@string/registra_a_tu_consentido"
         android:textAlignment="center"
         android:textSize="20sp" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,6 +27,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_error"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Todos los campos son obligatorios"
+                android:textColor="@android:color/holo_red_dark"
+                android:textSize="0sp" />
 
             <TextView
                 android:id="@+id/tv_upload_photo"
@@ -36,14 +46,15 @@
             <ImageButton
                 android:id="@+id/ib_upload_photo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="100dp"
                 android:layout_marginBottom="20dp"
                 android:background="@color/wg_light_grey"
                 android:padding="10dp"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/camera" />
 
             <EditText
-                android:id="@+id/et_name"
+                android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -61,10 +72,21 @@
                 android:inputType="text" />
 
             <Spinner
-                android:id="@+id/spinner"
+                android:id="@+id/sp_tamano"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/razas_array" />
+                android:minHeight="18dp"
+                android:textAlignment="textStart" />
+
+            <EditText
+                android:id="@+id/et_fecha_nacimiento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:focusable="false"
+                android:hint="Fecha nacimiento"
+                android:inputType="date" />
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -74,18 +96,19 @@
                 android:textSize="18sp" />
 
             <RadioGroup
+                android:id="@+id/rg_sexo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp">
 
                 <RadioButton
-                    android:id="@+id/rb_man"
+                    android:id="@+id/rb_macho"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Macho" />
 
                 <RadioButton
-                    android:id="@+id/rb_woman"
+                    android:id="@+id/rb_hembra"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Hembra" />
@@ -99,7 +122,7 @@
                 android:textSize="18sp" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/ib_upload_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
@@ -115,13 +138,13 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/et_expereience"
+                android:id="@+id/et_observaciones"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
                 android:hint="Detalla información y cuidados especiales"
-                android:inputType="textPersonName"
+                android:inputType="textMultiLine"
                 android:textSize="16sp" />
 
             <Button

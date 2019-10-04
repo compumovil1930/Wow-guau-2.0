@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="razas_array">
+        <item>Alano</item>
+        <item>Alaskan Malamute</item>
+        <item>American Staffordshire Terrier </item>
+        <item>American Water Spaniel </item>
+        <item>Antiguo Pastor Inglés</item>
+        <item>Basset Azul de Gaseogne </item>
+        <item>Basset Hound </item>
+        <item>Basset leonado de Bretaña</item>
+        <item>Beagle </item>
+        <item>Bearded Collie </item>
+        <item>Bichón Maltés </item>
+        <item>Bobtail </item>
+        <item>Border Collie </item>
+        <item>Boston Terrier </item>
+        <item>Boxer </item>
+        <item>Bull Terrier </item>
+        <item>Bulldog Americano </item>
+        <item>Bulldog Francés </item>
+        <item>Bulldog Inglés</item>
+        <item>Caniche </item>
+        <item>Carlino</item>
+        <item>Chihuahua</item>
+        <item>Cirneco del Etna</item>
+        <item>Chow Chow </item>
+        <item>Cocker Spaniel Americano </item>
+        <item>Cocker Spaniel Inglés</item>
+        <item>Criollo</item>
+        <item>Dálmata </item>
+        <item>Dobermann </item>
+        <item>Dogo Alemán</item>
+        <item>Dogo Argentino</item>
+        <item>Dogo de Burdeos</item>
+        <item>Finlandés</item>
+        <item>Fox Terrier de pelo liso </item>
+        <item>Fox Terrier </item>
+        <item>Foxhound Americano</item>
+        <item>Foxhound Inglés</item>
+        <item>Galgo Afgano </item>
+        <item>Gigante de los Pirineos</item>
+        <item>Golden Retriever </item>
+        <item>Gos d\'Atura </item>
+        <item>Gran Danés</item>
+        <item>Husky Siberiano</item>
+        <item>Laika de Siberia Occidental</item>
+        <item>Laika Ruso-europeo</item>
+        <item>Labrador Retriever</item>
+        <item>Mastín del Pirineo</item>
+        <item>Mastin del Tibet</item>
+        <item>Mastín Español</item>
+        <item>Mastín Napolitano</item>
+        <item>Pastor Alemán</item>
+        <item>Pastor Australiano</item>
+        <item>Pastor Belga </item>
+        <item>Pastor de Brie</item>
+        <item>Pastor de los Pirineos de Cara Rosa </item>
+        <item>Pekinés</item>
+        <item>Perdiguero Chesapeake Bay</item>
+        <item>Perdiguero de Drentse</item>
+        <item>Perdiguero de Pelo lido</item>
+        <item>Perdiguero de pelo rizado</item>
+        <item>Perdiguero Portugués</item>
+        <item>Pitbull </item>
+        <item>Podenco Ibicenco</item>
+        <item>Podenco Portugués</item>
+        <item>presa canario </item>
+        <item>Presa Mallorquin</item>
+        <item>Rottweiler </item>
+        <item>Rough Collie</item>
+        <item>Sabueso Español</item>
+        <item>Sabueso Hélenico</item>
+        <item>Sabueso Italiano</item>
+        <item>Sabueso Suizo</item>
+        <item>Samoyedo </item>
+        <item>San Bernardo </item>
+        <item>Scottish Terrier </item>
+        <item>Setter Irlandés </item>
+        <item>Shar Pei </item>
+        <item>Shiba Inu </item>
+        <item>Siberian Husky </item>
+        <item>Staffordshire Bull Terrier</item>
+        <item>Teckel</item>
+        <item>Terranova </item>
+        <item>Terrier Australiano</item>
+        <item>Terrier Escocés </item>
+        <item>Terrier Irlandés </item>
+        <item>Terrier Japonés</item>
+        <item>Terrier Negro Ruso</item>
+        <item>Terrier Norfolk</item>
+        <item>Terrier Norwich</item>
+        <item>Yorkshire Terrier</item>
+    </string-array>
+    <string-array name="tamano_array">
+        <item>Tamaño</item>
+        <item>Pequeño</item>
+        <item>Mediano</item>
+        <item>Grande</item>
+    </string-array>
+</resources>

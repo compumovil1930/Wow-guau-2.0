@@ -18,10 +18,28 @@
         android:roundIcon="@mipmap/ic_launcher_paw"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.Signup_owner"
+        <activity
+            android:name=".views.DetalleMascotaActivity"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.ActividadRegistroUsuario"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ListaRazasActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ActualizarMascotaActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ListaMascotasActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.Signup_owner"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ActividadRegistroUsuario"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -73,7 +91,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadListaCaminatas"
+            android:name=".views.ActividadBusquedaPaseos"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -99,12 +117,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
 </manifest>
