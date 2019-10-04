@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="50dp"
+    android:layout_margin="25dp"
     android:orientation="vertical"
     tools:context=".views.Signup_dog">
 
@@ -54,9 +54,17 @@
                 android:id="@+id/et_raza"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:editable="false"
                 android:ems="10"
+                android:focusableInTouchMode="false"
                 android:hint="Raza"
                 android:inputType="text" />
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/razas_array" />
 
             <TextView
                 android:id="@+id/tv_gender"
@@ -112,8 +120,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:ems="10"
-                android:inputType="textPersonName"
                 android:hint="Detalla información y cuidados especiales"
+                android:inputType="textPersonName"
                 android:textSize="16sp" />
 
             <Button
