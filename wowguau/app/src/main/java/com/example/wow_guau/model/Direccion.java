@@ -1,14 +1,27 @@
 package com.example.wow_guau.model;
 
-class Direccion {
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.io.IOException;
+import java.util.List;
+
+public class Direccion {
     private String direccion;
     private double latitud;
     private double longitud;
 
-    public Direccion(String direccion, double latitud, double longitud) {
+    public Direccion(String direccion, Address address) {
         this.direccion = direccion;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.latitud = address.getLatitude();
+        this.longitud = address.getLongitude();
     }
 
     public String getDireccion() {

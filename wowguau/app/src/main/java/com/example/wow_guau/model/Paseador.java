@@ -1,5 +1,7 @@
 package com.example.wow_guau.model;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Paseador extends Usuario {
@@ -7,11 +9,11 @@ public class Paseador extends Usuario {
     private int experiencia;
     private List<String> direccionesCertificados;
 
-    public Paseador(String nombre, int edad, String direccionFoto, Direccion direccion, String descripcion, int experiencia, List<String> direccionesCertificados) {
-        super(nombre, edad, direccionFoto, direccion);
+    public Paseador(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, Direccion direccion, String descripcion, int experiencia) {
+        super(correo, nombre, cedula, fechaNacimiento, telefono, genero, direccion);
         this.descripcion = descripcion;
         this.experiencia = experiencia;
-        this.direccionesCertificados = direccionesCertificados;
+        this.direccionesCertificados = new ArrayList<>();
     }
 
     public String getDescripcion() {
