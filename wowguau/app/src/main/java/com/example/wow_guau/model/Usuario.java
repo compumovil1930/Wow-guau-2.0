@@ -2,7 +2,7 @@ package com.example.wow_guau.model;
 
 import java.util.Date;
 
-public class Usuario {
+public abstract class Usuario {
     private String correo;
     private String nombre;
     private int cedula;
