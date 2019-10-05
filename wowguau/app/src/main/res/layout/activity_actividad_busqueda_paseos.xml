@@ -4,43 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.ActividadListaCaminatas">
+    tools:context=".views.ActividadBusquedaPaseos">
 
     <ImageButton
         android:id="@+id/imgBtnLocation"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imgBtnListar"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/guideLineInferior"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:srcCompat="@drawable/ic_placeholder" />
-
-    <ImageButton
-        android:id="@+id/imgBtnListar"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="8dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imgBtnFiltro"
-        app:layout_constraintStart_toEndOf="@id/imgBtnLocation"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guideLineInferior"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:srcCompat="@drawable/ic_notepad" />
+        app:srcCompat="@drawable/ic_placeholder" />
 
     <ImageButton
         android:id="@+id/imgBtnFiltro"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgBtnListar"
+        app:layout_constraintStart_toEndOf="@+id/imgBtnLocation"
         app:layout_constraintTop_toBottomOf="@+id/guideLineInferior"
-        app:layout_constraintHorizontal_bias="0.5"
         app:srcCompat="@drawable/ic_filter" />
 
     <ScrollView
@@ -59,13 +49,14 @@
             android:layout_height="wrap_content"
             android:dividerPadding="10dp"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/txtViewMap2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@android:drawable/btn_default"
+                android:background="@drawable/custom_button"
                 android:drawableStart="@drawable/google_map"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
@@ -78,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="0.5"
-                android:background="@android:drawable/btn_default"
+                android:background="@drawable/custom_button"
                 android:drawableStart="@drawable/google_map"
                 android:drawablePadding="20dp"
                 android:padding="10dp"
@@ -93,8 +84,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/caminatas_disponibles"
-        android:textColor="#000000"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideLineSuperior"
         app:layout_constraintEnd_toEndOf="parent"

@@ -10,14 +10,14 @@ import android.widget.TextView;
 
 import com.example.wow_guau.R;
 
-public class ActividadListaCaminatas extends AppCompatActivity
+public class ActividadBusquedaPaseos extends AppCompatActivity
 {
     TextView txtCaminata;
     ImageButton imgBtnLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actividad_lista_de_caminatas);
+        setContentView(R.layout.activity_actividad_busqueda_paseos);
 
         txtCaminata = findViewById(R.id.txtViewMap2);
         imgBtnLocation = findViewById(R.id.imgBtnLocation);
