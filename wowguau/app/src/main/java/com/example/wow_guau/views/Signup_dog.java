@@ -207,15 +207,13 @@ public class Signup_dog extends AppCompatActivity {
             completo = false;
         }
         if(raza.isEmpty()){
-            et_nombre.setError(getString(R.string.obligatorio));
+            et_raza.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(tamano.isEmpty()){
-            et_nombre.setError(getString(R.string.obligatorio));
+        if(tamano.isEmpty())
             completo = false;
-        }
         if(fecha.isEmpty()){
-            et_nombre.setError(getString(R.string.obligatorio));
+            et_fecha_nacimiento.setError(getString(R.string.obligatorio));
             completo = false;
         }
         if(radioButtonID==-1)

@@ -32,7 +32,7 @@
                 android:id="@+id/tv_error"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Todos los campos son obligatorios"
+                android:text="Los campos marcados son obligatorios"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="0sp" />
 
@@ -131,7 +131,7 @@
                 app:srcCompat="@drawable/m_p" />
 
             <TextView
-                android:id="@+id/tv_experience"
+                android:id="@+id/tv_descripcion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Observaciones"
