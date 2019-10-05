@@ -12,32 +12,22 @@ import com.example.wow_guau.R;
 
 public class ActividadPantallaInicioDueno extends AppCompatActivity
 {
-    ConstraintLayout btnBuscarPaseos;
+    ConstraintLayout btn_mis_consentidos;
+    ConstraintLayout btn_buscar_paseos;
     ConstraintLayout btn_buscar_paseadores;
-    ConstraintLayout btn_monitorear;
-    ConstraintLayout btn_actualizar_mascotas;
-    ConstraintLayout btn_cerrar_sesion;
     ConstraintLayout btn_actualizar_info;
+    ConstraintLayout btn_cerrar_sesion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividad_pantalla_inicio_dueno);
 
         btn_buscar_paseadores = findViewById(R.id.cl_buscar_paseadores);
-        btn_monitorear = findViewById(R.id.cl_monitorear);
-        btnBuscarPaseos = findViewById(R.id.cl_buscar_paseos);
-        btn_actualizar_mascotas = findViewById(R.id.cl_actualizar_info_mascota);
+        btn_buscar_paseos = findViewById(R.id.cl_buscar_paseos);
+        btn_mis_consentidos = findViewById(R.id.cl_mis_consentidos);
         btn_cerrar_sesion = findViewById(R.id.cl_cerrar_sesion);
         btn_actualizar_info = findViewById(R.id.cl_actualizar_mis_datos);
-
-        btn_monitorear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ActividadSeleccionMascota.class);
-                i.putExtra("texto", "monitorear");
-                startActivity(i);
-            }
-        });
 
         btn_buscar_paseadores.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,23 +37,22 @@ public class ActividadPantallaInicioDueno extends AppCompatActivity
             }
         });
 
-        btnBuscarPaseos.setOnClickListener(new View.OnClickListener()
+        btn_buscar_paseos.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent i= new Intent(getApplicationContext(), ActividadListaCaminatas.class);
+                Intent i= new Intent(getApplicationContext(), ActividadBusquedaPaseos.class);
                 startActivity(i);
             }
         });
 
-        btn_actualizar_mascotas.setOnClickListener(new View.OnClickListener()
+        btn_mis_consentidos.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view)
             {
-                Intent i= new Intent(getApplicationContext(), ActividadSeleccionMascota.class);
-                i.putExtra("texto", "actualizar");
+                Intent i= new Intent(getApplicationContext(), ListaMascotasActivity.class);
                 startActivity(i);
             }
         });
@@ -84,7 +73,7 @@ public class ActividadPantallaInicioDueno extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Intent i= new Intent(getApplicationContext(), Login.class);
+                Intent i= new Intent(getApplicationContext(), update_my_info.class);
                 i.putExtra("texto", "actualizar");
                 startActivity(i);
             }

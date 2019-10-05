@@ -45,4 +45,6 @@
     <string name="registra_a_tu_consentido">Registra a tu consentido</string>
     <string name="mis_consentidos">Mis consentidos</string>
     <string name="obligatorio">Campo obligatorio</string>
+    <string name="direccion_erronea">Dirección no encontrada</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
