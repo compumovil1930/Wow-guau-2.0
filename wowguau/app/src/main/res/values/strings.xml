@@ -47,4 +47,12 @@
     <string name="obligatorio">Campo obligatorio</string>
     <string name="direccion_erronea">Dirección no encontrada</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_menu_paseador">MenuPaseadorActivity</string>
+
+    <string name="menu_inicio">Inicio</string>
+    <string name="menu_actualizar">Actualizar</string>
+    <string name="menu_hitorial">Historial</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello in construction fragment</string>
 </resources>

@@ -31,7 +31,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i;
                 if(email.getText().toString().equals("paseador")){
-                    i = new Intent(getApplicationContext(), ActividadPantallaInicioPaseador.class);
+                    i = new Intent(getApplicationContext(), MenuPaseadorActivity.class);
                 }
                 else {
                     i = new Intent(getApplicationContext(), ActividadPantallaInicioDueno.class);
