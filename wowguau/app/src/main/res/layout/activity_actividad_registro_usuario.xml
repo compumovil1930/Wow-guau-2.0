@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context=".views.ActividadRegistroUsuario">
+    tools:context="co.edu.javeriana.wow_guau.views.ActividadRegistroUsuario">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraint"

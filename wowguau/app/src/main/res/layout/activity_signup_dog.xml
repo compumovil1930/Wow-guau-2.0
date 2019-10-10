@@ -7,7 +7,7 @@
     android:layout_margin="25dp"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context=".views.Signup_dog">
+    tools:context="co.edu.javeriana.wow_guau.views.Signup_dog">
 
     <TextView
         android:id="@+id/titulo"

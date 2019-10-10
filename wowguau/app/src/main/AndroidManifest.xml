@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.wow_guau">
+    package="co.edu.javeriana.wow_guau">
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -24,10 +24,6 @@
         android:roundIcon="@mipmap/ic_launcher_paw"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".views.MenuPaseadorActivity"
-            android:label="@string/title_activity_menu_paseador"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -41,100 +37,100 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".views.MapsActivity"
+            android:name="co.edu.javeriana.wow_guau.views.MapsActivity"
             android:configChanges="orientation"
             android:label="@string/title_activity_maps"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.DetalleMascotaActivity"
+            android:name="co.edu.javeriana.wow_guau.views.DetalleMascotaActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ListaRazasActivity"
+            android:name="co.edu.javeriana.wow_guau.views.ListaRazasActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActualizarMascotaActivity"
+            android:name="co.edu.javeriana.wow_guau.views.ActualizarMascotaActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ListaMascotasActivity"
+            android:name="co.edu.javeriana.wow_guau.views.ListaMascotasActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.Signup_owner"
+            android:name="co.edu.javeriana.wow_guau.views.Signup_owner"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadRegistroUsuario"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadRegistroUsuario"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActivityCrearCaminata"
+            android:name="co.edu.javeriana.wow_guau.views.ActivityCrearCaminata"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadSolicitudCaminataExitosa"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadSolicitudCaminataExitosa"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.update_my_info"
+            android:name="co.edu.javeriana.wow_guau.views.update_my_info"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.Password_recovery"
+            android:name="co.edu.javeriana.wow_guau.views.Password_recovery"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadPerfilPaseador"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadPerfilPaseador"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.Signup_dog"
+            android:name="co.edu.javeriana.wow_guau.views.Signup_dog"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.Signup_walker"
+            android:name="co.edu.javeriana.wow_guau.views.Signup_walker"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadMonitorearMascota"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadMonitorearMascota"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadSeleccionMascota"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadSeleccionMascota"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadComentariosPaseador"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadComentariosPaseador"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadSolicitudPaseador"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadSolicitudPaseador"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadSolicitudCaminata"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadSolicitudCaminata"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadBusquedaPaseos"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadBusquedaPaseos"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadBusquedaPaseadores"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadBusquedaPaseadores"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.PantallaInicioPaseadorFragment"
+            android:name="co.edu.javeriana.wow_guau.views.PantallaInicioPaseadorFragment"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadPantallaInicioDueno"
+            android:name="co.edu.javeriana.wow_guau.views.ActividadPantallaInicioDueno"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.Login"
+            android:name="co.edu.javeriana.wow_guau.views.Login"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>
