@@ -29,17 +29,11 @@
     <string name="selecciona_a_qui_n_quieres_actualizar">Selecciona a quién le vas a actualizar los datos</string>
     <string name="selecciona_a_qui_n_quieres_darpaseo">Selecciona a quién vas a pasear</string>
     <string name="selecciona_a_qui_n_quieres_cancelar">Selecciona a quién vas a cancelar el paseo</string>
-    <string name="dar_paseo">Empezar paseo</string>
-    <string name="crear_paseo">Crear paseo</string>
-    <string name="cancelar_paseo">Cancelar paseo</string>
-    <string name="crear_caminata">Crear paseo</string>
-    <string name="confirmar_paseo">Confirmar paseo</string>
     <string name="registro_soy_dueño">Soy dueño de mascota(s)</string>
     <string name="registro_soy_paseador">Soy paseador</string>
     <string name="actualizar_mis_datos">Actualizar mis datos</string>
     <string name="inicio_de_sesi_n">Inicio de Sesión</string>
     <string name="recuperar">Recuperar</string>
-    <string name="bienvenido_paseador">Bienvenido paseador</string>
     <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
     <string name="registra_tus_datos">Registra tus datos</string>
     <string name="registra_a_tu_consentido">Registra a tu consentido</string>
