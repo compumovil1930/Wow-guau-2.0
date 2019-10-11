@@ -22,4 +22,3 @@ public class PasswordRecoveryActivity extends AppCompatActivity {
         }
     }
 }
-}

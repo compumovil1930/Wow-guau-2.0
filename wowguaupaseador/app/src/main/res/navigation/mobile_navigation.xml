@@ -8,36 +8,18 @@
     <fragment
         android:id="@+id/nav_inicio"
         android:name="co.edu.javeriana.wowguau_paseador.views.PantallaInicioFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_inicio"
         tools:layout="@layout/fragment_pantalla_inicio" />
 
     <fragment
         android:id="@+id/nav_actualizar"
         android:name="co.edu.javeriana.wowguau_paseador.views.ActualizarInfoFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_actualizar"
         tools:layout="@layout/fragment_actualizar_info" />
 
     <fragment
         android:id="@+id/nav_historial"
         android:name="co.edu.javeriana.wowguau_paseador.views.HistorialFragment"
-        android:label="@string/menu_slideshow"
+        android:label="@string/menu_historial"
         tools:layout="@layout/fragment_historial" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="co.edu.javeriana.wowguau_paseador.views.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="co.edu.javeriana.wowguau_paseador.views.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="co.edu.javeriana.wowguau_paseador.views.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
 </navigation>

@@ -1,4 +1,4 @@
-package co.edu.javeriana.wow_guau.views;
+package co.edu.javeriana.wowguau_paseador.views;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -20,8 +20,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import co.edu.javeriana.wow_guau.R;
-import co.edu.javeriana.wow_guau.utils.Permisos;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.common.api.ResolvableApiException;
@@ -46,8 +44,10 @@ import com.google.android.gms.tasks.Task;
 import java.io.IOException;
 import java.util.List;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.utils.Permisos;
 
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private Geocoder mGeocoder;
     private Address addressResult;
@@ -67,6 +67,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
         mAddress = findViewById(R.id.mAddress);
         btn_registrar = findViewById(R.id.btn_registrar);
         myCurrentLocation = new Location("");
@@ -140,10 +145,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
     }
 
     @Override

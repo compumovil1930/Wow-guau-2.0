@@ -20,7 +20,7 @@ public class ActividadPerfilPaseador extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ActividadComentariosPaseador.class);
+                Intent i = new Intent(getApplicationContext(), ComentariosPaseadorActivity.class);
                 startActivity(i);
             }
         });

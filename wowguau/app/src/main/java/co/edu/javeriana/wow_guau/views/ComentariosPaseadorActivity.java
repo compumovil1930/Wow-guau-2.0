@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import co.edu.javeriana.wow_guau.R;
 
-public class ActividadComentariosPaseador extends AppCompatActivity {
+public class ComentariosPaseadorActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_actividad_comentarios_paseador);
+        setContentView(R.layout.activity_comentarios_paseador);
     }
 }

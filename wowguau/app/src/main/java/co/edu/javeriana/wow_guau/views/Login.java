@@ -45,8 +45,7 @@ public class Login extends AppCompatActivity {
         btn_crear_cuenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(getApplicationContext() , Signup_walker.class);
-                Intent i = new Intent(getApplicationContext() , ActividadRegistroUsuario.class);
+                Intent i = new Intent(getApplicationContext() , Signup_owner.class);
                 startActivity(i);
             }
         });

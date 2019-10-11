@@ -27,8 +27,6 @@
     <string name="selecciona_a_qui_n_quieres_monitorear">Selecciona a quién quieres monitorear</string>
     <string name="selecciona_a_qui_n_quieres_pasear">Selecciona a quién le quieres solicitar un paseo</string>
     <string name="selecciona_a_qui_n_quieres_actualizar">Selecciona a quién le vas a actualizar los datos</string>
-    <string name="selecciona_a_qui_n_quieres_darpaseo">Selecciona a quién vas a pasear</string>
-    <string name="selecciona_a_qui_n_quieres_cancelar">Selecciona a quién vas a cancelar el paseo</string>
     <string name="registro_soy_dueño">Soy dueño de mascota(s)</string>
     <string name="registro_soy_paseador">Soy paseador</string>
     <string name="actualizar_mis_datos">Actualizar mis datos</string>

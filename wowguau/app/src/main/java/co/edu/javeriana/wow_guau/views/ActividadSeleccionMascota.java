@@ -56,28 +56,6 @@ public class ActividadSeleccionMascota extends AppCompatActivity {
             cv1.setOnClickListener(vl);
             cv2.setOnClickListener(vl);
         }
-        else if(getIntent().getStringExtra("texto").equals("darpaseo")){
-            descripcion.setText(getString(R.string.selecciona_a_qui_n_quieres_darpaseo));
-            View.OnClickListener vl = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // dar paseo
-                }
-            };
-            cv1.setOnClickListener(vl);
-            cv2.setOnClickListener(vl);
-        }
-        else if(getIntent().getStringExtra("texto").equals("cancelar")){
-            descripcion.setText(getString(R.string.selecciona_a_qui_n_quieres_cancelar));
-            View.OnClickListener vl = new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // cancelar
-                }
-            };
-            cv1.setOnClickListener(vl);
-            cv2.setOnClickListener(vl);
-        }
     }
 }
 
