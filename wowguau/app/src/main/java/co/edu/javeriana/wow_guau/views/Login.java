@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View view) {
                 Intent i ;
                 if(email.getText().toString().equals("dueno")){ // verificar que sea dueno en firebase
-                    i = new Intent(getApplicationContext(), ActividadPantallaInicioDueno.class);
+                    i = new Intent(getApplicationContext(), MenuActivity.class);
                     startActivity(i);
                 }
                 else{

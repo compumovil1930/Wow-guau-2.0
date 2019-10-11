@@ -24,7 +24,12 @@
         android:roundIcon="@mipmap/ic_launcher_paw"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ComentariosPaseadorActivity"></activity>
+        <activity android:name=".views.PerfilActivity"></activity>
+        <activity
+            android:name=".views.MenuActivity"
+            android:label="@string/title_activity_menu"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".views.ComentariosPaseadorActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -63,7 +68,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.update_my_info"
+            android:name=".views.UpdateInfoFragment"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -103,7 +108,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadPantallaInicioDueno"
+            android:name=".views.PantallaInicioFragment"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity

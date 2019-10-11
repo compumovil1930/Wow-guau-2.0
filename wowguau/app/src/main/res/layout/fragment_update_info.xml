@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="50dp"
     android:orientation="vertical"
-    tools:context="co.edu.javeriana.wow_guau.views.update_my_info">
+    tools:context="co.edu.javeriana.wow_guau.views.UpdateInfoFragment">
 
     <TextView
         android:id="@+id/tv_update_info"
