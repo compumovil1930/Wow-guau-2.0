@@ -1,5 +1,6 @@
 package co.edu.javeriana.wowguau_paseador.views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
@@ -9,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -18,17 +20,27 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.regex.Matcher;
 
 import co.edu.javeriana.wowguau_paseador.R;
 import co.edu.javeriana.wowguau_paseador.model.Direccion;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.utils.CameraUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Permisos;
+import co.edu.javeriana.wowguau_paseador.utils.Utils;
 
 public class RegistroActivity extends AppCompatActivity {
     EditText et_email;
@@ -52,6 +64,9 @@ public class RegistroActivity extends AppCompatActivity {
     Bitmap selectedImage;
     Address address;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +89,8 @@ public class RegistroActivity extends AppCompatActivity {
 
         calendar = Calendar.getInstance();
 
+        mAuth = FirebaseAuth.getInstance();
+
         ib_upload_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,7 +108,7 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Paseador user = registrarPaseador();
                 if(user != null) {
-                    // subir a firebase y archivos
+                    createAccount(et_email.getText().toString(), et_password.getText().toString());
                     finish();
                 }
                 else{
@@ -164,7 +181,7 @@ public class RegistroActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         et_fecha_nacimiento.setText(sdf.format(calendar.getTime()));
     }
-    private Paseador registrarPaseador(){
+    private Paseador registrarPaseador() {
         boolean completo = true;
         int radioButtonID = rg_genero.getCheckedRadioButtonId();
         View radioButton = rg_genero.findViewById(radioButtonID);
@@ -181,47 +198,89 @@ public class RegistroActivity extends AppCompatActivity {
         String experiencia = et_experiencia.getText().toString();
         String genero;
 
-        if(selectedImage == null)
+        if (selectedImage == null) {
             completo = false;
-        if(email.isEmpty()){
+            Toast.makeText(getApplicationContext(), "La foto es obligatoria", Toast.LENGTH_LONG).show();
+        }
+        if (email.isEmpty()) {
             et_email.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(contrasena.isEmpty()){
+        if (contrasena.isEmpty()) {
             et_password.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(nombre.isEmpty()){
+        if (nombre.isEmpty()) {
             et_nombre.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(cedula.isEmpty()){
+        if (cedula.isEmpty()) {
             et_cedula.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(fecha.isEmpty()){
+        if (fecha.isEmpty()) {
             et_fecha_nacimiento.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(phone.isEmpty()){
+        if (phone.isEmpty()) {
             et_phone.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(direccion.isEmpty()){
+        if (direccion.isEmpty()) {
             et_direccion.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(experiencia.isEmpty()){
+        if (experiencia.isEmpty()) {
             et_experiencia.setError(getString(R.string.obligatorio));
             completo = false;
         }
-        if(radioButtonID==-1)
+        if(!isEmailValid(email)){
+            et_email.setError("Mal escrito");
+            completo = false;
+        }
+        if (radioButtonID == -1)
             completo = false;
 
-        if(!completo)
+        if (!completo)
             return null;
-        genero = ((RadioButton)(rg_genero.getChildAt(idx))).getText().toString();
+
+        genero = ((RadioButton) (rg_genero.getChildAt(idx))).getText().toString();
 
         return new Paseador(email, nombre, Integer.parseInt(cedula), calendar.getTime(), Integer.parseInt(phone), genero, new Direccion(direccion, address), descripcion, Integer.parseInt(experiencia));
+    }
+    private boolean isEmailValid(String correo) {
+        Matcher matcher = Utils.VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
+        return matcher.matches();
+    }
+    private void createAccount(String correo, String contrasena){
+        mAuth.createUserWithEmailAndPassword(correo, contrasena).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.d("BIEN", "createUserWithEmail:onComplete:" + task.isSuccessful());
+                    FirebaseUser user = mAuth.getCurrentUser();
+                    if (user != null) { //Update user Info
+                        UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
+                        upcrb.setDisplayName("Pasedor" + " " + et_nombre.getText().toString());
+                        //upcrb.setPhotoUri(Uri.parse(MediaStore.Images.Media.insertImage(getBaseContext().getContentResolver(), selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream()), "Perfil", null)))); //fake uri, use Firebase Storage
+                        //user.updateProfile(upcrb.build());
+                        updateUI(user);
+                    }
+                }
+                if (!task.isSuccessful()) {
+                    Toast.makeText(RegistroActivity.this, "Error al autenticar" + task.getException().toString(), Toast.LENGTH_LONG).show();
+                    Log.e("MAL", task.getException().getMessage());
+                }
+            }
+        });
+    }
+    private void updateUI(FirebaseUser currentUser) {
+        if(currentUser!=null){
+            Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+            intent.putExtra("user", currentUser.getEmail());
+            startActivity(intent);
+        }else{
+            registrarPaseador();
+        }
     }
 }

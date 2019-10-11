@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1081214824268",
+    "firebase_url": "https://wowguau-dc8c1.firebaseio.com",
+    "project_id": "wowguau-dc8c1",
+    "storage_bucket": "wowguau-dc8c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1081214824268:android:7340fe316f7467e38b29e9",
+        "android_client_info": {
+          "package_name": "co.edu.javeriana.wowguau_paseador"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1081214824268-e0288m78h50631euocgoj1hkkv5qif0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.javeriana.wowguau_paseador",
+            "certificate_hash": "c06177957e59f2a5688b388c487d9957efba4a65"
+          }
+        },
+        {
+          "client_id": "1081214824268-pga6lvd29immhkut36boa5lglii2map8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfMBo7sFTGBYP6yRIM33kTk1Fz7DRfa_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1081214824268-pga6lvd29immhkut36boa5lglii2map8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
