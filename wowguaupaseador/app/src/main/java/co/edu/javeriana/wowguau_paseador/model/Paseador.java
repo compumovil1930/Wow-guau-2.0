@@ -16,6 +16,10 @@ public class Paseador extends Usuario {
         this.direccionesCertificados = new ArrayList<>();
     }
 
+    public Paseador() {
+        this.direccionesCertificados = new ArrayList<>();
+    }
+
     public String getDescripcion() {
         return descripcion;
     }

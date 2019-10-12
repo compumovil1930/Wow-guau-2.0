@@ -13,6 +13,9 @@ public class Direccion {
         this.longitud = address.getLongitude();
     }
 
+    public Direccion() {
+    }
+
     public String getDireccion() {
         return direccion;
     }
