@@ -24,16 +24,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+import android.widget.TextView;
 
 import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.model.Paseador;
+import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 
 public class MenuActivity extends AppCompatActivity {
+    TextView tv_bienvenido;
 
     private AppBarConfiguration mAppBarConfiguration;
     private ConstraintLayout cl_logout;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private Paseador paseador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +48,9 @@ public class MenuActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
+
         cl_logout = findViewById(R.id.cl_logout);
+        tv_bienvenido = findViewById(R.id.tv_bienvenido);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -73,13 +79,21 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
     }
-
     @Override
     public void onStart() {
         super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //paseador = FirebaseUtils.buscarUsuario(getIntent().getStringExtra("uid"));
+        //updateUI();
     }
-
+    private void updateUI(){
+        if(paseador!=null){
+            tv_bienvenido.append(" "+paseador.getNombre());
+        } else {
+            mAuth.signOut();
+            Intent i = new Intent(MenuActivity.this, LoginActivity.class);
+            startActivity(i);
+        }
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;

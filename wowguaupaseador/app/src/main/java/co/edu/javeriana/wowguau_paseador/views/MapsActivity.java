@@ -46,6 +46,7 @@ import java.util.List;
 
 import co.edu.javeriana.wowguau_paseador.R;
 import co.edu.javeriana.wowguau_paseador.utils.Permisos;
+import co.edu.javeriana.wowguau_paseador.utils.Utils;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
@@ -95,7 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     finish();
                 }
                 else{
-                    mAddress.setError(getString(R.string.obligatorio));
+                    mAddress.setError(Utils.obligatorio);
                 }
             }
         });

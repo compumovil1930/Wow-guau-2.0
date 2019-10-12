@@ -14,11 +14,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 
 import co.edu.javeriana.wowguau_paseador.R;
@@ -70,16 +76,17 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     @Override
-    public void onStart() {
+    protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
     private void updateUI(FirebaseUser currentUser){
         if(currentUser!=null){
-            Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-            intent.putExtra("user", currentUser.getEmail());
-            startActivity(intent);
+            Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+            i.putExtra("uid", currentUser.getUid());
+            startActivity(i);
+            finish();
         } else {
             et_email.setText("");
             et_password.setText("");
@@ -90,13 +97,13 @@ public class LoginActivity extends AppCompatActivity {
         String correo = et_email.getText().toString();
         String contrasena = et_password.getText().toString();
         if(TextUtils.isEmpty(correo)){
-            et_email.setError(getString(R.string.obligatorio));
+            et_email.setError(Utils.obligatorio);
             valid = false;
         }else{
             et_email.setError(null);
         }
         if(TextUtils.isEmpty(contrasena)){
-            et_password.setError(getString(R.string.obligatorio));
+            et_password.setError(Utils.obligatorio);
             valid = false;
         }else{
             et_password.setError(null);

@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,7 +28,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -39,6 +39,7 @@ import co.edu.javeriana.wowguau_paseador.R;
 import co.edu.javeriana.wowguau_paseador.model.Direccion;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.utils.CameraUtils;
+import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Permisos;
 import co.edu.javeriana.wowguau_paseador.utils.Utils;
 
@@ -63,9 +64,10 @@ public class RegistroActivity extends AppCompatActivity {
     Calendar calendar;
     Bitmap selectedImage;
     Address address;
+    Paseador paseador;
 
     private FirebaseAuth mAuth;
-    private FirebaseUser currentUser;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,10 +108,9 @@ public class RegistroActivity extends AppCompatActivity {
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Paseador user = registrarPaseador();
-                if(user != null) {
+                paseador = registrarPaseador();
+                if(paseador != null) {
                     createAccount(et_email.getText().toString(), et_password.getText().toString());
-                    finish();
                 }
                 else{
                     scrollView.fullScroll(ScrollView.FOCUS_UP);
@@ -140,8 +141,29 @@ public class RegistroActivity extends AppCompatActivity {
                 startActivityForResult(i, Permisos.ADDRESS_PICKER);
             }
         });
-    }
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null && paseador!=null) {
+                    updateUI(user, ((BitmapDrawable) ib_upload_photo.getDrawable()).getBitmap());
+                }
+            }
+        };
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -203,35 +225,35 @@ public class RegistroActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "La foto es obligatoria", Toast.LENGTH_LONG).show();
         }
         if (email.isEmpty()) {
-            et_email.setError(getString(R.string.obligatorio));
+            et_email.setError(Utils.obligatorio);
             completo = false;
         }
         if (contrasena.isEmpty()) {
-            et_password.setError(getString(R.string.obligatorio));
+            et_password.setError(Utils.obligatorio);
             completo = false;
         }
         if (nombre.isEmpty()) {
-            et_nombre.setError(getString(R.string.obligatorio));
+            et_nombre.setError(Utils.obligatorio);
             completo = false;
         }
         if (cedula.isEmpty()) {
-            et_cedula.setError(getString(R.string.obligatorio));
+            et_cedula.setError(Utils.obligatorio);
             completo = false;
         }
         if (fecha.isEmpty()) {
-            et_fecha_nacimiento.setError(getString(R.string.obligatorio));
+            et_fecha_nacimiento.setError(Utils.obligatorio);
             completo = false;
         }
         if (phone.isEmpty()) {
-            et_phone.setError(getString(R.string.obligatorio));
+            et_phone.setError(Utils.obligatorio);
             completo = false;
         }
         if (direccion.isEmpty()) {
-            et_direccion.setError(getString(R.string.obligatorio));
+            et_direccion.setError(Utils.obligatorio);
             completo = false;
         }
         if (experiencia.isEmpty()) {
-            et_experiencia.setError(getString(R.string.obligatorio));
+            et_experiencia.setError(Utils.obligatorio);
             completo = false;
         }
         if(!isEmailValid(email)){
@@ -252,20 +274,13 @@ public class RegistroActivity extends AppCompatActivity {
         Matcher matcher = Utils.VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
         return matcher.matches();
     }
-    private void createAccount(String correo, String contrasena){
-        mAuth.createUserWithEmailAndPassword(correo, contrasena).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    private void createAccount(final String correo, String contrasena){
+        mAuth.createUserWithEmailAndPassword(correo, contrasena)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d("BIEN", "createUserWithEmail:onComplete:" + task.isSuccessful());
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    if (user != null) { //Update user Info
-                        UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
-                        upcrb.setDisplayName("Pasedor" + " " + et_nombre.getText().toString());
-                        //upcrb.setPhotoUri(Uri.parse(MediaStore.Images.Media.insertImage(getBaseContext().getContentResolver(), selectedImage.compress(Bitmap.CompressFormat.JPEG, 100, new ByteArrayOutputStream()), "Perfil", null)))); //fake uri, use Firebase Storage
-                        //user.updateProfile(upcrb.build());
-                        updateUI(user);
-                    }
                 }
                 if (!task.isSuccessful()) {
                     Toast.makeText(RegistroActivity.this, "Error al autenticar" + task.getException().toString(), Toast.LENGTH_LONG).show();
@@ -274,13 +289,11 @@ public class RegistroActivity extends AppCompatActivity {
             }
         });
     }
-    private void updateUI(FirebaseUser currentUser) {
-        if(currentUser!=null){
-            Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-            intent.putExtra("user", currentUser.getEmail());
-            startActivity(intent);
-        }else{
-            registrarPaseador();
-        }
+    private void updateUI(FirebaseUser currentUser, Bitmap photo) {
+        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), photo);
+        Intent intent = new Intent(getBaseContext(), MenuActivity.class);
+        intent.putExtra("user", currentUser.getEmail());
+        startActivity(intent);
+        finish();
     }
 }

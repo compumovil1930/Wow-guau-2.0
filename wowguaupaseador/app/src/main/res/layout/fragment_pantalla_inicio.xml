@@ -7,11 +7,11 @@
     tools:context="co.edu.javeriana.wowguau_paseador.views.PantallaInicioFragment">
 
     <TextView
-        android:id="@+id/tv_welcome"
+        android:id="@+id/tv_bienvenido"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/bienvenido_paseador"
+        android:text="@string/bienvenido"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"

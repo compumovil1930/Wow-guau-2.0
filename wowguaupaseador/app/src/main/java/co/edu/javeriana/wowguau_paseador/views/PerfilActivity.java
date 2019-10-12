@@ -25,5 +25,13 @@ public class PerfilActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
+        /*
+        // Old:
+        java.util.Date date = snapshot.getDate("created_at");
+        // New:
+        Timestamp timestamp = snapshot.getTimestamp("created_at");
+        java.util.Date date = timestamp.toDate();
+         */
     }
 }

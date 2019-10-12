@@ -10,14 +10,22 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.model.Paseador;
+import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 
 public class PantallaInicioFragment extends Fragment {
     ConstraintLayout cl_confirmar_paseo;
     ConstraintLayout cl_crear_paseo;
     ConstraintLayout cl_cancelar_paseo;
     ConstraintLayout cl_empezar_paseo;
+
+    private FirebaseAuth mAuth;
 
     public PantallaInicioFragment() {
     }
@@ -30,6 +38,8 @@ public class PantallaInicioFragment extends Fragment {
         cl_crear_paseo = view.findViewById(R.id.cl_crear_paseo);
         cl_cancelar_paseo = view.findViewById(R.id.cl_cancelar_paseo);
         cl_empezar_paseo = view.findViewById(R.id.cl_empezar_paseo);
+
+        mAuth = FirebaseAuth.getInstance();
 
         cl_empezar_paseo.setOnClickListener(new View.OnClickListener() {
             @Override
