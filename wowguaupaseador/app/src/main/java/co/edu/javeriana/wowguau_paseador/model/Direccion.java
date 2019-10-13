@@ -2,7 +2,9 @@ package co.edu.javeriana.wowguau_paseador.model;
 
 import android.location.Address;
 
-public class Direccion {
+import java.io.Serializable;
+
+public class Direccion implements Serializable {
     private String direccion;
     private double latitud;
     private double longitud;

@@ -1,16 +1,27 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
+import android.graphics.Bitmap;
+
+import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.IgnoreExtraProperties;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Usuario {
+@IgnoreExtraProperties
+public abstract class Usuario implements Serializable {
     private String correo;
     private String nombre;
     private int cedula;
     private Date fechaNacimiento;
     private int telefono;
     private String genero;
-    private String direccionFoto;
     private Direccion direccion;
+    private float saldo;
+    private String direccionFoto;
+
+    @Exclude
+    private Bitmap foto;
 
     public Usuario(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, Direccion direccion) {
         this.correo = correo;
@@ -20,6 +31,7 @@ public abstract class Usuario {
         this.telefono = telefono;
         this.genero = genero;
         this.direccion = direccion;
+        this.saldo = 0;
     }
 
     public Usuario() {
@@ -73,6 +85,14 @@ public abstract class Usuario {
         this.genero = genero;
     }
 
+    public Bitmap getFoto() {
+        return foto;
+    }
+
+    public void setFoto(Bitmap foto) {
+        this.foto = foto;
+    }
+
     public String getDireccionFoto() {
         return direccionFoto;
     }
@@ -88,4 +108,19 @@ public abstract class Usuario {
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
     }
+
+    public float getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(float saldo) {
+        this.saldo = saldo;
+    }
 }
+/*
+        // Old:
+        java.util.Date date = snapshot.getDate("created_at");
+        // New:
+        Timestamp timestamp = snapshot.getTimestamp("created_at");
+        java.util.Date date = timestamp.toDate();
+         */

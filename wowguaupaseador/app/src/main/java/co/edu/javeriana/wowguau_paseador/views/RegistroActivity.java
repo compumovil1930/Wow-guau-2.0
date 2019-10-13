@@ -31,6 +31,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
@@ -110,6 +111,7 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 paseador = registrarPaseador();
                 if(paseador != null) {
+                    paseador.setFoto(selectedImage);
                     createAccount(et_email.getText().toString(), et_password.getText().toString());
                 }
                 else{
@@ -146,7 +148,7 @@ public class RegistroActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null && paseador!=null) {
-                    updateUI(user, ((BitmapDrawable) ib_upload_photo.getDrawable()).getBitmap());
+                    updateUI(user);
                 }
             }
         };
@@ -289,10 +291,11 @@ public class RegistroActivity extends AppCompatActivity {
             }
         });
     }
-    private void updateUI(FirebaseUser currentUser, Bitmap photo) {
-        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), photo);
+    private void updateUI(FirebaseUser currentUser) {
+        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), paseador.getFoto());
+        paseador.setDireccionFoto("photo_"+currentUser.getUid()+".jpg");
         Intent intent = new Intent(getBaseContext(), MenuActivity.class);
-        intent.putExtra("user", currentUser.getEmail());
+        intent.putExtra("user", paseador);
         startActivity(intent);
         finish();
     }

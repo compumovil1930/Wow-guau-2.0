@@ -4,16 +4,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Paseador extends Usuario {
+public class Paseador extends Usuario{
     private String descripcion;
     private int experiencia;
     private List<String> direccionesCertificados;
+    private boolean estado;
 
     public Paseador(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, Direccion direccion, String descripcion, int experiencia) {
         super(correo, nombre, cedula, fechaNacimiento, telefono, genero, direccion);
         this.descripcion = descripcion;
         this.experiencia = experiencia;
         this.direccionesCertificados = new ArrayList<>();
+        estado = false;
     }
 
     public Paseador() {
@@ -42,5 +44,13 @@ public class Paseador extends Usuario {
 
     public void setDireccionesCertificados(List<String> direccionesCertificados) {
         this.direccionesCertificados = direccionesCertificados;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

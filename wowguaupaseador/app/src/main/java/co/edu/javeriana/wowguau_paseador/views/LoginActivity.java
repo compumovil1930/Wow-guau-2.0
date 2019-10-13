@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 
 import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Utils;
 
 public class LoginActivity extends AppCompatActivity {
@@ -83,14 +84,10 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void updateUI(FirebaseUser currentUser){
         if(currentUser!=null){
-            Intent i = new Intent(LoginActivity.this, MenuActivity.class);
-            i.putExtra("uid", currentUser.getUid());
-            startActivity(i);
-            finish();
-        } else {
-            et_email.setText("");
-            et_password.setText("");
+            FirebaseUtils.buscarUsuario(currentUser.getUid(), this);
         }
+        et_email.setText("");
+        et_password.setText("");
     }
     private  boolean validateForm(){
         boolean valid = true;
@@ -134,8 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.w("MAL", "signInWithEmail:failure", task.getException());
-                                Toast.makeText(LoginActivity.this, "Error al autenticar",
-                                        Toast.LENGTH_LONG).show();
+                                Toast.makeText(LoginActivity.this, "Error al autenticar", Toast.LENGTH_LONG).show();
                                 updateUI(null);
                             }
                         }

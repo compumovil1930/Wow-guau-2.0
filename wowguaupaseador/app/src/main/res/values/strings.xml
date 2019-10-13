@@ -7,7 +7,7 @@
     <string name="fpassword"><u>Olvidé mi contraseña</u></string>
     <string name="caccount">Crear cuenta</string>
 
-    <string name="bienvenido">Bienvenido</string>
+    <string name="bienvenido">Bienvenido, </string>
     <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
     <string name="dar_paseo">Empezar paseo</string>
     <string name="crear_paseo">Crear paseo</string>

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,6 +25,10 @@ public class PantallaInicioFragment extends Fragment {
     ConstraintLayout cl_crear_paseo;
     ConstraintLayout cl_cancelar_paseo;
     ConstraintLayout cl_empezar_paseo;
+    TextView tv_bienvenido;
+    Button btn_estado;
+
+    Paseador paseador;
 
     private FirebaseAuth mAuth;
 
@@ -38,9 +43,14 @@ public class PantallaInicioFragment extends Fragment {
         cl_crear_paseo = view.findViewById(R.id.cl_crear_paseo);
         cl_cancelar_paseo = view.findViewById(R.id.cl_cancelar_paseo);
         cl_empezar_paseo = view.findViewById(R.id.cl_empezar_paseo);
+        tv_bienvenido = view.findViewById(R.id.tv_bienvenido);
+        btn_estado = view.findViewById(R.id.btn_estado);
+
+        paseador = (Paseador) getActivity().getIntent().getSerializableExtra("user");
 
         mAuth = FirebaseAuth.getInstance();
 
+        tv_bienvenido.append(" "+paseador.getNombre());
         cl_empezar_paseo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,6 +88,14 @@ public class PantallaInicioFragment extends Fragment {
                 Intent i= new Intent(getActivity(), SeleccionMascotaActivity.class);
                 i.putExtra("texto", "cancelar");
                 startActivity(i);
+            }
+        });
+
+        btn_estado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paseador.setEstado(!paseador.isEstado());
+                ((MenuActivity) getActivity()).setPaseador(paseador);
             }
         });
 
