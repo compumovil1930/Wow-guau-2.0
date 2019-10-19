@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/grey"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/ivItemPaseador"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:contentDescription="@string/FotoPaseador"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/cltemPaseador"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_man_profile" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cltemPaseador"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/ivItemPaseador"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNombreItemPaseador"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/NombrePaseador"
+                android:textColor="@color/common_google_signin_btn_text_light_pressed"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"/>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvExperienciaItemPaseadorTitulo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="@string/ExperienciaPaseador"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvExperienciaItemPaseador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="@string/ExperienciaPaseador" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvRatingItemPaseadorTitulo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="@string/RatingPaseador"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvRatingItemPaseador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="@string/RatingPaseador" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvCiudadItemPaseadorTitulo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="@string/CiudadPaseador"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvCiudadItemPaseador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="@string/CiudadPaseador" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <TextView
+                    android:id="@+id/tvDisponibilidadItemPaseadorTitulo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:text="@string/DisponibilidadPaseador"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDisponibilidadItemPaseador"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.6"
+                    android:text="@string/DisponibilidadPaseador" />
+
+            </TableRow>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

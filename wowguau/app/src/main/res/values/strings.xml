@@ -79,4 +79,10 @@
     <string name="VerCalificaciones">Ver calificaciones</string>
     <string name="DescripcionPaseador">Descripción</string>
 
+    <!-- Calificaciones paseador -->
+
+    <string name="Calificacion">Calificación</string>
+    <string name="UsuarioCalificacion">Usuario que realizó calificación</string>
+    <string name="Comentarios">Comentarios</string>
+
 </resources>

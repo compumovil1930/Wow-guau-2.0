@@ -33,7 +33,6 @@
         style="@style/Widget.AppCompat.ProgressBar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:indeterminateTint="#F8B7B5B5"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@id/rvListaPaseadores"
         app:layout_constraintLeft_toLeftOf="parent"

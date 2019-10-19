@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/wg_light_grey"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvUsuarioComentario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@color/grey"
+        android:text="@string/UsuarioCalificacion"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <TextView
+            android:id="@+id/tvCalificacionTitulo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.4"
+            android:text="@string/Calificacion"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCalificacionNumero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6"
+            android:text="@string/Calificacion" />
+    </TableRow>
+
+    <TextView
+        android:id="@+id/tvComentariosCalificacionTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/Comentarios"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvComentariosCalificacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/Comentarios" />
+
+</LinearLayout>
