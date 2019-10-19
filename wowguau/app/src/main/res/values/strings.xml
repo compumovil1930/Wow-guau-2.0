@@ -57,4 +57,26 @@
 
     <string name="log_out">Log out</string>
     <string name="menu_historial">Historial</string>
+
+    <!-- Item paseador -->
+
+    <string name="NombrePaseador">Nombre</string>
+    <string name="ExperienciaPaseador">Experiencia</string>
+    <string name="RatingPaseador">Rating</string>
+    <string name="CiudadPaseador">Ciudad</string>
+    <string name="DisponibilidadPaseador">Disponibilidad</string>
+    <string name="FotoPaseador">Foto del paseador</string>
+
+    <!-- Búsqueda paseador -->
+
+    <string name="TituloBusquedaPaseadores">¿Quién va a pasear a mi perro?</string>
+    <string name="botonFiltrar">Filtrar</string>
+    <string name="botonCerrarSesion">Cerrar sesión</string>
+
+    <!-- Perfil paseador -->
+
+    <string name="CertificacionesPaseador">Certificaciones</string>
+    <string name="VerCalificaciones">Ver calificaciones</string>
+    <string name="DescripcionPaseador">Descripción</string>
+
 </resources>
