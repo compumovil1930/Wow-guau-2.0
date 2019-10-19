@@ -85,7 +85,7 @@
     <string name="UsuarioCalificacion">Usuario que realizó calificación</string>
     <string name="Comentarios">Comentarios</string>
 
-    <!-- Login -->
+    <!-- LoginActivity -->
 
     <string name="Facebook">Ingresar con Facebook</string>
     <string name="Twitter">Ingresar con Twitter</string>

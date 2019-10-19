@@ -13,7 +13,7 @@ import android.widget.Toast;
 import co.edu.javeriana.wow_guau.R;
 
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     Button btn_crear_cuenta;
     TextView tv_fpassword;
