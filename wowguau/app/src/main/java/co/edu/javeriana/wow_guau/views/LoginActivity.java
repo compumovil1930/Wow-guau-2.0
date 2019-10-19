@@ -13,7 +13,7 @@ import android.widget.Toast;
 import co.edu.javeriana.wow_guau.R;
 
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     Button btn_login;
     Button btn_crear_cuenta;
     TextView tv_fpassword;
@@ -23,10 +23,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        btn_login = findViewById(R.id.button_login);
+        btn_login = findViewById(R.id.btn_login);
         btn_crear_cuenta = findViewById(R.id.btn_crear_cuenta);
         tv_fpassword = findViewById(R.id.tv_fpassword);
-        email = findViewById(R.id.email);
+        email = findViewById(R.id.etEmail);
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override

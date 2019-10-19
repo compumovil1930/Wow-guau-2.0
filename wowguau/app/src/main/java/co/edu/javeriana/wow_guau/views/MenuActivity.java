@@ -3,9 +3,6 @@ package co.edu.javeriana.wow_guau.views;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import android.view.View;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -60,7 +57,7 @@ public class MenuActivity extends AppCompatActivity {
         cl_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getBaseContext(), Login.class);
+                Intent i = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(i);
             }
         });
