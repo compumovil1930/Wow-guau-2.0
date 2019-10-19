@@ -149,7 +149,7 @@
                 android:paddingBottom="5dp">
 
                 <TextView
-                    android:id="@+id/textView5"
+                    android:id="@+id/tvDisponibilidadPaseadorPerfilTitulo"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
@@ -157,7 +157,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/tvDisponibilidadPaseadorPerfil"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
