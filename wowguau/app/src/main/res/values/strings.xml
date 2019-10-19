@@ -73,4 +73,10 @@
     <string name="botonFiltrar">Filtrar</string>
     <string name="botonCerrarSesion">Cerrar sesión</string>
 
+    <!-- Perfil paseador -->
+
+    <string name="CertificacionesPaseador">Certificaciones</string>
+    <string name="VerCalificaciones">Ver calificaciones</string>
+    <string name="DescripcionPaseador">Descripción</string>
+
 </resources>
