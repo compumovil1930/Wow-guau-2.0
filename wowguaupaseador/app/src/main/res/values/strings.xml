@@ -36,4 +36,5 @@
     <string name="menu_inicio">Inicio</string>
     <string name="menu_actualizar">Actualizar</string>
     <string name="menu_historial">Historial</string>
+    <string name="solicitudes_de_paseo">Solicitudes de paseo</string>
 </resources>

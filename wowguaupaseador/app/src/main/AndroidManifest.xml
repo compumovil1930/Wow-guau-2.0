@@ -54,9 +54,6 @@
         <activity android:name=".views.SeleccionMascotaActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".views.CrearPaseoActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
         <activity android:name=".views.PasswordRecoveryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
