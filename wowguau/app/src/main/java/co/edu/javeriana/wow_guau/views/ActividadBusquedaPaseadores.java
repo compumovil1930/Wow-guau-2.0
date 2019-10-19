@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -35,6 +38,38 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
             }
         };
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_filtro, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.cerrarSesionMenu:
+                cerrarSesion();
+                return true;
+            case R.id.mostrarOpcionesFiltroMenu:
+                /*if (activacionFiltro) {
+                    Intent intent = new Intent(ActividadBusquedaPaseadores.this, ActivityFiltro.class);
+                    startActivityForResult(intent, FILTRO_REQUEST);
+                }else{
+                    Toast toast = Toast.makeText(ActivityBuscarAnimales.this, "No se puede " +
+                            "filtrar porque no hay paseadores disponibles", Toast.LENGTH_LONG);
+                    toast.show();
+                }*/
+                return true;
+            default:
+                return true;
+        }
+    }
+
+    private void cerrarSesion(){
 
     }
 }

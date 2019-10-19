@@ -70,5 +70,7 @@
     <!-- Búsqueda paseador -->
 
     <string name="TituloBusquedaPaseadores">¿Quién va a pasear a mi perro?</string>
+    <string name="botonFiltrar">Filtrar</string>
+    <string name="botonCerrarSesion">Cerrar sesión</string>
 
 </resources>
