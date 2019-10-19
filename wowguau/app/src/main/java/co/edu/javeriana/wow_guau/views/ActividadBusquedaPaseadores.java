@@ -1,24 +1,31 @@
 package co.edu.javeriana.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import co.edu.javeriana.wow_guau.R;
 
 public class ActividadBusquedaPaseadores extends AppCompatActivity {
 
+    RecyclerView recyclerViewPaseadores;
+    ProgressBar progressBarLista;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_actividad_busqueda_paseadores);
 
-        TextView tv = findViewById(R.id.textView17);
-        TextView tv1 = findViewById(R.id.textView18);
-        TextView tv2 = findViewById(R.id.textView19);
+        recyclerViewPaseadores = findViewById(R.id.rvListaPaseadores);
+        progressBarLista = findViewById(R.id.pbBusquedaPasedores);
+
+        //al momento de mostrar resultados hacer .setVisibility(View.GONE) al progress bar
+        //el progress bar podría extenderse más en altura al mostrarse
 
         View.OnClickListener on = new View.OnClickListener() {
             @Override
@@ -28,9 +35,6 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
             }
         };
 
-        tv.setOnClickListener(on);
-        tv1.setOnClickListener(on);
-        tv2.setOnClickListener(on);
 
     }
 }
