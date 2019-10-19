@@ -27,8 +27,12 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
         recyclerViewPaseadores = findViewById(R.id.rvListaPaseadores);
         progressBarLista = findViewById(R.id.pbBusquedaPasedores);
 
+        //usar item_paseador para adiocionar al recycler view
+
         //al momento de mostrar resultados hacer .setVisibility(View.GONE) al progress bar
         //el progress bar podría extenderse más en altura al mostrarse
+
+        //usar onOptionsItemSelected para manejar acción para filtrar (ya pusé algo)
 
         View.OnClickListener on = new View.OnClickListener() {
             @Override
