@@ -23,6 +23,10 @@ public abstract class Usuario {
         this.direccion = direccion;
     }
 
+    public Usuario(){
+
+    }
+
     public String getCorreo() {
         return correo;
     }

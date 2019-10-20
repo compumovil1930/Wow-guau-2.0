@@ -96,7 +96,7 @@
 
     <string name="NombreUsuario">Nombre</string>
     <string name="CedulaUsuario">Cedula</string>
-    <string name="FechaNacimientoUsuario">Fecha de nacimiento</string>
+    <string name="FechaNacimientoUsuario">Fecha de nacimiento (mm/dd/aa)</string>
     <string name="TelefonoUsuario">Teléfono</string>
     <string name="DireccionUsuario">Dirección</string>
     <string name="GeneroUsuario">Género</string>

@@ -125,6 +125,7 @@ public class Signup_owner extends AppCompatActivity {
     private static final String TAG = "ActivityRegistro";
 
     Dueno cliente;
+    String idUser;
 
     GeoPoint ubicacionCliente;
 
@@ -218,6 +219,12 @@ public class Signup_owner extends AppCompatActivity {
                     cliente.setUbicacion(ubicacionCliente);
                     button_register.setEnabled(false);
                     registrarUsuario();
+                }else{
+                    if( ubicacionCliente.getLatitude()==0 && ubicacionCliente.getLongitude() == 0 ){
+                        Toast toast = Toast.makeText(Signup_owner.this, "No se ha encontrado " +
+                                "la ubicación geográfica actual", Toast.LENGTH_LONG);
+                        toast.show();
+                    }
                 }
                 /*if(user != null) {
                     // subir a firebase y archivos
@@ -320,7 +327,12 @@ public class Signup_owner extends AppCompatActivity {
             et_cedula.setError(getString(R.string.obligatorio));
             completo = false;
         }else{
-            et_cedula.setError(null);
+            if( isNumeric(cedula) ){
+                et_cedula.setError(null);
+            }else{
+                et_cedula.setError("Todos los caracteres deben ser números");
+                completo = false;
+            }
         }
         if(fecha.isEmpty()){
             et_fecha_nacimiento.setError(getString(R.string.obligatorio));
@@ -337,7 +349,12 @@ public class Signup_owner extends AppCompatActivity {
             et_phone.setError(getString(R.string.obligatorio));
             completo = false;
         }else{
-            et_phone.setError(null);
+            if( isNumeric(phone) ){
+                et_phone.setError(null);
+            }else{
+                et_phone.setError("Todos los caracteres deben ser números");
+                completo = false;
+            }
         }
         if(direccion.isEmpty()){
             et_direccion.setError(getString(R.string.obligatorio));
@@ -381,6 +398,15 @@ public class Signup_owner extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    public static boolean isNumeric(String strNum) {
+        try {
+            long d = Long.parseLong(strNum);
+        } catch (NumberFormatException | NullPointerException nfe) {
+            return false;
+        }
+        return true;
     }
 
     private boolean isEmailValid(String email) {
@@ -518,6 +544,7 @@ public class Signup_owner extends AppCompatActivity {
                                 Toast.makeText(Signup_owner.this, "Usuario creado con éxito",
                                         Toast.LENGTH_SHORT).show();
 
+                                idUser = user.getUid();
                                 crearCliente(user);
                             }
                         }
@@ -541,7 +568,8 @@ public class Signup_owner extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        subirFoto("clientes/photo_"+user.getUid()+".jpg", ((BitmapDrawable)imageViewFoto.getDrawable()).getBitmap());
+                        subirFoto("clientes/photo_"+user.getUid()+".jpg",
+                                ((BitmapDrawable)imageViewFoto.getDrawable()).getBitmap());
 
                     }
                 })
@@ -637,8 +665,15 @@ public class Signup_owner extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.i("Foto subida", taskSnapshot.getMetadata().toString());
+                Log.i(TAG, "Foto subida");
                 Intent i = new Intent(getApplicationContext() , MenuActivity.class);
+
+                i.putExtra("nombre", cliente.getNombre() );
+                i.putExtra("uid", idUser);
+                i.putExtra("Latitud", cliente.getUbicacion().getLatitude() );
+                i.putExtra("Longitud",   cliente.getUbicacion().getLongitude() );
+                i.putExtra("PathPhoto",  cliente.getDireccionFoto() );
+
                 startActivity(i);
             }
         });

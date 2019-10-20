@@ -2,6 +2,7 @@ package co.edu.javeriana.wow_guau.model;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,11 +11,12 @@ public class Dueno extends Usuario {
     List<Perro> Mascotas;
     GeoPoint ubicacion;
 
+    public Dueno(){}
+
     public Dueno(String correo, String nombre, long cedula, Date fechaNacimiento, long telefono,
                  String genero, String direccion) {
         super(correo, nombre, cedula, fechaNacimiento, telefono, genero, direccion);
         Mascotas = new ArrayList<>();
-        this.ubicacion = ubicacion;
     }
 
     public List<Perro> getMascotas() {

@@ -31,10 +31,12 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.OAuthProvider;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import co.edu.javeriana.wow_guau.R;
+import co.edu.javeriana.wow_guau.model.Dueno;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -110,6 +112,9 @@ public class LoginActivity extends AppCompatActivity {
                     String email = editTextEmail.getText().toString();
                     String password = editTextContrasena.getText().toString();
                     btn_login.setEnabled(false);
+                    constraintLayoutFacebook.setEnabled(false);
+                    constraintLayoutTwitter.setEnabled(false);
+                    constraintLayoutGoogle.setEnabled(false);
                     btn_crear_cuenta.setEnabled(false);
                     Toast.makeText(LoginActivity.this, "Procesando, por favor espera",
                             Toast.LENGTH_SHORT).show();
@@ -240,37 +245,54 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             btn_login.setEnabled(true);
             btn_crear_cuenta.setEnabled(true);
+            constraintLayoutFacebook.setEnabled(true);
+            constraintLayoutTwitter.setEnabled(true);
+            constraintLayoutGoogle.setEnabled(true);
         }
 
     }
 
-    private void verificarTipoUsuario(String userId){
+    private void verificarTipoUsuario(final String userId){
 
         db.collection("Clientes").document(userId).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         if (documentSnapshot.exists() ){
-                            lanzarProximaActividad();
+                            //Dueno dueno = documentSnapshot.toObject(Dueno.class);
+                            Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+                            i.putExtra("nombre", documentSnapshot.getString("nombre") );
+                            i.putExtra("uid", userId);
+                            GeoPoint ubicacionUsuario = documentSnapshot.getGeoPoint("ubicacion");
+                            i.putExtra("Latitud", ubicacionUsuario.getLatitude() );
+                            i.putExtra("Longitud",  ubicacionUsuario.getLongitude() );
+                            i.putExtra("PathPhoto",  documentSnapshot.getString("direccionFoto") );
+                            startActivity(i);
                         }else{
-                            Toast.makeText(LoginActivity.this, "upa",
+                            Toast.makeText(LoginActivity.this, "No te encuentras registrado como dueño",
                                     Toast.LENGTH_SHORT).show();
+                            btn_login.setEnabled(true);
+                            btn_crear_cuenta.setEnabled(true);
+                            constraintLayoutFacebook.setEnabled(true);
+                            constraintLayoutTwitter.setEnabled(true);
+                            constraintLayoutGoogle.setEnabled(true);
                         }
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(LoginActivity.this, "No te encuentras registrado como dueño",
+                        Toast.makeText(LoginActivity.this, "Problema durante autenticación",
                                 Toast.LENGTH_SHORT).show();
+
+                        btn_login.setEnabled(true);
+                        btn_crear_cuenta.setEnabled(true);
+                        constraintLayoutFacebook.setEnabled(true);
+                        constraintLayoutTwitter.setEnabled(true);
+                        constraintLayoutGoogle.setEnabled(true);
                     }
                 });
 
-    }
-
-    private void lanzarProximaActividad(){
-        Intent intent = new Intent(LoginActivity.this, MenuActivity.class);
-        startActivity(intent);
     }
 
     private void signInGoogle() {
@@ -303,6 +325,12 @@ public class LoginActivity extends AppCompatActivity {
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
             Toast.makeText(LoginActivity.this, "Autenticación fallida",
                     Toast.LENGTH_SHORT).show();
+
+            btn_login.setEnabled(true);
+            btn_crear_cuenta.setEnabled(true);
+            constraintLayoutFacebook.setEnabled(true);
+            constraintLayoutTwitter.setEnabled(true);
+            constraintLayoutGoogle.setEnabled(true);
         }
     }
 
@@ -318,12 +346,19 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             currentUser = mAuth.getCurrentUser();
-                            lanzarProximaActividad();
+                            Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+                            startActivity(i);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Autenticación fallida",
                                     Toast.LENGTH_SHORT).show();
+
+                            btn_login.setEnabled(true);
+                            btn_crear_cuenta.setEnabled(true);
+                            constraintLayoutFacebook.setEnabled(true);
+                            constraintLayoutTwitter.setEnabled(true);
+                            constraintLayoutGoogle.setEnabled(true);
 
                         }
 
