@@ -30,10 +30,11 @@
             android:padding="16dp">
 
             <ImageView
-                android:id="@+id/imageView17"
+                android:id="@+id/ivInferior"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="@string/log_out"
+                android:scaleType="fitCenter"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_logout_grey" />
@@ -47,7 +48,7 @@
                 android:text="@string/log_out"
                 android:textColor="#606060"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imageView17"
+                app:layout_constraintStart_toEndOf="@+id/ivInferior"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.navigation.NavigationView>

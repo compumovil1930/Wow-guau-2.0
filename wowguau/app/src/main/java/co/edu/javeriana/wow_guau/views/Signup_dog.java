@@ -22,6 +22,13 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Perro;
 import co.edu.javeriana.wow_guau.utils.CameraUtils;
@@ -54,6 +61,15 @@ public class Signup_dog extends AppCompatActivity
     Calendar calendar;
     Bitmap selectedImage;
 
+    FirebaseStorage storage;
+    StorageReference storageReference;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private FirebaseFirestoreSettings settings;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +87,13 @@ public class Signup_dog extends AppCompatActivity
         scrollView = findViewById(R.id.scrollView);
         rg_sexo = findViewById(R.id.rg_sexo);
 
+        settings = new FirebaseFirestoreSettings.Builder()
+                .build();
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         List<String> tamanos = Arrays.asList(getResources().getStringArray(R.array.tamano_array));
         calendar = Calendar.getInstance();
 
@@ -87,12 +110,17 @@ public class Signup_dog extends AppCompatActivity
             }
         });
 
-        button_register.setOnClickListener(new View.OnClickListener() {
+        button_register.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 Perro perro = registrarPerro();
-                if(perro != null) {
-                    // subir a firebase y archivos
+                if(perro != null)
+                {
+                    perro.setEstado(false);
+                    perro.setOwnerID(mAuth.getUid());
+
+
                     finish();
                 }
                 else{
@@ -186,7 +214,7 @@ public class Signup_dog extends AppCompatActivity
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         et_fecha_nacimiento.setText(sdf.format(calendar.getTime()));
     }
-    Perro registrarPerro()
+    public Perro registrarPerro()
     {
         boolean completo = true;
         int radioButtonID = rg_sexo.getCheckedRadioButtonId();
@@ -225,5 +253,10 @@ public class Signup_dog extends AppCompatActivity
         sexo = ((RadioButton)(rg_sexo.getChildAt(idx))).getText().toString();
 
         return new Perro(nombre, raza, tamano, calendar.getTime(), sexo, observaciones);
+    }
+
+    public void uploadDog(Perro perro)
+    {
+
     }
 }

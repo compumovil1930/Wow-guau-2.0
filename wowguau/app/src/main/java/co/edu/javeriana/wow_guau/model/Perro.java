@@ -10,6 +10,7 @@ public class Perro {
     private Date fechaNacimiento;
     private String sexo;
     private String direccionCarnetVacunas;
+    private String ownerID;
     private String observaciones;
     private Boolean estado;
 
@@ -94,5 +95,13 @@ public class Perro {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
+    public String getOwnerID()
+    {
+        return this.ownerID;
     }
 }
