@@ -66,8 +66,10 @@ import co.edu.javeriana.wow_guau.utils.Permisos;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 
 public class Signup_owner extends AppCompatActivity {
@@ -205,6 +207,7 @@ public class Signup_owner extends AppCompatActivity {
                 cliente = registrarDueno();
                 if (cliente != null && ubicacionCliente.getLatitude()!=0 && ubicacionCliente.getLongitude() != 0) {
                     cliente.setUbicacion(ubicacionCliente);
+                    button_register.setEnabled(false);
                     registrarUsuario();
                 }
                 /*if(user != null) {
@@ -338,7 +341,14 @@ public class Signup_owner extends AppCompatActivity {
             return null;
         genero = ((RadioButton)(rg_genero.getChildAt(idx))).getText().toString();
 
-        return new Dueno(email, nombre, Integer.parseInt(cedula), calendar.getTime(), Integer.parseInt(phone), genero, direccion);
+        Date fechaNacimiento = null;
+        try {
+            fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Dueno(email, nombre, Integer.parseInt(cedula), fechaNacimiento, Integer.parseInt(phone), genero, direccion);
     }
 
     private boolean isEmailValid(String email) {
@@ -484,6 +494,7 @@ public class Signup_owner extends AppCompatActivity {
                                             + Objects.requireNonNull(task.getException()).toString(),
                                     Toast.LENGTH_SHORT).show();
                             Log.e(TAG, Objects.requireNonNull(task.getException().getMessage()));
+                            button_register.setEnabled(true);
                         }
                     }
                 });
@@ -491,7 +502,7 @@ public class Signup_owner extends AppCompatActivity {
     }
 
     private void crearCliente(FirebaseUser user){
-
+        cliente.setDireccionFoto( "clientes/photo_"+user.getUid() );
         db.collection("Clientes").document(user.getUid())
                 .set(cliente)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -508,6 +519,7 @@ public class Signup_owner extends AppCompatActivity {
                         Log.w(TAG, "Error writing document", e);
                         Toast.makeText(Signup_owner.this, "Fallo la creación de usuario: ",
                                 Toast.LENGTH_SHORT).show();
+                        button_register.setEnabled(true);
                     }
                 });
 
