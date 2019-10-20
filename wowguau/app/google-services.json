@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1081214824268-39c8495knsk2hud6ea1503hmpk717e97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.edu.javeriana.wow_guau",
+            "certificate_hash": "e1713d579ec9899df06106e84d25725d8565c25f"
+          }
+        },
+        {
           "client_id": "1081214824268-jcpv6hof3r87q24v79j36i6lhugecmdj.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

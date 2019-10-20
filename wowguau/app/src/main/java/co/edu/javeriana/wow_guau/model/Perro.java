@@ -11,14 +11,17 @@ public class Perro {
     private String sexo;
     private String direccionCarnetVacunas;
     private String observaciones;
+    private Boolean estado;
 
-    public Perro(String nombre, String raza, String tamano, Date fechaNacimiento, String sexo, String observaciones) {
+    public Perro(String nombre, String raza, String tamano, Date fechaNacimiento, String sexo, String observaciones)
+    {
         this.nombre = nombre;
         this.raza = raza;
         this.tamano = tamano;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.observaciones = observaciones;
+        this.estado = false;
     }
 
     public String getNombre() {
@@ -83,5 +86,13 @@ public class Perro {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 }

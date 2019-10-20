@@ -37,7 +37,7 @@ public class ListaMascotasActivity extends AppCompatActivity {
         btn_monitorear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ActividadSeleccionMascota.class);
+                Intent i = new Intent(getApplicationContext(), ActividadSeleccionMascotaMonitoreo.class);
                 i.putExtra("texto", "monitorear");
                 startActivity(i);
             }
@@ -48,7 +48,7 @@ public class ListaMascotasActivity extends AppCompatActivity {
             @Override
             public void onClick(View view)
             {
-                Intent i= new Intent(getApplicationContext(), ActividadSeleccionMascota.class);
+                Intent i= new Intent(getApplicationContext(), ActividadSeleccionMascotaMonitoreo.class);
                 i.putExtra("texto", "actualizar");
                 startActivity(i);
             }

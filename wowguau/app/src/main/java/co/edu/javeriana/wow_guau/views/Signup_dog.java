@@ -35,7 +35,8 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class Signup_dog extends AppCompatActivity {
+public class Signup_dog extends AppCompatActivity
+{
     EditText et_nombre;
     EditText et_fecha_nacimiento;
     RadioGroup rg_sexo;
@@ -185,7 +186,8 @@ public class Signup_dog extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         et_fecha_nacimiento.setText(sdf.format(calendar.getTime()));
     }
-    Perro registrarPerro(){
+    Perro registrarPerro()
+    {
         boolean completo = true;
         int radioButtonID = rg_sexo.getCheckedRadioButtonId();
         View radioButton = rg_sexo.findViewById(radioButtonID);
