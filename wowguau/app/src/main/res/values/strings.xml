@@ -92,4 +92,19 @@
     <string name="Google">Ingresar con Google</string>
     <string name="LoginImagen">Login</string>
 
+    <!-- Signup owner -->
+
+    <string name="NombreUsuario">Nombre</string>
+    <string name="CedulaUsuario">Cedula</string>
+    <string name="FechaNacimientoUsuario">Fecha de nacimiento (mm/dd/aa)</string>
+    <string name="TelefonoUsuario">Teléfono</string>
+    <string name="DireccionUsuario">Dirección</string>
+    <string name="GeneroUsuario">Género</string>
+    <string name="RegistroUsuario">Registrar</string>
+    <string name="GeneroMasculino">Hombre</string>
+    <string name="GeneroFemenino">Mujer</string>
+    <string name="GeneroOtro">Otro</string>
+    <string name="FotoUsuario">Foto usuario</string>
+    <string name="CargarFotoUsuario">Cargar foto</string>
+
 </resources>
