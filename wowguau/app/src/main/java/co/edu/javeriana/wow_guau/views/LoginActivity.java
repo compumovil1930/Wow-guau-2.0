@@ -170,6 +170,13 @@ public class LoginActivity extends AppCompatActivity {
         constraintLayoutGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                btn_login.setEnabled(false);
+                constraintLayoutFacebook.setEnabled(false);
+                constraintLayoutTwitter.setEnabled(false);
+                constraintLayoutGoogle.setEnabled(false);
+                btn_crear_cuenta.setEnabled(false);
+
                 signInGoogle();
             }
         });
