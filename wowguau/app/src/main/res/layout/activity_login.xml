@@ -151,7 +151,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@id/tvFacebook"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/facebook_logo" />
+            app:srcCompat="@drawable/facebook_logo"
+            android:layout_marginStart="8dp"/>
 
         <TextView
             android:id="@+id/tvFacebook"
