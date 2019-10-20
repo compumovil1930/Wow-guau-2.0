@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="25dp"
+    android:layout_margin="10dp"
     android:orientation="vertical"
     tools:context="co.edu.javeriana.wow_guau.views.Signup_owner" >
 
@@ -24,34 +24,62 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_error3"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Los campos marcados son obligatorios"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="0sp" />
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/tv_upload_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Cargar foto"
-                android:textSize="18sp" />
+                <TextView
+                    android:id="@+id/tv_upload_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/CargarFotoUsuario"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/ib_upload_photo"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageButton
-                android:id="@+id/ib_upload_photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
+                <ImageButton
+                    android:id="@+id/ib_upload_photo"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/FotoUsuario"
+                    android:padding="10dp"
 
-                android:background="@color/wg_light_grey"
-                android:clickable="true"
-                android:padding="10dp"
-                app:srcCompat="@drawable/camera" />
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/tv_upload_photo"
+                    app:layout_constraintRight_toLeftOf="@id/ibGaleria"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/camera" />
+
+                <ImageButton
+                    android:id="@+id/ibGaleria"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/CargarFotoUsuario"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/ib_upload_photo"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_gallery" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/ivFotoUsuario"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@color/grey"
+                android:contentDescription="@string/FotoUsuario"
+                android:scaleType="fitCenter"
+                tools:srcCompat="@tools:sample/avatars[5]" />
 
             <EditText
                 android:id="@+id/et_email"
@@ -59,7 +87,8 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/email"
-                android:inputType="textEmailAddress" />
+                android:inputType="textEmailAddress"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_password"
@@ -67,53 +96,59 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/password"
-                android:inputType="textPassword" />
+                android:inputType="textPassword"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_nombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Nombre"
-                android:inputType="textPersonName" />
+                android:hint="@string/NombreUsuario"
+                android:inputType="textPersonName"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_cedula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Cédula"
-                android:inputType="number" />
+                android:hint="@string/CedulaUsuario"
+                android:inputType="number"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Fecha de nacimiento"
-                android:inputType="date" />
+                android:hint="@string/FechaNacimientoUsuario"
+                android:inputType="date"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Telefono"
-                android:inputType="phone" />
+                android:hint="@string/TelefonoUsuario"
+                android:inputType="phone"
+                tools:ignore="Autofill" />
 
             <EditText
                 android:id="@+id/et_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Dirección"
-                android:inputType="text" />
+                android:hint="@string/DireccionUsuario"
+                android:inputType="text"
+                tools:ignore="Autofill" />
 
             <TextView
                 android:id="@+id/tv_gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Género"
+                android:text="@string/GeneroUsuario"
                 android:textSize="18sp" />
 
             <RadioGroup
@@ -126,19 +161,19 @@
                     android:id="@+id/rb_macho"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hombre" />
+                    android:text="@string/GeneroMasculino" />
 
                 <RadioButton
                     android:id="@+id/rb_hembra"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Mujer" />
+                    android:text="@string/GeneroFemenino" />
 
                 <RadioButton
                     android:id="@+id/rb_otro"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Otro" />
+                    android:text="@string/GeneroOtro" />
 
             </RadioGroup>
 
@@ -149,7 +184,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginEnd="50dp"
                 android:background="@color/wg_green"
-                android:text="Registrar" />
+                android:text="@string/RegistroUsuario" />
 
         </LinearLayout>
     </ScrollView>

@@ -9,7 +9,7 @@ public class Paseador extends Usuario {
     private int experiencia;
     private List<String> direccionesCertificados;
 
-    public Paseador(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, Direccion direccion, String descripcion, int experiencia) {
+    public Paseador(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, String direccion, String descripcion, int experiencia) {
         super(correo, nombre, cedula, fechaNacimiento, telefono, genero, direccion);
         this.descripcion = descripcion;
         this.experiencia = experiencia;
