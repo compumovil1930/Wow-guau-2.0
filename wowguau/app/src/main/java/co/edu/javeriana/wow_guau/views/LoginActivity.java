@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -35,8 +36,12 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Dueno;
+import co.edu.javeriana.wow_guau.model.Perro;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -346,8 +351,16 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             currentUser = mAuth.getCurrentUser();
-                            Intent i = new Intent(LoginActivity.this, MenuActivity.class);
-                            startActivity(i);
+
+                            boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+
+                            if (isNewUser) { //toca crearle un documento en Clientes
+                                Log.d(TAG, "Is New User!");
+                                crearCliente(currentUser);
+                            } else { //se va a verificar si el usuario es Cliente
+                                Log.d(TAG, "Is Old User!");
+                                updateUI();
+                            }
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -365,6 +378,54 @@ public class LoginActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+    }
+
+    private void crearCliente(final FirebaseUser user){
+
+        //inicializar los datos del cliente
+        Dueno cliente = new Dueno(user.getEmail(), user.getDisplayName(), 0, null, 0,
+        "", "");
+        GeoPoint ubicacion = new GeoPoint(0.0, 0.0);
+        cliente.setUbicacion(ubicacion);
+        ArrayList<Perro> Mascotas = new ArrayList<>();
+        cliente.setMascotas( Mascotas );
+        cliente.setDireccionFoto(user.getPhotoUrl().toString());
+
+        db.collection("Clientes").document(user.getUid())
+                .set(cliente)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully written!");
+                        Toast.makeText(LoginActivity.this, "Cuenta creada con éxito",
+                                Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(LoginActivity.this, MenuActivity.class);
+                        i.putExtra("nombre", user.getDisplayName() );
+                        i.putExtra("uid", user.getUid());
+                        i.putExtra("Latitud", 0.0 );
+                        i.putExtra("Longitud",  0.0 );
+                        i.putExtra("PathPhoto",  user.getPhotoUrl().toString() );
+                        startActivity(i);
+
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error writing document", e);
+                        Toast.makeText(LoginActivity.this, "Falló la creación de usuario",
+                                Toast.LENGTH_SHORT).show();
+
+                        btn_login.setEnabled(true);
+                        btn_crear_cuenta.setEnabled(true);
+                        constraintLayoutFacebook.setEnabled(true);
+                        constraintLayoutTwitter.setEnabled(true);
+                        constraintLayoutGoogle.setEnabled(true);
+
+                    }
+                });
+
     }
 
     @Override
