@@ -15,6 +15,7 @@ import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Location;
 import android.net.Uri;
@@ -57,6 +58,7 @@ import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Direccion;
@@ -64,6 +66,7 @@ import co.edu.javeriana.wow_guau.model.Dueno;
 import co.edu.javeriana.wow_guau.utils.CameraUtils;
 import co.edu.javeriana.wow_guau.utils.Permisos;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.text.ParseException;
@@ -125,6 +128,8 @@ public class Signup_owner extends AppCompatActivity {
 
     GeoPoint ubicacionCliente;
 
+    private FirebaseFirestoreSettings settings;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,6 +148,10 @@ public class Signup_owner extends AppCompatActivity {
         button_register = findViewById(R.id.button_register);
         imageViewFoto = findViewById(R.id.ivFotoUsuario);
         imageButtonGaleria = findViewById(R.id.ibGaleria);
+
+        settings = new FirebaseFirestoreSettings.Builder()
+                .build();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -348,7 +357,7 @@ public class Signup_owner extends AppCompatActivity {
 
         Date fechaNacimiento = null;
         try {
-            fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fecha);
+            fechaNacimiento = new SimpleDateFormat("MM/dd/yyyy").parse(fecha);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -359,7 +368,7 @@ public class Signup_owner extends AppCompatActivity {
     private boolean isDateValid(String fecha){
         Date date = null;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
             date = sdf.parse(fecha);
             if (!fecha.equals(sdf.format(date))) {
                 date = null;
@@ -503,7 +512,7 @@ public class Signup_owner extends AppCompatActivity {
                             if(user!=null){ //Update user Info
                                 UserProfileChangeRequest.Builder upcrb = new UserProfileChangeRequest.Builder();
                                 upcrb.setDisplayName(et_nombre.getText().toString());
-                                upcrb.setPhotoUri(Uri.parse("clientes/photo_"+user.getUid()));
+                                upcrb.setPhotoUri(Uri.parse("clientes/photo_"+user.getUid()+".jpg"));
                                 user.updateProfile(upcrb.build());
 
                                 Toast.makeText(Signup_owner.this, "Usuario creado con éxito",
@@ -524,16 +533,16 @@ public class Signup_owner extends AppCompatActivity {
 
     }
 
-    private void crearCliente(FirebaseUser user){
-        cliente.setDireccionFoto( "clientes/photo_"+user.getUid() );
+    private void crearCliente(final FirebaseUser user){
+        cliente.setDireccionFoto( "clientes/photo_"+user.getUid()+".jpg" );
         db.collection("Clientes").document(user.getUid())
                 .set(cliente)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
-                        Intent i = new Intent(getApplicationContext() , MenuActivity.class);
-                        startActivity(i);
+                        subirFoto("clientes/photo_"+user.getUid()+".jpg", ((BitmapDrawable)imageViewFoto.getDrawable()).getBitmap());
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -611,6 +620,28 @@ public class Signup_owner extends AppCompatActivity {
 
     private void stopLocationUpdates(){
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
+    }
+
+    public void subirFoto(String ruta, Bitmap photo){
+        db.setFirestoreSettings(settings);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = storageReference.child("images").child(ruta).putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.i("ERROR", "No se pudo subir la foto");
+                button_register.setEnabled(true);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.i("Foto subida", taskSnapshot.getMetadata().toString());
+                Intent i = new Intent(getApplicationContext() , MenuActivity.class);
+                startActivity(i);
+            }
+        });
     }
 
 }
