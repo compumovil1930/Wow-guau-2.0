@@ -317,7 +317,12 @@ public class Signup_owner extends AppCompatActivity {
             et_fecha_nacimiento.setError(getString(R.string.obligatorio));
             completo = false;
         }else{
-            et_fecha_nacimiento.setError(null);
+            if(isDateValid(fecha)){
+                et_fecha_nacimiento.setError(null);
+            }else{
+                et_fecha_nacimiento.setError("Formato incorrecto");
+                completo = false;
+            }
         }
         if(phone.isEmpty()){
             et_phone.setError(getString(R.string.obligatorio));
@@ -349,6 +354,24 @@ public class Signup_owner extends AppCompatActivity {
         }
 
         return new Dueno(email, nombre, Integer.parseInt(cedula), fechaNacimiento, Integer.parseInt(phone), genero, direccion);
+    }
+
+    private boolean isDateValid(String fecha){
+        Date date = null;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+            date = sdf.parse(fecha);
+            if (!fecha.equals(sdf.format(date))) {
+                date = null;
+            }
+        } catch (ParseException ex) {
+            ex.printStackTrace();
+        }
+        if (date == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private boolean isEmailValid(String email) {
