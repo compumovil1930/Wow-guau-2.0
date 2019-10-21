@@ -15,6 +15,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -26,6 +35,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
@@ -37,39 +47,50 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Dueno;
 import co.edu.javeriana.wow_guau.model.Perro;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btn_login;
-    Button btn_crear_cuenta;
-    TextView tv_fpassword;
-    EditText editTextEmail;
-    EditText editTextContrasena;
+    private Button btn_login;
+    private Button btn_crear_cuenta;
+    private TextView tv_fpassword;
+    private EditText editTextEmail;
+    private EditText editTextContrasena;
 
-    ConstraintLayout constraintLayoutFacebook;
-    ConstraintLayout constraintLayoutTwitter;
-    ConstraintLayout constraintLayoutGoogle;
+    private ConstraintLayout constraintLayoutFacebook;
+    private ConstraintLayout constraintLayoutTwitter;
+    private ConstraintLayout constraintLayoutGoogle;
 
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
+    private FirebaseUser currentUser;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    String tipoUsuario;
+    private String tipoUsuario;
 
     private static final String TAG = "ActivityLogin";
 
     private int RC_SIGN_IN_GOOGLE = 5;
-    GoogleSignInOptions gso;
-    GoogleSignInClient mGoogleSignInClient;
+    private GoogleSignInOptions gso;
+    private GoogleSignInClient mGoogleSignInClient;
 
-    OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
+    private OAuthProvider.Builder provider = OAuthProvider.newBuilder("twitter.com");
+
+    //Facebook Declaration
+    CallbackManager mCallbackManager;
+    LoginManager loginManager;
 
     @Override
     protected void onStart() {
@@ -85,6 +106,32 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
+
+        /*LoginButton loginButton = findViewById(R.id.login_button_facebook);
+        loginButton.setReadPermissions("email", "public_profile");
+        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+                // ...
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+                // ...
+            }
+        });
+        */
 
         btn_login = findViewById(R.id.btn_login);
         btn_crear_cuenta = findViewById(R.id.btn_crear_cuenta);
@@ -156,7 +203,13 @@ public class LoginActivity extends AppCompatActivity {
         constraintLayoutFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                btn_login.setEnabled(false);
+                constraintLayoutFacebook.setEnabled(false);
+                constraintLayoutTwitter.setEnabled(false);
+                constraintLayoutGoogle.setEnabled(false);
+                btn_crear_cuenta.setEnabled(false);
 
+                facebookLogin();
             }
         });
 
@@ -322,6 +375,10 @@ public class LoginActivity extends AppCompatActivity {
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResultGoogle(task);
+        }else {
+
+            // Pass the activity result back to the Facebook SDK
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -433,6 +490,98 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+    private void facebookLogin(){
+
+        loginManager = LoginManager.getInstance();
+        loginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(final LoginResult loginResult) {
+                Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                if (AccessToken.getCurrentAccessToken() != null) {
+                    Log.i(TAG,"token not null");
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(
+                                        JSONObject object,
+                                        GraphResponse response) {
+
+                                    if (object != null) {
+                                        try {
+                                            AppEventsLogger logger = AppEventsLogger.newLogger(LoginActivity.this);
+                                            Log.i(TAG,"Facebook login suceess");
+
+                                            handleFacebookAccessToken(loginResult.getAccessToken());
+
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id,name,email,gender, birthday, about");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                }
+            }
+
+            @Override
+            public void onCancel() {
+                Log.d(TAG, "facebook:onCancel");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.d(TAG, "facebook:onError", error);
+            }
+        });
+        loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
+
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        Log.d(TAG, "handleFacebookAccessToken:" + token);
+
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithCredential:success");
+                            currentUser = mAuth.getCurrentUser();
+                            //updateUI(user);
+                            boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+
+                            if (isNewUser) { //toca crearle un documento en Clientes
+                                Log.d(TAG, "Is New User!");
+                                crearCliente(currentUser);
+                            } else { //se va a verificar si el usuario es Cliente
+                                Log.d(TAG, "Is Old User!");
+                                updateUI();
+                            }
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, "Autenticación fallida",
+                                    Toast.LENGTH_SHORT).show();
+                            //updateUI(null);
+                            btn_login.setEnabled(true);
+                            btn_crear_cuenta.setEnabled(true);
+                            constraintLayoutFacebook.setEnabled(true);
+                            constraintLayoutTwitter.setEnabled(true);
+                            constraintLayoutGoogle.setEnabled(true);
+                        }
+
+                        // ...
+                    }
+                });
     }
 
     @Override

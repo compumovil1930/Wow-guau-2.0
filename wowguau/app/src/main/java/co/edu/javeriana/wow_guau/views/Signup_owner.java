@@ -77,29 +77,29 @@ import java.util.Objects;
 
 public class Signup_owner extends AppCompatActivity {
 
-    EditText et_email;
-    EditText et_password;
-    EditText et_nombre;
-    EditText et_cedula;
-    EditText et_fecha_nacimiento;
-    EditText et_phone;
-    EditText et_direccion;
-    RadioGroup rg_genero;
-    ImageButton ib_upload_photo;
-    Button button_register;
-    ScrollView scrollView;
-    ImageView imageViewFoto;
-    ImageButton imageButtonGaleria;
+    private EditText et_email;
+    private EditText et_password;
+    private EditText et_nombre;
+    private EditText et_cedula;
+    private EditText et_fecha_nacimiento;
+    private EditText et_phone;
+    private EditText et_direccion;
+    private RadioGroup rg_genero;
+    private ImageButton ib_upload_photo;
+    private Button button_register;
+    private ScrollView scrollView;
+    private ImageView imageViewFoto;
+    private ImageButton imageButtonGaleria;
 
-    DatePickerDialog.OnDateSetListener date;
-    Calendar calendar;
-    Bitmap selectedImage;
-    Address address;
+    private DatePickerDialog.OnDateSetListener date;
+    private Calendar calendar;
+    private Bitmap selectedImage;
+    private Address address;
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
+    private FirebaseStorage storage;
+    private StorageReference storageReference;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private FirebaseAuth mAuth;
 
@@ -116,7 +116,7 @@ public class Signup_owner extends AppCompatActivity {
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
 
-    static String[] PERMISSIONS = {
+    private static String[] PERMISSIONS = {
             android.Manifest.permission.CAMERA,
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -124,10 +124,10 @@ public class Signup_owner extends AppCompatActivity {
 
     private static final String TAG = "ActivityRegistro";
 
-    Dueno cliente;
-    String idUser;
+    private Dueno cliente;
+    private String idUser;
 
-    GeoPoint ubicacionCliente;
+    private GeoPoint ubicacionCliente;
 
     private FirebaseFirestoreSettings settings;
 
