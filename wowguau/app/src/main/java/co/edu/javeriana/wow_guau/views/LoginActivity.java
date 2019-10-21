@@ -533,11 +533,21 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
+                btn_login.setEnabled(true);
+                btn_crear_cuenta.setEnabled(true);
+                constraintLayoutFacebook.setEnabled(true);
+                constraintLayoutTwitter.setEnabled(true);
+                constraintLayoutGoogle.setEnabled(true);
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
+                btn_login.setEnabled(true);
+                btn_crear_cuenta.setEnabled(true);
+                constraintLayoutFacebook.setEnabled(true);
+                constraintLayoutTwitter.setEnabled(true);
+                constraintLayoutGoogle.setEnabled(true);
             }
         });
         loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
@@ -558,6 +568,9 @@ public class LoginActivity extends AppCompatActivity {
                             currentUser = mAuth.getCurrentUser();
                             //updateUI(user);
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
+
+                            Toast.makeText(LoginActivity.this, "Procesando, por favor espera",
+                                    Toast.LENGTH_LONG).show();
 
                             if (isNewUser) { //toca crearle un documento en Clientes
                                 Log.d(TAG, "Is New User!");
