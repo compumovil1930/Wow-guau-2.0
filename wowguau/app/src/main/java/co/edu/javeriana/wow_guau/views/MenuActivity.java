@@ -121,6 +121,7 @@ public class MenuActivity extends AppCompatActivity {
                 mAuth .signOut();
                 Intent i = new Intent(getBaseContext(), LoginActivity.class);
                 startActivity(i);
+                finish();
             }
         });
     }
