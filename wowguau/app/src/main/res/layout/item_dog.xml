@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="120dp"
-    android:background="#B3E5FC"
+    android:background="@color/colorPrimary"
     android:padding="10dp"
     android:layout_margin="5dp"
     android:clickable="true">
@@ -16,7 +16,7 @@
         android:layout_weight=".2"
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/golden"
-        android:clickable="true"/>
+        android:clickable="true" />
 
     <TextView
         android:id="@+id/dog_info"
@@ -26,7 +26,7 @@
         android:gravity="center_vertical"
         android:text="Hola esto es una prueba"
         android:textAlignment="center"
-        android:textColor="@android:color/background_dark"
+        android:textColor="#FFFFFF"
         android:textSize="24dp"
         android:clickable="true"/>
 </LinearLayout>

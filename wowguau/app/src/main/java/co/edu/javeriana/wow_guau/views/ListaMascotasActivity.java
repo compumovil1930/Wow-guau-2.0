@@ -41,6 +41,19 @@ public class ListaMascotasActivity extends AppCompatActivity
     private PerroAdapter mPerroAdapter;
 
     @Override
+    protected void onRestart() {
+        super.onRestart();
+        fillPets();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        listaPerros.clear();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
