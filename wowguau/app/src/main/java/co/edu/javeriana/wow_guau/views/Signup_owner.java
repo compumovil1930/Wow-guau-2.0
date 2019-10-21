@@ -112,9 +112,12 @@ public class Signup_owner extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 4;
     private static final int REQUEST_CHECK_SETTINGS = 5;
 
+    public final static int ADDRESS_PICKER = 8;
+
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
+
 
     private static String[] PERMISSIONS = {
             android.Manifest.permission.CAMERA,
@@ -131,10 +134,14 @@ public class Signup_owner extends AppCompatActivity {
 
     private FirebaseFirestoreSettings settings;
 
+    private boolean IngresoActividadMapas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup_owner);
+
+        IngresoActividadMapas = false;
 
         et_email = findViewById(R.id.et_email);
         et_password = findViewById(R.id.et_password);
@@ -160,10 +167,10 @@ public class Signup_owner extends AppCompatActivity {
 
         cliente = null;
 
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        mLocationRequest = createLocationRequest();
+        //mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        //mLocationRequest = createLocationRequest();
 
-        mLocationCallback = new LocationCallback() {
+        /*mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 final Location location = locationResult.getLastLocation();
@@ -173,7 +180,7 @@ public class Signup_owner extends AppCompatActivity {
                     stopLocationUpdates();
                 }
             }
-        };
+        };*/
                     //db = FirebaseFirestore.getInstance();
 
         calendar = Calendar.getInstance();
@@ -222,7 +229,7 @@ public class Signup_owner extends AppCompatActivity {
                 }else{
                     if( ubicacionCliente.getLatitude()==0 && ubicacionCliente.getLongitude() == 0 ){
                         Toast toast = Toast.makeText(Signup_owner.this, "No se ha encontrado " +
-                                "la ubicación geográfica actual", Toast.LENGTH_LONG);
+                                "la ubicación geográfica", Toast.LENGTH_LONG);
                         toast.show();
                     }
                 }
@@ -254,19 +261,20 @@ public class Signup_owner extends AppCompatActivity {
         et_direccion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Signup_owner.this, MapsActivity.class);
-                startActivityForResult(i, Permisos.ADDRESS_PICKER);
+                if (ContextCompat.checkSelfPermission(Signup_owner.this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
+
+                    Intent i = new Intent(Signup_owner.this, MapsActivity.class);
+                    startActivityForResult(i, Permisos.ADDRESS_PICKER);
+
+                }else{
+                    requestPermission(Signup_owner.this, PERMISSIONS[2], "Acceso a GPS necesario",
+                            MY_PERMISSIONS_REQUEST_LOCATION);
+                }
+
             }
         });
-
-        if (ContextCompat.checkSelfPermission(Signup_owner.this,
-                Manifest.permission.ACCESS_FINE_LOCATION)
-                == PackageManager.PERMISSION_GRANTED) {
-            revisarActivacionGPS();
-        }else{
-            requestPermission(Signup_owner.this, PERMISSIONS[2], "Acceso a GPS necesario",
-                    MY_PERMISSIONS_REQUEST_LOCATION);
-        }
 
     }
 
@@ -360,7 +368,14 @@ public class Signup_owner extends AppCompatActivity {
             et_direccion.setError(getString(R.string.obligatorio));
             completo = false;
         }else{
-            et_direccion.setError(null);
+            if(IngresoActividadMapas) {
+                et_direccion.setError(null);
+            }else{
+                completo = false;
+                Toast toast = Toast.makeText(Signup_owner.this, "Debes desplegar " +
+                        "la búsqueda de dirección clickeando sobre el campo dirección", Toast.LENGTH_LONG);
+                toast.show();
+            }
         }
         if(radioButtonID==-1) {
             completo = false;
@@ -387,7 +402,7 @@ public class Signup_owner extends AppCompatActivity {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yy");
             date = sdf.parse(fecha);
-            if (!fecha.equals(sdf.format(date))) {
+            if (date != null && !fecha.equals(sdf.format(date))) {
                 date = null;
             }
         } catch (ParseException ex) {
@@ -436,44 +451,65 @@ public class Signup_owner extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try {
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap;
-                if (extras != null) {
-                    imageBitmap = (Bitmap) extras.get("data");
-                    imageViewFoto.setImageBitmap(imageBitmap);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        switch (requestCode) {
 
-        if (requestCode == IMAGE_PICKER_REQUEST){
-            if(resultCode == RESULT_OK){
-                try {
-                    final Uri imageUri = data.getData();
-                    final InputStream imageStream;
-                    if (imageUri != null) {
-                        imageStream = getContentResolver().openInputStream(imageUri);
-                        final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                        imageViewFoto.setImageBitmap(selectedImage);
+            case REQUEST_IMAGE_CAPTURE:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bundle extras = data.getExtras();
+                        Bitmap imageBitmap;
+                        if (extras != null) {
+                            imageBitmap = (Bitmap) extras.get("data");
+                            imageViewFoto.setImageBitmap(imageBitmap);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 }
-            }
-        }
+                return;
 
-        if (requestCode == REQUEST_CHECK_SETTINGS) {
-            if (resultCode == RESULT_OK) {
-                startLocationUpdates(); //Se encendió la localización!!!
-            } else {
-                button_register.setEnabled(false);
-                Toast.makeText(this,
-                        "Sin acceso a localización, hardware deshabilitado!",
-                        Toast.LENGTH_LONG).show();
-            }
+            case IMAGE_PICKER_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        final Uri imageUri = data.getData();
+                        final InputStream imageStream;
+                        if (imageUri != null) {
+                            imageStream = getContentResolver().openInputStream(imageUri);
+                            final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                            imageViewFoto.setImageBitmap(selectedImage);
+                        }
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+                return;
+
+            /*case REQUEST_CHECK_SETTINGS:
+                if (resultCode == RESULT_OK) {
+                    //startLocationUpdates(); //Se encendió la localización!!!
+                } else {
+                    //button_register.setEnabled(false);
+                    Toast.makeText(this,
+                            "Sin acceso a localización, hardware deshabilitado!",
+                            Toast.LENGTH_LONG).show();
+                }
+            return;*/
+
+            case Permisos.ADDRESS_PICKER:
+                if (resultCode == RESULT_OK) {
+
+                    IngresoActividadMapas = true;
+
+                    Bundle extras = data.getExtras();
+                    address = (Address) extras.get("address");
+                    et_direccion.setText(extras.get("direccion").toString());
+
+                    ubicacionCliente = new GeoPoint(address.getLatitude(), address.getLongitude());
+
+                    Log.i(TAG, String.valueOf(address.getLatitude()));
+                    Log.i(TAG, String.valueOf(address.getLongitude()));
+                }
+                return;
         }
     }
 
@@ -507,9 +543,11 @@ public class Signup_owner extends AppCompatActivity {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted, continue with task related to permission
-                    revisarActivacionGPS();
+                    //revisarActivacionGPS();
+                    Intent i = new Intent(Signup_owner.this, MapsActivity.class);
+                    startActivityForResult(i, Permisos.ADDRESS_PICKER);
                 }else{
-                    button_register.setEnabled(false);
+                    //button_register.setEnabled(false);
                     Toast.makeText(this,
                             "Sin acceso a localización, permiso denegado!",
                             Toast.LENGTH_LONG).show();
@@ -585,7 +623,7 @@ public class Signup_owner extends AppCompatActivity {
 
     }
 
-    private void revisarActivacionGPS(){
+    /*private void revisarActivacionGPS(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
@@ -628,27 +666,27 @@ public class Signup_owner extends AppCompatActivity {
                     "Sin acceso a localización, permiso denegado!",
                     Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
-    private void startLocationUpdates() {
+    /*private void startLocationUpdates() {
         //Verificación de permiso!!
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
         }
-    }
+    }*/
 
-    protected LocationRequest createLocationRequest() {
+    /*protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000); //tasa de refresco en milisegundos
         mLocationRequest.setFastestInterval(1000); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
-    }
+    }*/
 
-    private void stopLocationUpdates(){
+    /*private void stopLocationUpdates(){
         mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }
+    }*/
 
     public void subirFoto(String ruta, Bitmap photo){
         db.setFirestoreSettings(settings);
