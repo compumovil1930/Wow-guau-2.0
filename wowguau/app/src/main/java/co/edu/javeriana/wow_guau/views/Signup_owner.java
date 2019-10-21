@@ -713,6 +713,7 @@ public class Signup_owner extends AppCompatActivity {
                 i.putExtra("PathPhoto",  cliente.getDireccionFoto() );
 
                 startActivity(i);
+                finish();
             }
         });
     }

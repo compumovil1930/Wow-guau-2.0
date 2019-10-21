@@ -94,6 +94,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btn_registrar = findViewById(R.id.btn_registrar);
         myCurrentLocation = new Location("");
 
+        addressResult = null;
+
         mGeocoder = new Geocoder(getBaseContext());
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -172,11 +174,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 }
                             } else {
                                 Toast.makeText(MapsActivity.this, "Dirección no encontrada", Toast.LENGTH_SHORT).show();
+                                addressResult = null;
                             }
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    } else {Toast.makeText(MapsActivity.this, "La dirección esta vacía", Toast.LENGTH_SHORT).show();}
+                    } else {
+                        Toast.makeText(MapsActivity.this, "La dirección esta vacía", Toast.LENGTH_SHORT).show();
+                        addressResult = null;
+                    }
                 }
                 return false;
             }

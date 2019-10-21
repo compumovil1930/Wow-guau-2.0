@@ -331,6 +331,7 @@ public class LoginActivity extends AppCompatActivity {
                             i.putExtra("Longitud",  ubicacionUsuario.getLongitude() );
                             i.putExtra("PathPhoto",  documentSnapshot.getString("direccionFoto") );
                             startActivity(i);
+                            finish();
                         }else{
                             Toast.makeText(LoginActivity.this, "No te encuentras registrado como dueño",
                                     Toast.LENGTH_SHORT).show();
@@ -453,6 +454,7 @@ public class LoginActivity extends AppCompatActivity {
                         i.putExtra("Longitud",  0.0 );
                         i.putExtra("PathPhoto",  user.getPhotoUrl().toString() );
                         startActivity(i);
+                        finish();
 
                     }
                 })
