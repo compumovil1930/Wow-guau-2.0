@@ -2,8 +2,10 @@ package co.edu.javeriana.wow_guau.views;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,9 @@ import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import java.io.InputStream;
+import java.net.URL;
+
 import co.edu.javeriana.wow_guau.R;
 
 public class MenuActivity extends AppCompatActivity {
@@ -42,15 +47,15 @@ public class MenuActivity extends AppCompatActivity {
     private ConstraintLayout cl_logout;
     private ImageView imageViewUsuario;
 
-    String userId;
-    String nombreUsuario;
+    private String userId;
+    private String nombreUsuario;
     double latitudUsuario, longitudUsuario;
-    String direccionFoto;
+    private String direccionFoto;
 
     private String TAG = "MenuActivity";
 
     private FirebaseAuth mAuth;
-    FirebaseUser currentUser;
+    private FirebaseUser currentUser;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
@@ -61,6 +66,9 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitNetwork().build();
+        StrictMode.setThreadPolicy(policy);
 
         //Recuperar datos del usuario
         userId = getIntent().getStringExtra("uid");
@@ -78,12 +86,16 @@ public class MenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
-        //imageViewUsuario = findViewById(R.id.ivFotoUsuarioMenu);
-        //descargarFotoImageView(direccionFoto);
-        //no supe cómo montar la imagen en el menú de esta actividad
-
-    NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
+
+        imageViewUsuario = headerview.findViewById(R.id.ivFotoUsuarioMenu);
+        if(latitudUsuario != 0 && longitudUsuario!= 0){
+            descargarFotoImageView(direccionFoto);
+        }else{ //autenticado desde proveedores
+            descargarImagenDesdeProveedor();
+        }
+
         cl_logout = findViewById(R.id.cl_logout);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -141,6 +153,33 @@ public class MenuActivity extends AppCompatActivity {
                 Log.i(TAG, "No se pudo cargar la foto del usuario");
             }
         });
+    }
+
+    public void descargarImagenDesdeProveedor(){
+
+        new Thread(new Runnable() {
+            public void run() {
+                // a potentially time consuming task
+
+                try {
+                    String imageUrl = direccionFoto;
+                    InputStream URLcontent = (InputStream) new URL(imageUrl).getContent();
+                    final Drawable image = Drawable.createFromStream(URLcontent, "your source link");
+
+                    imageViewUsuario.post(new Runnable() {
+                        public void run() {
+                            imageViewUsuario.setImageDrawable(image);
+                        }
+                    });
+
+                    //holder.imageViewFoto.setImageDrawable(image);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+        }).start();
+
     }
 
 }
