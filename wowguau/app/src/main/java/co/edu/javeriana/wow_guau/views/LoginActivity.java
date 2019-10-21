@@ -208,17 +208,18 @@ public class LoginActivity extends AppCompatActivity {
                 constraintLayoutTwitter.setEnabled(false);
                 constraintLayoutGoogle.setEnabled(false);
                 btn_crear_cuenta.setEnabled(false);
+                tv_fpassword.setEnabled(false);
 
                 facebookLogin();
             }
         });
 
-        constraintLayoutTwitter.setOnClickListener(new View.OnClickListener() {
+        /*constraintLayoutTwitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
             }
-        });
+        });*/
 
         constraintLayoutGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,6 +230,7 @@ public class LoginActivity extends AppCompatActivity {
                 constraintLayoutTwitter.setEnabled(false);
                 constraintLayoutGoogle.setEnabled(false);
                 btn_crear_cuenta.setEnabled(false);
+                tv_fpassword.setEnabled(false);
 
                 signInGoogle();
             }
@@ -308,11 +310,7 @@ public class LoginActivity extends AppCompatActivity {
             editTextContrasena.setText("");
             verificarTipoUsuario(currentUser.getUid());
         }else{
-            btn_login.setEnabled(true);
-            btn_crear_cuenta.setEnabled(true);
-            constraintLayoutFacebook.setEnabled(true);
-            constraintLayoutTwitter.setEnabled(true);
-            constraintLayoutGoogle.setEnabled(true);
+            desbloquearOpciones();
         }
 
     }
@@ -336,11 +334,7 @@ public class LoginActivity extends AppCompatActivity {
                         }else{
                             Toast.makeText(LoginActivity.this, "No te encuentras registrado como dueño",
                                     Toast.LENGTH_SHORT).show();
-                            btn_login.setEnabled(true);
-                            btn_crear_cuenta.setEnabled(true);
-                            constraintLayoutFacebook.setEnabled(true);
-                            constraintLayoutTwitter.setEnabled(true);
-                            constraintLayoutGoogle.setEnabled(true);
+                            desbloquearOpciones();
                         }
                     }
                 })
@@ -350,11 +344,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Problema durante autenticación",
                                 Toast.LENGTH_SHORT).show();
 
-                        btn_login.setEnabled(true);
-                        btn_crear_cuenta.setEnabled(true);
-                        constraintLayoutFacebook.setEnabled(true);
-                        constraintLayoutTwitter.setEnabled(true);
-                        constraintLayoutGoogle.setEnabled(true);
+                        desbloquearOpciones();
                     }
                 });
 
@@ -395,11 +385,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Autenticación fallida",
                     Toast.LENGTH_SHORT).show();
 
-            btn_login.setEnabled(true);
-            btn_crear_cuenta.setEnabled(true);
-            constraintLayoutFacebook.setEnabled(true);
-            constraintLayoutTwitter.setEnabled(true);
-            constraintLayoutGoogle.setEnabled(true);
+            desbloquearOpciones();
         }
     }
 
@@ -431,11 +417,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Autenticación fallida",
                                     Toast.LENGTH_SHORT).show();
 
-                            btn_login.setEnabled(true);
-                            btn_crear_cuenta.setEnabled(true);
-                            constraintLayoutFacebook.setEnabled(true);
-                            constraintLayoutTwitter.setEnabled(true);
-                            constraintLayoutGoogle.setEnabled(true);
+                            desbloquearOpciones();
 
                         }
 
@@ -481,11 +463,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Falló la creación de usuario",
                                 Toast.LENGTH_SHORT).show();
 
-                        btn_login.setEnabled(true);
-                        btn_crear_cuenta.setEnabled(true);
-                        constraintLayoutFacebook.setEnabled(true);
-                        constraintLayoutTwitter.setEnabled(true);
-                        constraintLayoutGoogle.setEnabled(true);
+                        desbloquearOpciones();
 
                     }
                 });
@@ -533,21 +511,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                btn_login.setEnabled(true);
-                btn_crear_cuenta.setEnabled(true);
-                constraintLayoutFacebook.setEnabled(true);
-                constraintLayoutTwitter.setEnabled(true);
-                constraintLayoutGoogle.setEnabled(true);
+                desbloquearOpciones();
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                btn_login.setEnabled(true);
-                btn_crear_cuenta.setEnabled(true);
-                constraintLayoutFacebook.setEnabled(true);
-                constraintLayoutTwitter.setEnabled(true);
-                constraintLayoutGoogle.setEnabled(true);
+                desbloquearOpciones();
             }
         });
         loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
@@ -585,16 +555,21 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Autenticación fallida",
                                     Toast.LENGTH_SHORT).show();
                             //updateUI(null);
-                            btn_login.setEnabled(true);
-                            btn_crear_cuenta.setEnabled(true);
-                            constraintLayoutFacebook.setEnabled(true);
-                            constraintLayoutTwitter.setEnabled(true);
-                            constraintLayoutGoogle.setEnabled(true);
+                            desbloquearOpciones();
                         }
 
                         // ...
                     }
                 });
+    }
+
+    private void desbloquearOpciones(){
+        btn_login.setEnabled(true);
+        btn_crear_cuenta.setEnabled(true);
+        constraintLayoutFacebook.setEnabled(true);
+        constraintLayoutTwitter.setEnabled(true);
+        constraintLayoutGoogle.setEnabled(true);
+        tv_fpassword.setEnabled(true);
     }
 
     @Override
