@@ -1,5 +1,7 @@
 package co.edu.javeriana.wow_guau.model;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class Perro {

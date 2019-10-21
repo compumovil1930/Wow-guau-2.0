@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
@@ -33,36 +35,25 @@ public class FirebaseUtils
             .build();
     private static StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
-    public static void guardarPerro(Perro perro, Bitmap photo)
+    public static void  guardarPerro(Perro perro, final Bitmap photo)
     {
+        final String ruta = perro.getDireccionFoto();
         db.setFirestoreSettings(settings);
-        // certificados
-        subirFoto(perro.getDireccionFoto(), photo);
-        db.collection("Mascotas").add(perro);
-    }
 
-    /*public static void buscarUsuario(final String uid, final Activity activity){
-        db.setFirestoreSettings(settings);
-        final Paseador[] paseador = new Paseador[1];
-        db.collection("Paseadores").document(uid).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        db.collection("Mascotas").add(perro)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+                {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot)
+                    public void onSuccess(DocumentReference documentReference)
                     {
-                        Paseador paseador = documentSnapshot.toObject(Paseador.class);
-                        Intent i = new Intent(activity, activity.class);
-                        i.putExtra("user", paseador);
-                        i.putExtra("uid", uid);
-                        activity.startActivity(i);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(activity, "El usuario no existe como paseador", Toast.LENGTH_LONG).show();
+                        subirFoto(ruta+"dog_photo_"+documentReference.getId()+".jpg", photo);
+                        db.collection("Mascotas").document(documentReference.getId())
+                                .update("direccionFoto"
+                                        ,ruta+"dog_photo_"+documentReference.getId()+".jpg");
                     }
                 });
-    }*/
+    }
+
 
     public static void subirFoto(String ruta, Bitmap photo){
         db.setFirestoreSettings(settings);

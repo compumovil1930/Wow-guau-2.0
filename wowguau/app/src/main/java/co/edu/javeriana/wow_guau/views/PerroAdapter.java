@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,10 +42,13 @@ public class PerroAdapter extends RecyclerView.Adapter<PerroAdapter.MyViewHolder
 
             imgViewDogPic.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View view) {
+                public void onClick(View view)
+                {
                     Toast.makeText(view.getContext(),"Me hicieron click",Toast.LENGTH_LONG).show();
+
                 }
             });
+
         }
     }
 
@@ -61,6 +65,7 @@ public class PerroAdapter extends RecyclerView.Adapter<PerroAdapter.MyViewHolder
     public void onBindViewHolder(final MyViewHolder holder, int position)
     {
         final Perro perro = mListaPerros.get(position);
+
         holder.txtViewDogName.setText(perro.getNombre());
 
         FirebaseUtils.descargarFotoImageView(perro.getDireccionFoto(),holder.imgViewDogPic);

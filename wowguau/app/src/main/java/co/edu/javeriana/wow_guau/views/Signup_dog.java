@@ -42,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class Signup_dog extends AppCompatActivity
@@ -117,9 +118,10 @@ public class Signup_dog extends AppCompatActivity
                 {
                     perro.setEstado(false);
                     perro.setOwnerID(currentUser.getUid());
-                    perro.setDireccionFoto(PATH_MASCOTAS+"dog_photo_"+perro.getOwnerID()+perro.getNombre()+".jpg");
+                    perro.setDireccionFoto(PATH_MASCOTAS);
 
                     FirebaseUtils.guardarPerro(perro,selectedImage);
+
 
                     Toast.makeText(Signup_dog.this,"Consentido "+ perro.getNombre() + " agregado!",Toast.LENGTH_LONG).show();
                     finish();

@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,6 +24,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Perro;
@@ -83,27 +85,6 @@ public class ListaMascotasActivity extends AppCompatActivity
                 startActivity(i);
             }
         });
-        /*btn_monitorear = findViewById(R.id.cl_monitorear);
-
-        btn_monitorear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ActividadSeleccionMascotaMonitoreo.class);
-                i.putExtra("texto", "monitorear");
-                startActivity(i);
-            }
-        });
-
-        btn_actualizar_mascotas.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view)
-            {
-                Intent i= new Intent(getApplicationContext(), ActividadSeleccionMascotaMonitoreo.class);
-                i.putExtra("texto", "actualizar");
-                startActivity(i);
-            }
-        });*/
     }
 
     public void fillPets()
@@ -124,6 +105,13 @@ public class ListaMascotasActivity extends AppCompatActivity
                                 perro.setPerroID(document.getId());
                                 perro.setNombre(document.getString("nombre"));
                                 perro.setDireccionFoto(document.getString("direccionFoto"));
+                                perro.setEstado(document.getBoolean("estado"));
+                                perro.setRaza(document.getString("raza"));
+                                perro.setFechaNacimiento(document.getDate("fechaNacimiento"));
+                                perro.setSexo(document.getString("sexo"));
+                                perro.setTamano(document.getString("tamano"));
+                                perro.setObservaciones(document.getString("observaciones"));
+                                perro.setOwnerID(currentUser.getUid());
 
                                 listaPerros.add(perro);
                             }
@@ -148,7 +136,7 @@ public class ListaMascotasActivity extends AppCompatActivity
         else
         {
             Toast.makeText(this.getApplicationContext(),
-                    "Aun no tienes consentidos agregados",
+                    "Aun no tienes consentidos agregados!",
                     Toast.LENGTH_LONG).show();
         }
 }
