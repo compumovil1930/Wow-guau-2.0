@@ -134,9 +134,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     i.putExtra("direccion", mAddress.getText().toString());
                     setResult(RESULT_OK, i);
                     finish();
-                }
-                else{
-                    mAddress.setError(getString(R.string.obligatorio));
+                }else{
+                    String direccionDigitada = mAddress.getText().toString();
+                    if(direccionDigitada.isEmpty()){
+                        mAddress.setError(getString(R.string.obligatorio));
+                    }else{
+                        Toast.makeText(MapsActivity.this, "La dirección no es válida o " +
+                                        "no se ha validado"
+                                , Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
