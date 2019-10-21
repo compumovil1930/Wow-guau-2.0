@@ -3,6 +3,7 @@ package co.edu.javeriana.wow_guau.model;
 import java.util.Date;
 
 public class Perro {
+    private String perroID;
     private String direccionFoto;
     private String nombre;
     private String raza;
@@ -23,6 +24,10 @@ public class Perro {
         this.sexo = sexo;
         this.observaciones = observaciones;
         this.estado = false;
+    }
+
+    public Perro() {
+
     }
 
     public String getNombre() {
@@ -105,4 +110,11 @@ public class Perro {
         return this.ownerID;
     }
 
+    public String getPerroID() {
+        return perroID;
+    }
+
+    public void setPerroID(String perroID) {
+        this.perroID = perroID;
+    }
 }

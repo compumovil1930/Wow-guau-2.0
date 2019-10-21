@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Perro;
+import co.edu.javeriana.wow_guau.utils.FirebaseUtils;
 
 public class PerroAdapter extends RecyclerView.Adapter<PerroAdapter.MyViewHolder>
 {
@@ -36,6 +38,13 @@ public class PerroAdapter extends RecyclerView.Adapter<PerroAdapter.MyViewHolder
 
             txtViewDogName = view.findViewById(R.id.dog_info);
             imgViewDogPic = view.findViewById(R.id.imgViewDog);
+
+            imgViewDogPic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(view.getContext(),"Me hicieron click",Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
@@ -43,7 +52,7 @@ public class PerroAdapter extends RecyclerView.Adapter<PerroAdapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         View itemview = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_actividad_seleccion_mascota_monitoreo,parent,false);
+                .inflate(R.layout.item_dog,parent,false);
 
         return new MyViewHolder(itemview);
     }
@@ -54,34 +63,11 @@ public class PerroAdapter extends RecyclerView.Adapter<PerroAdapter.MyViewHolder
         final Perro perro = mListaPerros.get(position);
         holder.txtViewDogName.setText(perro.getNombre());
 
-        //Hilo para poner la imagen y que no se trabe.
-        new Thread(new Runnable() {
-            public void run() {
-                // a potentially time consuming task
-
-                if(!perro.getDireccionFoto().equals("") ) {
-                    try {
-                        String imageUrl = perro.getDireccionFoto();
-                        InputStream URLcontent = (InputStream) new URL(imageUrl).getContent();
-                        final Drawable image = Drawable.createFromStream(URLcontent, "your source link");
-
-                        holder.imgViewDogPic.post(new Runnable() {
-                            public void run() {
-                                holder.imgViewDogPic.setImageDrawable(image);
-                            }
-                        });
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-        }).start();
-
+        FirebaseUtils.descargarFotoImageView(perro.getDireccionFoto(),holder.imgViewDogPic);
     }
     @Override
-    public int getItemCount() {
+    public int getItemCount()
+    {
         return mListaPerros.size();
     }
 }

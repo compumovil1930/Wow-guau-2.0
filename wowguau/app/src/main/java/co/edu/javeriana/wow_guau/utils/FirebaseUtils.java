@@ -84,11 +84,13 @@ public class FirebaseUtils
             }
         });
     }
-    public static void descargarFotoImageView(String ruta, final ImageView perfil){
+    public static void descargarFotoImageView(String ruta, final ImageView perfil)
+    {
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
-        final long ONE_MEGABYTE = 1024 * 1024;
-        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        final long ONE_MEGABYTE = 1024 * 1024 * 5*5;
+        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>()
+        {
             @Override
             public void onSuccess(byte[] bytes) {
                 perfil.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));

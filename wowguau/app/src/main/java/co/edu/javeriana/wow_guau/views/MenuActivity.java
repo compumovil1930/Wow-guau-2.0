@@ -82,7 +82,7 @@ public class MenuActivity extends AppCompatActivity {
         //descargarFotoImageView(direccionFoto);
         //no supe cómo montar la imagen en el menú de esta actividad
 
-    NavigationView navigationView = findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
         cl_logout = findViewById(R.id.cl_logout);
         Toolbar toolbar = findViewById(R.id.toolbar);
