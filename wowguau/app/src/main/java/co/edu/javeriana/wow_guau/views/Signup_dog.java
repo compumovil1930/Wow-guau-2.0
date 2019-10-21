@@ -21,6 +21,7 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,7 @@ import com.google.firebase.storage.StorageReference;
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Perro;
 import co.edu.javeriana.wow_guau.utils.CameraUtils;
+import co.edu.javeriana.wow_guau.utils.FirebaseUtils;
 import co.edu.javeriana.wow_guau.utils.Permisos;
 
 import java.io.FileNotFoundException;
@@ -44,6 +46,7 @@ import java.util.List;
 
 public class Signup_dog extends AppCompatActivity
 {
+    public static final String PATH_MASCOTAS ="Mascotas/";
     EditText et_nombre;
     EditText et_fecha_nacimiento;
     RadioGroup rg_sexo;
@@ -59,16 +62,14 @@ public class Signup_dog extends AppCompatActivity
     ArrayAdapter<String>spinnerAdapter;
     DatePickerDialog.OnDateSetListener date;
     Calendar calendar;
+
     Bitmap selectedImage;
 
-    FirebaseStorage storage;
-    StorageReference storageReference;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    private FirebaseFirestoreSettings settings;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +87,6 @@ public class Signup_dog extends AppCompatActivity
         tv_error = findViewById(R.id.tv_error);
         scrollView = findViewById(R.id.scrollView);
         rg_sexo = findViewById(R.id.rg_sexo);
-
-        settings = new FirebaseFirestoreSettings.Builder()
-                .build();
-        storageReference = FirebaseStorage.getInstance().getReference();
 
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
@@ -115,12 +112,16 @@ public class Signup_dog extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Perro perro = registrarPerro();
+
                 if(perro != null)
                 {
                     perro.setEstado(false);
-                    perro.setOwnerID(mAuth.getUid());
+                    perro.setOwnerID(currentUser.getUid());
+                    perro.setDireccionFoto(PATH_MASCOTAS+"dog_photo_"+perro.getOwnerID()+perro.getNombre()+".jpg");
 
+                    FirebaseUtils.guardarPerro(perro,selectedImage);
 
+                    Toast.makeText(Signup_dog.this,"Consentido "+ perro.getNombre() + " agregado!",Toast.LENGTH_LONG).show();
                     finish();
                 }
                 else{
@@ -180,9 +181,10 @@ public class Signup_dog extends AppCompatActivity
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
             case Permisos.IMAGE_PICKER_REQUEST:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     try {
                         final Uri imageUri = data.getData();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
@@ -194,14 +196,14 @@ public class Signup_dog extends AppCompatActivity
                 }
                 return;
             case Permisos.REQUEST_IMAGE_CAPTURE:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Bundle extras = data.getExtras();
                     selectedImage = (Bitmap) extras.get("data");
                     ib_upload_photo.setImageBitmap(selectedImage);
                 }
                 return;
             case Permisos.RAZAS_PICKER:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     et_raza.setText(data.getStringExtra("raza"));
                 }
                 return;
@@ -255,8 +257,5 @@ public class Signup_dog extends AppCompatActivity
         return new Perro(nombre, raza, tamano, calendar.getTime(), sexo, observaciones);
     }
 
-    public void uploadDog(Perro perro)
-    {
 
-    }
 }

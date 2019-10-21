@@ -1,10 +1,9 @@
-package co.edu.javeriana.wowguau_paseador.utils;
+package co.edu.javeriana.wow_guau.utils;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,31 +21,36 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 
-import co.edu.javeriana.wowguau_paseador.model.Paseador;
-import co.edu.javeriana.wowguau_paseador.views.MenuActivity;
+import co.edu.javeriana.wow_guau.model.Paseador;
+import co.edu.javeriana.wow_guau.model.Perro;
 
-public class FirebaseUtils {
+public class FirebaseUtils
+{
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private static FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
             .setTimestampsInSnapshotsEnabled(true)
             .build();
     private static StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
-    public static void guardarUsuario(Paseador paseador, String uid, Bitmap photo){
+    public static void guardarPerro(Perro perro, Bitmap photo)
+    {
         db.setFirestoreSettings(settings);
         // certificados
-        subirFoto(paseador.getDireccionFoto(), photo);
-        db.collection("Paseadores").document(uid).set(paseador);
+        subirFoto(perro.getDireccionFoto(), photo);
+        db.collection("Mascotas").add(perro);
     }
-    public static void buscarUsuario(final String uid, final Activity activity){
+
+    /*public static void buscarUsuario(final String uid, final Activity activity){
         db.setFirestoreSettings(settings);
         final Paseador[] paseador = new Paseador[1];
         db.collection("Paseadores").document(uid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    public void onSuccess(DocumentSnapshot documentSnapshot)
+                    {
                         Paseador paseador = documentSnapshot.toObject(Paseador.class);
-                        Intent i = new Intent(activity, MenuActivity.class);
+                        Intent i = new Intent(activity, activity.class);
                         i.putExtra("user", paseador);
                         i.putExtra("uid", uid);
                         activity.startActivity(i);
@@ -58,22 +62,22 @@ public class FirebaseUtils {
                         Toast.makeText(activity, "El usuario no existe como paseador", Toast.LENGTH_LONG).show();
                     }
                 });
-    }
-    public static void subirFoto(String ruta, Bitmap photo)
-    {
+    }*/
+
+    public static void subirFoto(String ruta, Bitmap photo){
         db.setFirestoreSettings(settings);
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = mStorageRef.child("images").child(ruta).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener()
-        {
+        uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.i("ERROR", "No se pudo subir la foto");
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-        {
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.i("INFO", taskSnapshot.getMetadata().toString());
