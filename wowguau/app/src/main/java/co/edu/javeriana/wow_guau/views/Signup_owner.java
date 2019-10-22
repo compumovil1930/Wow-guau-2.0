@@ -394,7 +394,7 @@ public class Signup_owner extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        return new Dueno(email, nombre, Integer.parseInt(cedula), fechaNacimiento, Integer.parseInt(phone), genero, direccion);
+        return new Dueno(email, nombre, Long.parseLong(cedula), fechaNacimiento, Long.parseLong(phone), genero, direccion);
     }
 
     private boolean isDateValid(String fecha){
