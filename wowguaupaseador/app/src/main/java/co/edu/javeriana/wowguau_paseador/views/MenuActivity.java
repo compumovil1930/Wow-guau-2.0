@@ -98,20 +98,24 @@ public class MenuActivity extends AppCompatActivity {
         super.onStart();
         if(getIntent().hasExtra("user"))
             paseador = (Paseador) getIntent().getSerializableExtra("user");
+        else
+            return;
+        FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
 
-        if(paseador.getFoto()==null && getIntent().hasExtra("uid")) {
-            FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
-            // paseador.setFoto(Utils.getBitmap(iv_perfil.getDrawable()));
-        }
+
+        //FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
+        //paseador.setFoto(Utils.getBitmap(iv_perfil.getDrawable()));
+
         Log.i("PASEADOR", paseador.getNombre());
         updateUI();
     }
+
     private void updateUI(){
         tv_h_nombre.setText(paseador.getNombre());
-        iv_perfil.setImageBitmap(paseador.getFoto());
         tv_estado.setText(" "+(paseador.isEstado()? "Disponible": "No disponible"));
         tv_saldo.setText(paseador.getSaldo()+" petCoins");
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return true;

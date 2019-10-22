@@ -34,12 +34,14 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,11 +73,13 @@ public class PantallaInicioFragment extends Fragment {
 
     Paseador paseador;
 
+    LatLng mLoc;
+
     private FirebaseAuth mAuth;
 
     FirebaseUser mFireUser = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    ArrayList<Paseo> lPaseos = new ArrayList<>();
 
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
@@ -88,8 +92,12 @@ public class PantallaInicioFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(this.paseador!=null && this.paseador.isEstado())
+        if(this.paseador!=null && this.paseador.isEstado()){
+            mList.setVisibility(View.VISIBLE);
             startLocationUpdates();
+        }
+
+
     }
 
     @Override
@@ -133,7 +141,7 @@ public class PantallaInicioFragment extends Fragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+                             final ViewGroup container, Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
         paseador = (Paseador) getActivity().getIntent().getSerializableExtra("user");
@@ -141,25 +149,39 @@ public class PantallaInicioFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_pantalla_inicio, container, false);
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Paseador");
 
-
+        mList = (ListView) view.findViewById(R.id.listaPaseos);
 
         tv_bienvenido = view.findViewById(R.id.tv_bienvenido);
         btn_estado = view.findViewById(R.id.btn_estado);
 
-        if(paseador.isEstado()){
+        if(paseador!=null && paseador.isEstado()){
+            mList.setVisibility(View.VISIBLE);
             btn_estado.setBackgroundColor(Color.parseColor("#DC143C"));
             btn_estado.setText("Dejar de Trabajar");
             btn_estado.setTextColor(Color.WHITE);
         } else {
+            mList.setVisibility(View.INVISIBLE);
             btn_estado.setBackgroundColor(Color.parseColor("#14C967"));
             btn_estado.setText("Comenzar a Trabajar");
         }
 
-        mList = (ListView) view.findViewById(R.id.listaPaseos);
+
 
         db.collection("Paseos")
                 .whereEqualTo("uidPaseador",mAuth.getUid()).whereEqualTo("estado",true).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            ArrayList<Paseo> lPaseos = new ArrayList<>();
+
+                    private Paseo newPaseo(Map<String, Object> vals){
+                        Paseo my_paseo = new Paseo((String) vals.get("uidPerro"),
+                                (String) vals.get("uidPaseador"),(long) vals.get("duracion"), (long) vals.get("costo"),
+                                (String)((Map<String, Object>) vals.get("direccion")).get("direccion"),
+                                (Double)((Map<String, Object>) vals.get("direccion")).get("latitud"),
+                                (Double) ((Map<String, Object>) vals.get("direccion")).get("longitud"),
+                                (Boolean) vals.get("estado"),
+                                (String) vals.get("nomPerro"),
+                                (String) vals.get("uriPerro"));
+                        return my_paseo;
+                    }
+
 
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
@@ -167,36 +189,21 @@ public class PantallaInicioFragment extends Fragment {
                     Log.w("error", "listen:error", e);
                     return;
                 }
-
-                for (DocumentChange dc : queryDocumentSnapshots.getDocumentChanges()) {
-                    switch (dc.getType()) {
-                        case ADDED:
-                            Map<String,Object> vals = dc.getDocument().getData();
-                            Paseo my_paseo = new Paseo((String) vals.get("uidPerro"),
-                                    (String) vals.get("uidPaseador"),(long) vals.get("duracion"), (long) vals.get("costo"),
-                                    (String)((Map<String, Object>) vals.get("direccion")).get("direccion"),
-                                    (Double)((Map<String, Object>) vals.get("direccion")).get("latitud"),
-                                    (Double) ((Map<String, Object>) vals.get("direccion")).get("longitud"),
-                                    (Boolean) vals.get("estado"),
-                                    (String) vals.get("nomPerro"),
-                                    (String) vals.get("uriPerro"));
+                lPaseos = new ArrayList<>();
+                for (DocumentSnapshot dc : queryDocumentSnapshots.getDocuments()) {
+                            Map<String,Object> vals = dc.getData();
+                            Paseo my_paseo = newPaseo(vals);
+                            my_paseo.setPaseadorLoc(mLoc);
+                            my_paseo.calcDist();
                             lPaseos.add(my_paseo);
-                            Log.d(TAG, "Add city: " + dc.getDocument().getData());
-                            break;
-                        case MODIFIED:
-                            Log.d(TAG, "Modified city: " + dc.getDocument().getData());
-                            break;
-                        case REMOVED:
-                            Log.d(TAG, "Removed city: " + dc.getDocument().getData());
-                            break;
-                    }
+                            Log.d(TAG, "Add city: " + dc.getData());
                 }
-
+                Collections.sort(lPaseos);
                 PaseoAdapter paseoAdapter  = new PaseoAdapter(getContext(),lPaseos);
                 mList.setAdapter(paseoAdapter);
+
             }
-        })
-            ;
+        });
 
 
         tv_bienvenido.append(" "+paseador.getNombre());
@@ -205,6 +212,7 @@ public class PantallaInicioFragment extends Fragment {
         mLocationRequest = createLocationRequest();
 
         mLocationCallback = new LocationCallback() {
+            private boolean i=false;
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 Location location = locationResult.getLastLocation();
@@ -215,7 +223,19 @@ public class PantallaInicioFragment extends Fragment {
                     myloc.put("latitud",location.getLatitude());
                     myloc.put("longitud",location.getLongitude());
                     up.put("localizacion",  myloc);
+                    mLoc = new LatLng(location.getLatitude(), location.getLongitude());
                     db.collection("Paseadores").document(mFireUser.getUid()).update(up);
+
+                    if(i == false){
+                        for(Paseo p : lPaseos){
+                            p.setPaseadorLoc(mLoc);
+                            p.calcDist();
+                        }
+                        mList.setAdapter(new PaseoAdapter(getContext(), lPaseos));
+                        i=true;
+                    }
+
+
                 }
             }
         };
@@ -226,11 +246,14 @@ public class PantallaInicioFragment extends Fragment {
                 paseador.setEstado(!paseador.isEstado());
 
                 if(paseador.isEstado()){
+
+                    mList.setVisibility(View.VISIBLE);
                     pedirPermiso();
                         btn_estado.setBackgroundColor(Color.parseColor("#DC143C"));
                         btn_estado.setText("Dejar de Trabajar");
                         btn_estado.setTextColor(Color.WHITE);
                 } else {
+                    mList.setVisibility(View.INVISIBLE);
                     stopLocationUpdates();
                     btn_estado.setBackgroundColor(Color.parseColor("#14C967"));
                     btn_estado.setText("Comenzar a Trabajar");

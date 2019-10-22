@@ -1,6 +1,10 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
-public class Paseo {
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.Comparator;
+
+public class Paseo implements Comparable<Paseo> {
     String uidPerro;
     String uidPaseador;
     long duracionMinutos;
@@ -12,6 +16,8 @@ public class Paseo {
     String nomPerro;
     String nomPaseador;
     String uriPerrito;
+    double dist;
+    LatLng paseadorLoc;
 
     public Paseo(String uidPerro, String uidPaseador, long duracionMinutos, long costo, String direccion,
                  Double latitude, Double longitude, Boolean estado, String nomPerro, String uriPerrito){
@@ -25,6 +31,28 @@ public class Paseo {
         this.latitude = latitude;
         this.longitude = longitude;
         this.estado = estado;
+        this.dist = -1;
+    }
+
+    public double getDist() {
+
+        return dist;
+    }
+
+    public void setDist(double dist) {
+        this.dist = dist;
+    }
+
+    public void setDuracionMinutos(long duracionMinutos) {
+        this.duracionMinutos = duracionMinutos;
+    }
+
+    public LatLng getPaseadorLoc() {
+        return paseadorLoc;
+    }
+
+    public void setPaseadorLoc(LatLng paseadorLoc) {
+        this.paseadorLoc = paseadorLoc;
     }
 
     public String getUidPerro() {
@@ -113,5 +141,30 @@ public class Paseo {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public void calcDist(){
+        if(this.getPaseadorLoc() == null)
+            return;
+        double mydist = distance(this.getLatitude(),this.getLongitude(),this.getPaseadorLoc().latitude, this.getPaseadorLoc().longitude);
+        this.dist = mydist;
+    }
+
+    public double distance(double lat1, double long1, double lat2, double long2) {
+        final int RADIUS_OF_EARTH_KM = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat1 - lat2);
+        double lngDistance = Math.toRadians(long1 - long2);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lngDistance / 2) * Math.sin(lngDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double result = RADIUS_OF_EARTH_KM * c;
+        return Math.round(result*100.0)/100.0;
+    }
+
+    @Override
+    public int compareTo(Paseo o) {
+        return (int)(this.dist - o.dist);
     }
 }

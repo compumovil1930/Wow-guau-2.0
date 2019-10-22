@@ -111,7 +111,6 @@ public class RegistroActivity extends AppCompatActivity {
             public void onClick(View v) {
                 paseador = registrarPaseador();
                 if(paseador != null) {
-                    paseador.setFoto(selectedImage);
                     createAccount(et_email.getText().toString(), et_password.getText().toString());
                 }
                 else{
@@ -293,7 +292,7 @@ public class RegistroActivity extends AppCompatActivity {
     }
     private void updateUI(FirebaseUser currentUser) {
         paseador.setDireccionFoto("photo_"+currentUser.getUid()+".jpg");
-        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), paseador.getFoto());
+        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), selectedImage);
         
         Intent intent = new Intent(getBaseContext(), MenuActivity.class);
         intent.putExtra("user", paseador);

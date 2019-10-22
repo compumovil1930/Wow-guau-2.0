@@ -43,11 +43,17 @@ public class PaseoAdapter extends ArrayAdapter<Paseo> {
         TextView tvDuracion = (TextView) convertView.findViewById(R.id.tv_duraccion_paseo);
         TextView tvCosto = (TextView) convertView.findViewById(R.id.tv_costo_paseo);
         TextView tvDireccion = (TextView) convertView.findViewById(R.id.tv_direccion_paseo);
+        TextView tvDistancia = convertView.findViewById(R.id.tv_dist_paseo);
+
+
+
         ImageView ivPerrito = (ImageView) convertView.findViewById(R.id.iv_paseo);
+
 
         // Populate the data into the template view using the data object
         tvNombre.setText(paseo.getNomPerro());
-        tvDuracion.setText(String.valueOf(paseo.getDuracionMinutos()));
+        tvDistancia.setText(String.valueOf(paseo.getDist()) + " km");
+        tvDuracion.setText(String.valueOf(paseo.getDuracionMinutos()) + " min");
         tvCosto.setText(String.valueOf(paseo.getCosto()));
         tvDireccion.setText(paseo.getDireccion());
 
@@ -58,6 +64,8 @@ public class PaseoAdapter extends ArrayAdapter<Paseo> {
         // Return the completed view to render on screen
         return convertView;
     }
+
+
     /*
     private static final int NAME_INDEX = 0;
     private static final int DURACION_INDEX = 1;

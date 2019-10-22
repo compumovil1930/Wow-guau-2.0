@@ -20,8 +20,6 @@ public abstract class Usuario implements Serializable {
     private float saldo;
     private String direccionFoto;
 
-    @Exclude
-    private Bitmap foto;
 
     public Usuario(String correo, String nombre, long cedula, Date fechaNacimiento, long telefono, String genero, Direccion direccion) {
         this.correo = correo;
@@ -83,14 +81,6 @@ public abstract class Usuario implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public Bitmap getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
     }
 
     public String getDireccionFoto() {
