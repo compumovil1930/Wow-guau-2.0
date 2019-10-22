@@ -1,8 +1,11 @@
 package co.edu.javeriana.wow_guau.model;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class Perro {
+    private String perroID;
     private String direccionFoto;
     private String nombre;
     private String raza;
@@ -10,15 +13,23 @@ public class Perro {
     private Date fechaNacimiento;
     private String sexo;
     private String direccionCarnetVacunas;
+    private String ownerID;
     private String observaciones;
+    private Boolean estado;
 
-    public Perro(String nombre, String raza, String tamano, Date fechaNacimiento, String sexo, String observaciones) {
+    public Perro(String nombre, String raza, String tamano, Date fechaNacimiento, String sexo, String observaciones)
+    {
         this.nombre = nombre;
         this.raza = raza;
         this.tamano = tamano;
         this.fechaNacimiento = fechaNacimiento;
         this.sexo = sexo;
         this.observaciones = observaciones;
+        this.estado = false;
+    }
+
+    public Perro() {
+
     }
 
     public String getNombre() {
@@ -83,5 +94,29 @@ public class Perro {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
+    public void setOwnerID(String ownerID) {
+        this.ownerID = ownerID;
+    }
+    public String getOwnerID()
+    {
+        return this.ownerID;
+    }
+
+    public String getPerroID() {
+        return perroID;
+    }
+
+    public void setPerroID(String perroID) {
+        this.perroID = perroID;
     }
 }

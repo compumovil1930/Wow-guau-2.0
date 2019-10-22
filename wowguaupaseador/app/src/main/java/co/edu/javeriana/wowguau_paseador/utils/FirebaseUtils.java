@@ -63,18 +63,21 @@ public class FirebaseUtils {
                     }
                 });
     }
-    public static void subirFoto(String ruta, Bitmap photo){
+    public static void subirFoto(String ruta, Bitmap photo)
+    {
         db.setFirestoreSettings(settings);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = mStorageRef.child("images").child(ruta).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
+        uploadTask.addOnFailureListener(new OnFailureListener()
+        {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.i("ERROR", "No se pudo subir la foto");
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
+        {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.i("INFO", taskSnapshot.getMetadata().toString());
