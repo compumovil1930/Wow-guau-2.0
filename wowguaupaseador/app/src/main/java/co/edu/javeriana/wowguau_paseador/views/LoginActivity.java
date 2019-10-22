@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        /*btn_login = findViewById(R.id.btn_login);
+        btn_login = findViewById(R.id.btn_login);
         btn_crear_cuenta = findViewById(R.id.btn_crear_cuenta);
         tv_fpassword = findViewById(R.id.tv_fpassword);
         et_email = findViewById(R.id.et_email);
@@ -74,15 +75,15 @@ public class LoginActivity extends AppCompatActivity {
                 Intent i = new Intent(getApplicationContext() , PasswordRecoveryActivity.class);
                 startActivity(i);
             }
-        });*/
+        });
     }
     @Override
     protected void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        //updateUI(currentUser);
+        updateUI(currentUser);
     }
-    /*private void updateUI(FirebaseUser currentUser){
+    private void updateUI(FirebaseUser currentUser){
         if(currentUser!=null){
             FirebaseUtils.buscarUsuario(currentUser.getUid(), this);
         }
@@ -137,5 +138,5 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }
-    }*/
+    }
 }

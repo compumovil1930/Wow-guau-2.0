@@ -100,8 +100,8 @@ public class MenuActivity extends AppCompatActivity {
             paseador = (Paseador) getIntent().getSerializableExtra("user");
 
         if(paseador.getFoto()==null && getIntent().hasExtra("uid")) {
-            FirebaseUtils.descargarFotoImageView(paseador.getDireccionFoto(), iv_perfil);
-            paseador.setFoto(Utils.getBitmap(iv_perfil.getDrawable()));
+            FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
+            // paseador.setFoto(Utils.getBitmap(iv_perfil.getDrawable()));
         }
         Log.i("PASEADOR", paseador.getNombre());
         updateUI();

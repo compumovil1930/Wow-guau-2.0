@@ -270,7 +270,7 @@ public class RegistroActivity extends AppCompatActivity {
 
         genero = ((RadioButton) (rg_genero.getChildAt(idx))).getText().toString();
 
-        return new Paseador(email, nombre, Integer.parseInt(cedula), calendar.getTime(), Integer.parseInt(phone), genero, new Direccion(direccion, address), descripcion, Integer.parseInt(experiencia));
+        return new Paseador(email, nombre, Long.parseLong(cedula), calendar.getTime(), Long.parseLong(phone), genero, new Direccion(direccion, address), descripcion, Integer.parseInt(experiencia));
     }
     private boolean isEmailValid(String correo) {
         Matcher matcher = Utils.VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
@@ -292,8 +292,9 @@ public class RegistroActivity extends AppCompatActivity {
         });
     }
     private void updateUI(FirebaseUser currentUser) {
-        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), paseador.getFoto());
         paseador.setDireccionFoto("photo_"+currentUser.getUid()+".jpg");
+        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), paseador.getFoto());
+        
         Intent intent = new Intent(getBaseContext(), MenuActivity.class);
         intent.putExtra("user", paseador);
         startActivity(intent);

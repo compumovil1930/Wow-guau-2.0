@@ -38,11 +38,11 @@
     <string name="menu_historial">Historial</string>
 
     <!-- LoginActivity -->
-
+    <string name="solicitudes_de_paseo">Solicitudes de paseo</string>
     <string name="Facebook">Ingresar con Facebook</string>
     <string name="Twitter">Ingresar con Twitter</string>
     <string name="Google">Ingresar con Google</string>
     <string name="LoginImagen">Login</string>
 
-    <string name="solicitudes_de_paseo">Solicitudes de paseo</string>
+
 </resources>
