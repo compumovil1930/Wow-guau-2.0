@@ -49,7 +49,8 @@ public class FirebaseUtils
                         subirFoto(ruta+"dog_photo_"+documentReference.getId()+".jpg", photo);
                         db.collection("Mascotas").document(documentReference.getId())
                                 .update("direccionFoto"
-                                        ,ruta+"dog_photo_"+documentReference.getId()+".jpg");
+                                        ,ruta+"dog_photo_"+documentReference.getId()+".jpg",
+                                        "perroID",documentReference.getId());
                     }
                 });
     }

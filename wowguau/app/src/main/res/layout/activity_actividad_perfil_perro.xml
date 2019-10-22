@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActividadPerfilPerro">
+    tools:context=".views.ActividadPerfilPerro">
 
     <ImageView
         android:id="@+id/imgViewPerfilPerro"
@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:padding="5dp"
+        android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@id/imgViewPerfilPerro"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,17 +37,19 @@
         android:layout_height="wrap_content"
         android:textSize="24sp"
         android:padding="5dp"
+        android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@id/txtViewNombre"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/txtViewEdad"/>
+        app:layout_constraintBottom_toTopOf="@id/txtViewFechaNacimiento"/>
 
     <TextView
-        android:id="@+id/txtViewEdad"
+        android:id="@+id/txtViewFechaNacimiento"
         android:layout_width="0dp"
         android:padding="5dp"
         android:layout_height="wrap_content"
         android:textSize="24sp"
+        android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@id/txtViewRaza"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,7 +61,8 @@
         android:padding="5dp"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@id/txtViewEdad"
+        android:textColor="#000000"
+        app:layout_constraintTop_toBottomOf="@id/txtViewFechaNacimiento"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/txtViewSexo"/>
@@ -69,6 +73,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="24sp"
+        android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@id/txtViewTamano"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +85,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="24sp"
+        android:textColor="#000000"
         app:layout_constraintTop_toBottomOf="@id/txtViewSexo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

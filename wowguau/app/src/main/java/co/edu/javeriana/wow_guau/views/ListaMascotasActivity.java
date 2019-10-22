@@ -30,7 +30,7 @@ import java.util.Date;
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Perro;
 
-public class ListaMascotasActivity extends AppCompatActivity
+public class ListaMascotasActivity extends AppCompatActivity implements PerroAdapter.OnPerroListener
 {
     FirebaseFirestore db;
     FirebaseAuth mAuth;
@@ -132,7 +132,7 @@ public class ListaMascotasActivity extends AppCompatActivity
     {
         if(listaPerros.size()>0)
         {
-            mPerroAdapter = new PerroAdapter(listaPerros);
+            mPerroAdapter = new PerroAdapter(listaPerros,this);
             recycleView.setAdapter(mPerroAdapter);
         }
         else
@@ -142,4 +142,14 @@ public class ListaMascotasActivity extends AppCompatActivity
                     Toast.LENGTH_LONG).show();
         }
 }
+
+    @Override
+    public void onPerroClick(int posicion)
+    {
+        Perro nPerro = listaPerros.get(posicion);
+
+        Intent intent = new Intent(this,ActividadPerfilPerro.class);
+        intent.putExtra("idPerro",nPerro.getPerroID());
+        startActivity(intent);
+    }
 }
