@@ -44,5 +44,6 @@
     <string name="Google">Ingresar con Google</string>
     <string name="LoginImagen">Login</string>
 
-
+    <string name="facebook_app_id">2423467014582893</string>
+    <string name="fb_login_protocol_scheme">fb2423467014582893</string>
 </resources>
