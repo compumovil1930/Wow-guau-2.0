@@ -363,7 +363,6 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
     private void crearPaseador(final FirebaseUser user){
-
         //inicializar los datos del paseador
         Paseador paseador = new Paseador(user.getEmail(), user.getDisplayName(), 0, null, 0, "", null, "", 0);
         paseador.setDireccionFoto(user.getPhotoUrl().toString());
