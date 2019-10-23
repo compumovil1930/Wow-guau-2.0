@@ -1,7 +1,6 @@
 package co.edu.javeriana.wowguau_paseador.views;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -9,12 +8,10 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,11 +26,9 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -44,7 +39,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -99,8 +93,6 @@ public class PantallaInicioFragment extends Fragment {
             mList.setVisibility(View.VISIBLE);
             startLocationUpdates();
         }
-
-
     }
 
     @Override
@@ -124,8 +116,6 @@ public class PantallaInicioFragment extends Fragment {
     public PantallaInicioFragment() {
     }
 
-
-
     private void pedirPermiso(){
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -148,7 +138,7 @@ public class PantallaInicioFragment extends Fragment {
 
 
         mAuth = FirebaseAuth.getInstance();
-        paseador = (Paseador) getActivity().getIntent().getSerializableExtra("user");
+        paseador = ((MenuActivity)getActivity()).getPaseador();
 
         final View view = inflater.inflate(R.layout.fragment_pantalla_inicio, container, false);
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Paseador");
@@ -170,7 +160,6 @@ public class PantallaInicioFragment extends Fragment {
             btn_estado.setBackgroundColor(Color.parseColor("#14C967"));
             btn_estado.setText("Comenzar a Trabajar");
         }
-
 
 
         db.collection("Paseos")
@@ -251,9 +240,6 @@ public class PantallaInicioFragment extends Fragment {
 
             }
         });
-
-
-        tv_bienvenido.append(" "+paseador.getNombre());
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mLocationRequest = createLocationRequest();

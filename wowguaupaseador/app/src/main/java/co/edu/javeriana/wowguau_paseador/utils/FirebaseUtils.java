@@ -39,7 +39,8 @@ public class FirebaseUtils {
     public static void guardarUsuario(Paseador paseador, String uid, Bitmap photo){
         db.setFirestoreSettings(settings);
         // certificados
-        subirFoto(paseador.getDireccionFoto(), photo);
+        if(photo!=null)
+            subirFoto(paseador.getDireccionFoto(), photo);
         db.collection("Paseadores").document(uid).set(paseador);
     }
     public static void buscarUsuario(final String uid, final Activity activity){
@@ -51,7 +52,7 @@ public class FirebaseUtils {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Paseador paseador = documentSnapshot.toObject(Paseador.class);
                         Intent i = new Intent(activity, MenuActivity.class);
-                        i.putExtra("user", paseador);
+                        //i.putExtra("user", paseador);
                         i.putExtra("uid", uid);
                         activity.startActivity(i);
                     }

@@ -523,7 +523,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
-
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
