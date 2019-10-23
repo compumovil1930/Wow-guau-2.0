@@ -121,10 +121,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadSeleccionMascota"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".views.ActividadSolicitudPaseador"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
