@@ -42,6 +42,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,13 +66,15 @@ public class PantallaInicioFragment extends Fragment {
     ListView mList;
     Cursor mCursor;
     String[] mProjection;
-    PaseoAdapter mPaseoAdapter;
-
 
     TextView tv_bienvenido;
     Button btn_estado;
 
     Paseador paseador;
+
+
+    ArrayList<Paseo> lPaseos = new ArrayList<>();
+    PaseoAdapter paseoAdapter ;
 
     LatLng mLoc;
 
@@ -79,12 +82,12 @@ public class PantallaInicioFragment extends Fragment {
 
     FirebaseUser mFireUser = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ArrayList<Paseo> lPaseos = new ArrayList<>();
+
 
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(3000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(3000); //máxima tasa de refresco
+        mLocationRequest.setInterval(6000); //tasa de refresco en milisegundos
+        mLocationRequest.setFastestInterval(6000); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
@@ -143,13 +146,16 @@ public class PantallaInicioFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
+
         mAuth = FirebaseAuth.getInstance();
         paseador = (Paseador) getActivity().getIntent().getSerializableExtra("user");
 
         final View view = inflater.inflate(R.layout.fragment_pantalla_inicio, container, false);
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Paseador");
 
+        paseoAdapter = new PaseoAdapter(getContext(),lPaseos);
         mList = (ListView) view.findViewById(R.id.listaPaseos);
+        mList.setAdapter(paseoAdapter);
 
         tv_bienvenido = view.findViewById(R.id.tv_bienvenido);
         btn_estado = view.findViewById(R.id.btn_estado);
@@ -189,18 +195,59 @@ public class PantallaInicioFragment extends Fragment {
                     Log.w("error", "listen:error", e);
                     return;
                 }
-                lPaseos = new ArrayList<>();
-                for (DocumentSnapshot dc : queryDocumentSnapshots.getDocuments()) {
-                            Map<String,Object> vals = dc.getData();
+
+                for (  DocumentChange dc: queryDocumentSnapshots.getDocumentChanges() ) {
+                    switch (dc.getType()){
+
+                        case ADDED: {
+                            Map<String,Object> vals = dc.getDocument().getData();
                             Paseo my_paseo = newPaseo(vals);
                             my_paseo.setPaseadorLoc(mLoc);
                             my_paseo.calcDist();
-                            lPaseos.add(my_paseo);
-                            Log.d(TAG, "Add city: " + dc.getData());
+                            paseoAdapter.add(my_paseo);
+
+                            Log.d(TAG, "Add: " + dc.getDocument().getData());
+                            break;
+                        }
+
+                        case REMOVED: {
+                            Map<String,Object> vals = dc.getDocument().getData();
+                            Paseo my_paseo = newPaseo(vals);
+
+                            for( int i=0; i<paseoAdapter.getCount();++i){
+                                Paseo temp = paseoAdapter.getItem(i);
+                                if(temp.getUidPerro().equals(my_paseo.getUidPerro())){
+                                    paseoAdapter.remove(temp);
+                                    break;
+                                }
+                            }
+
+                            break;
+                        }
+                        case MODIFIED: {
+                            Map<String,Object> vals = dc.getDocument().getData();
+                            Paseo my_paseo = newPaseo(vals);
+
+                            for( int i=0; i<paseoAdapter.getCount();++i){
+                                Paseo temp = paseoAdapter.getItem(i);
+                                if(temp.getUidPerro().equals(my_paseo.getUidPerro())){
+                                    paseoAdapter.remove(temp);
+                                    break;
+                                }
+                            }
+                            paseoAdapter.add(my_paseo);
+                            break;
+                        }
+                    }
                 }
-                Collections.sort(lPaseos);
-                PaseoAdapter paseoAdapter  = new PaseoAdapter(getContext(),lPaseos);
-                mList.setAdapter(paseoAdapter);
+                paseoAdapter.sort(new Comparator<Paseo>() {
+                    @Override
+                    public int compare(Paseo lhs, Paseo rhs) {
+                        Double l = new Double(lhs.getDist());
+                        Double r = new Double(rhs.getDist());
+                        return l.compareTo(r);   //or whatever your sorting algorithm
+                    }
+                });
 
             }
         });
@@ -226,15 +273,27 @@ public class PantallaInicioFragment extends Fragment {
                     mLoc = new LatLng(location.getLatitude(), location.getLongitude());
                     db.collection("Paseadores").document(mFireUser.getUid()).update(up);
 
-                    if(i == false){
-                        for(Paseo p : lPaseos){
-                            p.setPaseadorLoc(mLoc);
-                            p.calcDist();
+
+                    for(int i=0;i<mList.getChildCount();++i){
+                        Paseo p = paseoAdapter.getItem(i);
+                        p.setPaseadorLoc(mLoc);
+                        p.calcDist();
+                        View v = mList.getChildAt(i);
+                        if(p.getDist()<=5.0 && p.getDist() != -1.0){
+                            TextView tempTv = v.findViewById(R.id.tv_dist_paseo);
+                            tempTv.setText(p.getDist() + " km");
+                            v.setVisibility(View.VISIBLE);
                         }
-                        mList.setAdapter(new PaseoAdapter(getContext(), lPaseos));
-                        i=true;
                     }
 
+                    paseoAdapter.sort(new Comparator<Paseo>() {
+                        @Override
+                        public int compare(Paseo lhs, Paseo rhs) {
+                            Double l = new Double(lhs.getDist());
+                            Double r = new Double(rhs.getDist());
+                            return l.compareTo(r);   //or whatever your sorting algorithm
+                        }
+                    });
 
                 }
             }

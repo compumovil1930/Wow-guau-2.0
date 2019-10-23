@@ -84,9 +84,10 @@ public class FirebaseUtils {
             }
         });
     }
-    public static void descargarFotoImageView(String ruta, final ImageView perfil){
+    public static File descargarFotoImageView(String ruta, final ImageView perfil){
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
+        Log.i("PATH" , photoRef.toString());
         /*
         final long ONE_MEGABYTE = 1024 * 1024;
         photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -112,6 +113,7 @@ public class FirebaseUtils {
                         // Successfully downloaded data to local file
                         // ...
                         perfil.setImageURI(Uri.fromFile(localFile));
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -120,11 +122,12 @@ public class FirebaseUtils {
                 // ...
             }
         });
+        return localFile;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return null;
         /*
         Glide.with( context)
                 .load(photoRef)
