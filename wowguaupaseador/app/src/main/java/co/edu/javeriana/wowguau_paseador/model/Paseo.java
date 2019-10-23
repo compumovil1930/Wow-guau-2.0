@@ -1,10 +1,13 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
+import android.graphics.Bitmap;
+
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.File;
 import java.util.Comparator;
 
-public class Paseo implements Comparable<Paseo> {
+public class Paseo {
     String uidPerro;
     String uidPaseador;
     long duracionMinutos;
@@ -18,6 +21,7 @@ public class Paseo implements Comparable<Paseo> {
     String uriPerrito;
     double dist;
     LatLng paseadorLoc;
+    File myImage;
 
     public Paseo(String uidPerro, String uidPaseador, long duracionMinutos, long costo, String direccion,
                  Double latitude, Double longitude, Boolean estado, String nomPerro, String uriPerrito){
@@ -37,6 +41,14 @@ public class Paseo implements Comparable<Paseo> {
     public double getDist() {
 
         return dist;
+    }
+
+    public File getMyImage() {
+        return myImage;
+    }
+
+    public void setMyImage(File myImage) {
+        this.myImage = myImage;
     }
 
     public void setDist(double dist) {
@@ -163,8 +175,11 @@ public class Paseo implements Comparable<Paseo> {
         return Math.round(result*100.0)/100.0;
     }
 
+    /*
     @Override
     public int compareTo(Paseo o) {
         return (int)(this.dist - o.dist);
     }
+
+     */
 }
