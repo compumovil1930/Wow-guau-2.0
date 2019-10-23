@@ -3,8 +3,9 @@ package co.edu.javeriana.wow_guau.adapters;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
+import java.io.Serializable;
 
-public class PaseadorClassAdapter {
+public class PaseadorClassAdapter implements Serializable {
 
     String nombre;
     String uidPaseador;
@@ -97,5 +98,17 @@ public class PaseadorClassAdapter {
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         double result = RADIUS_OF_EARTH_KM * c;
         return Math.round(result*100.0)/100.0;
+    }
+
+    @Override
+    public String toString() {
+        return "PaseadorClassAdapter{" +
+                "nombre='" + nombre + '\'' +
+                ", uidPaseador='" + uidPaseador + '\'' +
+                ", localizacion=" + localizacion +
+                ", usuarioLocalizacion=" + usuarioLocalizacion +
+                ", dist=" + dist +
+                ", uriPhoto='" + uriPhoto + '\'' +
+                '}';
     }
 }

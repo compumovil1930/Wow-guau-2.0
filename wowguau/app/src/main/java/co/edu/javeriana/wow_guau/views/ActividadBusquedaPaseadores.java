@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -44,6 +45,7 @@ import javax.annotation.Nullable;
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.adapters.PaseadorAdapter;
 import co.edu.javeriana.wow_guau.adapters.PaseadorClassAdapter;
+import co.edu.javeriana.wow_guau.adapters.PaseadorSerializable;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -204,6 +206,18 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
                     }
                 });
 
+            }
+        });
+
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                PaseadorClassAdapter p = mPaseadorAdapter.getItem(position);
+                Log.i(TAG, p.toString());
+                PaseadorSerializable my_p = new PaseadorSerializable(p);
+                Intent i = new Intent(getApplicationContext(), ActividadPerfilPaseador.class);
+                i.putExtra("paseador",my_p);
+                startActivity(i);
             }
         });
 
