@@ -23,7 +23,7 @@ public class ActividadSolicitudCaminata extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-            Intent i = new Intent(getApplicationContext(), ActividadSeleccionMascota.class);
+            Intent i = new Intent(getApplicationContext(), ActividadSeleccionMascotaMonitoreo.class);
             i.putExtra("texto", "paseo");
             startActivity(i);
             }

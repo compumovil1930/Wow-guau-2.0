@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Dueno extends Usuario {
+public class Dueno extends Usuario
+{
     List<Perro> Mascotas;
     GeoPoint ubicacion;
 

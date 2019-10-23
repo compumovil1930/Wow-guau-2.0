@@ -21,10 +21,19 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import co.edu.javeriana.wow_guau.R;
 import co.edu.javeriana.wow_guau.model.Perro;
 import co.edu.javeriana.wow_guau.utils.CameraUtils;
+import co.edu.javeriana.wow_guau.utils.FirebaseUtils;
 import co.edu.javeriana.wow_guau.utils.Permisos;
 
 import java.io.FileNotFoundException;
@@ -33,9 +42,12 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
-public class Signup_dog extends AppCompatActivity {
+public class Signup_dog extends AppCompatActivity
+{
+    public static final String PATH_MASCOTAS ="Mascotas/";
     EditText et_nombre;
     EditText et_fecha_nacimiento;
     RadioGroup rg_sexo;
@@ -51,7 +63,14 @@ public class Signup_dog extends AppCompatActivity {
     ArrayAdapter<String>spinnerAdapter;
     DatePickerDialog.OnDateSetListener date;
     Calendar calendar;
+
     Bitmap selectedImage;
+
+
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +89,9 @@ public class Signup_dog extends AppCompatActivity {
         scrollView = findViewById(R.id.scrollView);
         rg_sexo = findViewById(R.id.rg_sexo);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+
         List<String> tamanos = Arrays.asList(getResources().getStringArray(R.array.tamano_array));
         calendar = Calendar.getInstance();
 
@@ -86,12 +108,22 @@ public class Signup_dog extends AppCompatActivity {
             }
         });
 
-        button_register.setOnClickListener(new View.OnClickListener() {
+        button_register.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 Perro perro = registrarPerro();
-                if(perro != null) {
-                    // subir a firebase y archivos
+
+                if(perro != null)
+                {
+                    perro.setEstado(false);
+                    perro.setOwnerID(currentUser.getUid());
+                    perro.setDireccionFoto(PATH_MASCOTAS);
+
+                    FirebaseUtils.guardarPerro(perro,selectedImage);
+
+
+                    Toast.makeText(Signup_dog.this,"Consentido "+ perro.getNombre() + " agregado!",Toast.LENGTH_LONG).show();
                     finish();
                 }
                 else{
@@ -151,9 +183,10 @@ public class Signup_dog extends AppCompatActivity {
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
             case Permisos.IMAGE_PICKER_REQUEST:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     try {
                         final Uri imageUri = data.getData();
                         final InputStream imageStream = getContentResolver().openInputStream(imageUri);
@@ -165,14 +198,14 @@ public class Signup_dog extends AppCompatActivity {
                 }
                 return;
             case Permisos.REQUEST_IMAGE_CAPTURE:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     Bundle extras = data.getExtras();
                     selectedImage = (Bitmap) extras.get("data");
                     ib_upload_photo.setImageBitmap(selectedImage);
                 }
                 return;
             case Permisos.RAZAS_PICKER:
-                if(resultCode == RESULT_OK){
+                if (resultCode == RESULT_OK) {
                     et_raza.setText(data.getStringExtra("raza"));
                 }
                 return;
@@ -185,7 +218,8 @@ public class Signup_dog extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         et_fecha_nacimiento.setText(sdf.format(calendar.getTime()));
     }
-    Perro registrarPerro(){
+    public Perro registrarPerro()
+    {
         boolean completo = true;
         int radioButtonID = rg_sexo.getCheckedRadioButtonId();
         View radioButton = rg_sexo.findViewById(radioButtonID);
@@ -224,4 +258,6 @@ public class Signup_dog extends AppCompatActivity {
 
         return new Perro(nombre, raza, tamano, calendar.getTime(), sexo, observaciones);
     }
+
+
 }
