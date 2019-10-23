@@ -163,9 +163,8 @@ public class PantallaInicioFragment extends Fragment {
         }
 
 
-        db.collection("Paseos")
+        /*db.collection("Paseos")
                 .whereEqualTo("uidPaseador",mAuth.getUid()).whereEqualTo("estado",true).addSnapshotListener(new EventListener<QuerySnapshot>() {
-
                     private Paseo newPaseo(Map<String, Object> vals){
                         Paseo my_paseo = new Paseo((String) vals.get("uidPerro"),
                                 (String) vals.get("uidPaseador"),(long) vals.get("duracion"), (long) vals.get("costo"),
@@ -240,7 +239,7 @@ public class PantallaInicioFragment extends Fragment {
                 });
 
             }
-        });
+        });*/
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mLocationRequest = createLocationRequest();

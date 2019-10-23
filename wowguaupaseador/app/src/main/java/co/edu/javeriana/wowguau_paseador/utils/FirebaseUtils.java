@@ -45,14 +45,11 @@ public class FirebaseUtils {
     }
     public static void buscarUsuario(final String uid, final Activity activity){
         db.setFirestoreSettings(settings);
-        final Paseador[] paseador = new Paseador[1];
         db.collection("Paseadores").document(uid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Paseador paseador = documentSnapshot.toObject(Paseador.class);
                         Intent i = new Intent(activity, MenuActivity.class);
-                        //i.putExtra("user", paseador);
                         i.putExtra("uid", uid);
                         activity.startActivity(i);
                     }
