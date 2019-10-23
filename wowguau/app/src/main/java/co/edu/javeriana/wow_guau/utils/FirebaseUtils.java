@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -17,11 +18,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 import co.edu.javeriana.wow_guau.model.Paseador;
 import co.edu.javeriana.wow_guau.model.Perro;
@@ -93,5 +97,57 @@ public class FirebaseUtils
                 // Handle any errors
             }
         });
+    }
+
+    public static File descargarFotoImageViewOther(String ruta, final ImageView perfil){
+        db.setFirestoreSettings(settings);
+        StorageReference photoRef = mStorageRef.child("images").child(ruta);
+        Log.i("PATH" , photoRef.toString());
+        /*
+        final long ONE_MEGABYTE = 1024 * 1024;
+        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                perfil.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+
+         */
+
+        try {
+            final File localFile = File.createTempFile("images", "jpg");
+            photoRef.getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            // Successfully downloaded data to local file
+                            // ...
+                            perfil.setImageURI(Uri.fromFile(localFile));
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle failed download
+                    // ...
+                }
+            });
+            return localFile;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+        /*
+        Glide.with( context)
+                .load(photoRef)
+                .into(perfil);
+
+         */
     }
 }

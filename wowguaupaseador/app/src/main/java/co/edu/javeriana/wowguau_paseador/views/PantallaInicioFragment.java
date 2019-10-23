@@ -216,7 +216,7 @@ public class PantallaInicioFragment extends Fragment {
 
                             for( int i=0; i<paseoAdapter.getCount();++i){
                                 Paseo temp = paseoAdapter.getItem(i);
-                                if(temp.getUidPerro() == my_paseo.getUidPerro()){
+                                if(temp.getUidPerro().equals(my_paseo.getUidPerro())){
                                     paseoAdapter.remove(temp);
                                     break;
                                 }
@@ -230,7 +230,7 @@ public class PantallaInicioFragment extends Fragment {
 
                             for( int i=0; i<paseoAdapter.getCount();++i){
                                 Paseo temp = paseoAdapter.getItem(i);
-                                if(temp.getUidPerro() == my_paseo.getUidPerro()){
+                                if(temp.getUidPerro().equals(my_paseo.getUidPerro())){
                                     paseoAdapter.remove(temp);
                                     break;
                                 }
