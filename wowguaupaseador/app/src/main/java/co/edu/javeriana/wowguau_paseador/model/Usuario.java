@@ -17,7 +17,6 @@ public abstract class Usuario implements Serializable {
     private Direccion direccion;
     private float saldo;
     private String direccionFoto;
-    private GeoPoint ubicacion;
 
 
     public Usuario(String correo, String nombre, long cedula, Date fechaNacimiento, long telefono, String genero, Direccion direccion) {
@@ -104,14 +103,6 @@ public abstract class Usuario implements Serializable {
 
     public void setSaldo(float saldo) {
         this.saldo = saldo;
-    }
-
-    public GeoPoint getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(GeoPoint ubicacion) {
-        this.ubicacion = ubicacion;
     }
 }
 /*

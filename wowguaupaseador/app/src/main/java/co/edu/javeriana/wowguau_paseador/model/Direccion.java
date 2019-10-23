@@ -15,6 +15,11 @@ public class Direccion implements Serializable {
         this.longitud = address.getLongitude();
     }
 
+    public Direccion(double latitud, double longitud) {
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
+
     public Direccion() {
     }
 

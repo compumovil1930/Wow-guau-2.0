@@ -18,6 +18,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
@@ -51,6 +52,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 
 import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.model.Direccion;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Utils;
@@ -76,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
     LoginManager loginManager;
 
     private String TAG ="LOGIN";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,8 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        mCallbackManager = CallbackManager.Factory.create();
 
         btn_login = findViewById(R.id.btn_login);
         btn_crear_cuenta = findViewById(R.id.btn_crear_cuenta);
@@ -229,20 +234,16 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void signInfacebook(){
         loginManager = LoginManager.getInstance();
+        Log.i(TAG,"Facebook login try");
         loginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(final LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 if (AccessToken.getCurrentAccessToken() != null) {
                     Log.i(TAG,"token not null");
-                    GraphRequest request = GraphRequest.newMeRequest(
-                            loginResult.getAccessToken(),
-                            new GraphRequest.GraphJSONObjectCallback() {
+                    GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                                 @Override
-                                public void onCompleted(
-                                        JSONObject object,
-                                        GraphResponse response) {
-
+                                public void onCompleted(JSONObject object, GraphResponse response) {
                                     if (object != null) {
                                         try {
                                             AppEventsLogger logger = AppEventsLogger.newLogger(LoginActivity.this);
@@ -289,8 +290,7 @@ public class LoginActivity extends AppCompatActivity {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(LoginActivity.this, "Autenticación fallida",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, "Autenticación fallida", Toast.LENGTH_SHORT).show();
 
             desbloquearOpciones();
         }
@@ -309,13 +309,12 @@ public class LoginActivity extends AppCompatActivity {
                             //updateUI(user);
                             boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
 
-                            Toast.makeText(LoginActivity.this, "Procesando, por favor espera",
-                                    Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Procesando, por favor espera", Toast.LENGTH_LONG).show();
 
-                            if (isNewUser) { //toca crearle un documento en Clientes
+                            if (isNewUser) { //toca crearle un documento en paseador
                                 Log.d(TAG, "Is New User!");
-                                crearCliente(currentUser);
-                            } else { //se va a verificar si el usuario es Cliente
+                                crearPaseador(currentUser);
+                            } else { //se va a verificar si el usuario es paseador
                                 Log.d(TAG, "Is Old User!");
                                 updateUI(currentUser);
                             }
@@ -349,7 +348,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             if (isNewUser) { //toca crearle un documento en paseador
                                 Log.d(TAG, "Is New User!");
-                                crearCliente(currentUser);
+                                crearPaseador(currentUser);
                             } else { //se va a verificar si el usuario es paseador
                                 Log.d(TAG, "Is Old User!");
                                 updateUI(currentUser);
@@ -357,23 +356,16 @@ public class LoginActivity extends AppCompatActivity {
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Autenticación fallida",
-                                    Toast.LENGTH_SHORT).show();
-
+                            Toast.makeText(LoginActivity.this, "Autenticación fallida", Toast.LENGTH_SHORT).show();
                             desbloquearOpciones();
                         }
-
-                        // ...
                     }
                 });
     }
-    private void crearCliente(final FirebaseUser user){
+    private void crearPaseador(final FirebaseUser user){
 
-        //inicializar los datos del cliente
+        //inicializar los datos del paseador
         Paseador paseador = new Paseador(user.getEmail(), user.getDisplayName(), 0, null, 0, "", null, "", 0);
-
-        GeoPoint ubicacion = new GeoPoint(0.0, 0.0);
-        paseador.setUbicacion(ubicacion);
         paseador.setDireccionFoto(user.getPhotoUrl().toString());
 
         FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), null);
