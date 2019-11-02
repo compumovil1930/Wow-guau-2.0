@@ -106,13 +106,17 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             et_password.setError(null);
         }
-        if(!Utils.isEmailValid(correo)){
+        if(!isEmailValid(correo)){
             et_email.setError("Mal escrito");
             valid = false;
         }else{
             et_email.setError(null);
         }
         return valid;
+    }
+    private boolean isEmailValid(String correo) {
+        Matcher matcher = Utils.VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
+        return matcher.matches();
     }
     private void signInUser(String correo, String contrasena){
         if(validateForm()){
@@ -135,156 +139,4 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
     }
-<<<<<<< Updated upstream
-=======
-    private void signInGoogle() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN_GOOGLE);
-    }
-    private void signInfacebook(){
-        loginManager = LoginManager.getInstance();
-        Log.i(TAG,"Facebook login try");
-        loginManager.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(final LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                if (AccessToken.getCurrentAccessToken() != null) {
-                    Log.i(TAG,"token not null");
-                    GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                                @Override
-                                public void onCompleted(JSONObject object, GraphResponse response) {
-                                    if (object != null) {
-                                        try {
-                                            AppEventsLogger logger = AppEventsLogger.newLogger(LoginActivity.this);
-                                            Log.i(TAG,"Facebook login suceess");
-                                            handleFacebookAccessToken(loginResult.getAccessToken());
-
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-
-                                }
-                            });
-                    Bundle parameters = new Bundle();
-                    parameters.putString("fields", "id,name,email,gender, birthday, about");
-                    request.setParameters(parameters);
-                    request.executeAsync();
-                }
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                desbloquearOpciones();
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                desbloquearOpciones();
-            }
-        });
-        loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
-
-    }
-    private void handleSignInResultGoogle(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-
-            // Signed in successfully, show authenticated UI.
-            firebaseAuthWithGoogle(account);
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(LoginActivity.this, "Autenticación fallida", Toast.LENGTH_SHORT).show();
-
-            desbloquearOpciones();
-        }
-    }
-    private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            currentUser = mAuth.getCurrentUser();
-                            //updateUI(user);
-                            boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-
-                            Toast.makeText(LoginActivity.this, "Procesando, por favor espera", Toast.LENGTH_LONG).show();
-
-                            if (isNewUser) { //toca crearle un documento en paseador
-                                Log.d(TAG, "Is New User!");
-                                crearPaseador(currentUser);
-                            } else { //se va a verificar si el usuario es paseador
-                                Log.d(TAG, "Is Old User!");
-                                updateUI(currentUser);
-                            }
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Autenticación fallida",
-                                    Toast.LENGTH_SHORT).show();
-                            //updateUI(null);
-                            desbloquearOpciones();
-                        }
-
-                        // ...
-                    }
-                });
-    }
-    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
-        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
-                            currentUser = mAuth.getCurrentUser();
-
-                            boolean isNewUser = task.getResult().getAdditionalUserInfo().isNewUser();
-
-                            if (isNewUser) { //toca crearle un documento en paseador
-                                Log.d(TAG, "Is New User!");
-                                crearPaseador(currentUser);
-                            } else { //se va a verificar si el usuario es paseador
-                                Log.d(TAG, "Is Old User!");
-                                updateUI(currentUser);
-                            }
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Autenticación fallida", Toast.LENGTH_SHORT).show();
-                            desbloquearOpciones();
-                        }
-                    }
-                });
-    }
-    private void crearPaseador(final FirebaseUser user){
-        //inicializar los datos del paseador
-        Paseador paseador = new Paseador(user.getEmail(), user.getDisplayName(), 0, null, 0, "", null, "", 0);
-        paseador.setDireccionFoto(user.getPhotoUrl().toString());
-
-        FirebaseUtils.guardarUsuario(paseador, currentUser.getUid(), null);
-        updateUI(currentUser);
-        desbloquearOpciones();
-    }
-    private void desbloquearOpciones(){
-        btn_login.setEnabled(true);
-        btn_crear_cuenta.setEnabled(true);
-        cl_Facebook.setEnabled(true);
-        cl_Google.setEnabled(true);
-        tv_fpassword.setEnabled(true);
-    }
->>>>>>> Stashed changes
 }

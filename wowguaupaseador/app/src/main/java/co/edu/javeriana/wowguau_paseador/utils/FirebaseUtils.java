@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.util.Log;
 import android.widget.ImageView;
@@ -106,7 +105,6 @@ public class FirebaseUtils {
 
         try {
             final File localFile = File.createTempFile("images", "jpg");
-<<<<<<< Updated upstream
         photoRef.getFile(localFile)
                 .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                     @Override
@@ -122,24 +120,6 @@ public class FirebaseUtils {
                 // ...
             }
         });
-=======
-            photoRef.getFile(localFile)
-                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            // Successfully downloaded data to local file
-                            // ...
-                            perfil.setImageURI(Uri.fromFile(localFile));
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception exception) {
-                    Log.e("MAL", exception.getMessage());
-                }
-            });
-            return localFile;
->>>>>>> Stashed changes
 
         } catch (IOException e) {
             e.printStackTrace();

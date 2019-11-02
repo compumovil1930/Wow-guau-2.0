@@ -257,7 +257,7 @@ public class RegistroActivity extends AppCompatActivity {
             et_experiencia.setError(Utils.obligatorio);
             completo = false;
         }
-        if(!Utils.isEmailValid(email)){
+        if(!isEmailValid(email)){
             et_email.setError("Mal escrito");
             completo = false;
         }
@@ -271,6 +271,10 @@ public class RegistroActivity extends AppCompatActivity {
 
         return new Paseador(email, nombre, Long.parseLong(cedula), calendar.getTime(), Long.parseLong(phone), genero, new Direccion(direccion, address), descripcion, Integer.parseInt(experiencia));
     }
+    private boolean isEmailValid(String correo) {
+        Matcher matcher = Utils.VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
+        return matcher.matches();
+    }
     private void createAccount(final String correo, String contrasena){
         mAuth.createUserWithEmailAndPassword(correo, contrasena)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -280,7 +284,7 @@ public class RegistroActivity extends AppCompatActivity {
                     Log.d("BIEN", "createUserWithEmail:onComplete:" + task.isSuccessful());
                 }
                 if (!task.isSuccessful()) {
-                    Toast.makeText(RegistroActivity.this, "Error al autenticar, correo ya en uso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegistroActivity.this, "Error al autenticar" + task.getException().toString(), Toast.LENGTH_LONG).show();
                     Log.e("MAL", task.getException().getMessage());
                 }
             }
