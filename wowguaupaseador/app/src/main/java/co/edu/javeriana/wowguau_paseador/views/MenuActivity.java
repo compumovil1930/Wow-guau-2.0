@@ -29,16 +29,22 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.Date;
+import java.util.HashMap;
 
 import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.model.Direccion;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Utils;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MenuActivity extends AppCompatActivity {
     private ConstraintLayout cl_logout;
     private TextView tv_h_nombre;
-    private ImageView iv_perfil;
+    private CircleImageView iv_perfil;
     private TextView tv_estado;
     private TextView tv_saldo;
 
@@ -46,6 +52,13 @@ public class MenuActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Paseador paseador;
 
+<<<<<<< Updated upstream
+=======
+    private String TAG="MENU";
+
+    private FragmentRefreshListener fragmentRefreshListener;
+
+>>>>>>> Stashed changes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +83,7 @@ public class MenuActivity extends AppCompatActivity {
                 R.id.nav_inicio, R.id.nav_actualizar, R.id.nav_historial) //acá se agregan las otras opciones del menu
                 .setDrawerLayout(drawer)
                 .build();
-        Intent info = new Intent();
-        info.putExtra("user", paseador);
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -80,6 +92,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), PerfilActivity.class);
+                i.putExtra("user", paseador);
                 startActivity(i);
             }
         });
@@ -96,8 +109,33 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+<<<<<<< Updated upstream
         if(getIntent().hasExtra("user"))
             paseador = (Paseador) getIntent().getSerializableExtra("user");
+=======
+        if(getIntent().hasExtra("uid")) {
+            docRef = db.collection("Paseadores").document(getIntent().getStringExtra("uid"));
+            registration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                @Override
+                public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
+                    if (e != null) {
+                        Log.w(TAG, "Listen failed.", e);
+                        return;
+                    }
+
+                    if (snapshot != null && snapshot.exists()) {
+                        Log.d(TAG, "Current data: " + snapshot.getData());
+                        Direccion dir = new Direccion(String.valueOf(((HashMap)snapshot.get("direccion")).get("direccion")), Double.parseDouble(((HashMap)snapshot.get("direccion")).get("latitud").toString()), Double.parseDouble(((HashMap)snapshot.get("direccion")).get("longitud").toString()));
+                        paseador = new Paseador(String.valueOf(snapshot.get("correo")), String.valueOf(snapshot.get("nombre")), Long.parseLong(snapshot.get("cedula").toString()), snapshot.getTimestamp("fechaNacimiento").toDate(), Long.parseLong(snapshot.get("telefono").toString()), String.valueOf(snapshot.get("genero")), dir, String.valueOf(snapshot.get("descripcion")), Integer.parseInt(snapshot.get("experiencia").toString()));
+                        paseador.setDireccionFoto(snapshot.get("direccionFoto").toString());
+                        updateUI();
+                    } else {
+                        Log.d(TAG, "Current data: null");
+                    }
+                }
+            });
+        }
+>>>>>>> Stashed changes
         else
             return;
         FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
@@ -114,6 +152,11 @@ public class MenuActivity extends AppCompatActivity {
         tv_h_nombre.setText(paseador.getNombre());
         tv_estado.setText(" "+(paseador.isEstado()? "Disponible": "No disponible"));
         tv_saldo.setText(paseador.getSaldo()+" petCoins");
+<<<<<<< Updated upstream
+=======
+        //FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
+        fragmentRefreshListener.onRefresh();
+>>>>>>> Stashed changes
     }
 
     @Override
@@ -135,5 +178,16 @@ public class MenuActivity extends AppCompatActivity {
     public void setPaseador(Paseador paseador) {
         this.paseador = paseador;
         updateUI();
+    }
+    public FragmentRefreshListener getFragmentRefreshListener() {
+        return fragmentRefreshListener;
+    }
+
+    public void setFragmentRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.fragmentRefreshListener = fragmentRefreshListener;
+    }
+
+    public interface FragmentRefreshListener{
+        void onRefresh();
     }
 }

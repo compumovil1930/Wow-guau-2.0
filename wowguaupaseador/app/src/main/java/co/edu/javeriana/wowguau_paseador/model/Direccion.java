@@ -18,6 +18,12 @@ public class Direccion implements Serializable {
     public Direccion() {
     }
 
+    public Direccion(String direccion, double latitud, double longitud) {
+        this.direccion = direccion;
+        this.latitud = latitud;
+        this.longitud = longitud;
+    }
+
     public String getDireccion() {
         return direccion;
     }
