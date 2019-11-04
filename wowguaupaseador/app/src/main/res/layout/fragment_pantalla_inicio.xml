@@ -67,6 +67,10 @@
             android:id="@+id/listaPaseos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:divider="@color/divider"
+            android:dividerHeight="10.0sp"
+            android:footerDividersEnabled="true"
+            android:headerDividersEnabled="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

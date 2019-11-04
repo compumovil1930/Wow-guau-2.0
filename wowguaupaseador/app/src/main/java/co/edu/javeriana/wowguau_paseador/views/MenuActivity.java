@@ -5,12 +5,16 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,6 +24,12 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -47,6 +57,9 @@ public class MenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private FirebaseAuth mAuth;
+    private ListenerRegistration registration;
+    private FirebaseFirestore db;
+    private DocumentReference docRef;
     private Paseador paseador;
 
     private FragmentRefreshListener fragmentRefreshListener;
@@ -59,6 +72,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
@@ -127,14 +141,11 @@ public class MenuActivity extends AppCompatActivity {
         }
         else
             return;
-        FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
-
-
-        //FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
-        //paseador.setFoto(Utils.getBitmap(iv_perfil.getDrawable()));
-
-        Log.i("PASEADOR", paseador.getNombre());
-        updateUI();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        registration.remove();
     }
 
     private void updateUI(){

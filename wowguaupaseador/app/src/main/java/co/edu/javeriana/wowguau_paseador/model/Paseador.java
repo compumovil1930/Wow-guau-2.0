@@ -1,7 +1,6 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,8 +46,6 @@ public class Paseador extends Usuario  implements Serializable {
     public void setDireccionesCertificados(List<String> direccionesCertificados) {
         this.direccionesCertificados = direccionesCertificados;
     }
-
-
 
     public boolean isEstado() {
         return estado;

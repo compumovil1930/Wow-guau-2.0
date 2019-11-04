@@ -39,19 +39,17 @@ public class FirebaseUtils {
     public static void guardarUsuario(Paseador paseador, String uid, Bitmap photo){
         db.setFirestoreSettings(settings);
         // certificados
-        subirFoto(paseador.getDireccionFoto(), photo);
+        if(photo!=null)
+            subirFoto(paseador.getDireccionFoto(), photo);
         db.collection("Paseadores").document(uid).set(paseador);
     }
     public static void buscarUsuario(final String uid, final Activity activity){
         db.setFirestoreSettings(settings);
-        final Paseador[] paseador = new Paseador[1];
         db.collection("Paseadores").document(uid).get()
                 .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Paseador paseador = documentSnapshot.toObject(Paseador.class);
                         Intent i = new Intent(activity, MenuActivity.class);
-                        i.putExtra("user", paseador);
                         i.putExtra("uid", uid);
                         activity.startActivity(i);
                     }
@@ -84,9 +82,10 @@ public class FirebaseUtils {
             }
         });
     }
-    public static void descargarFotoImageView(String ruta, final ImageView perfil){
+    public static File descargarFotoImageView(String ruta, final ImageView perfil){
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
+        Log.i("PATH" , photoRef.toString());
         /*
         final long ONE_MEGABYTE = 1024 * 1024;
         photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -126,7 +125,7 @@ public class FirebaseUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return null;
         /*
         Glide.with( context)
                 .load(photoRef)

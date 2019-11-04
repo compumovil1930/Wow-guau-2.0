@@ -45,8 +45,6 @@ public class PaseoAdapter extends ArrayAdapter<Paseo> {
         TextView tvDireccion = (TextView) convertView.findViewById(R.id.tv_direccion_paseo);
         TextView tvDistancia = convertView.findViewById(R.id.tv_dist_paseo);
 
-
-
         ImageView ivPerrito = (ImageView) convertView.findViewById(R.id.iv_paseo);
 
 
@@ -57,10 +55,16 @@ public class PaseoAdapter extends ArrayAdapter<Paseo> {
         tvCosto.setText(String.valueOf(paseo.getCosto()));
         tvDireccion.setText(paseo.getDireccion());
 
-        FirebaseUtils.descargarFotoImageView( paseo.getUriPerrito(),ivPerrito);
 
+        if(paseo.getMyImage() == null){
+            paseo.setMyImage(FirebaseUtils.descargarFotoImageView( paseo.getUriPerrito(),ivPerrito));
+        } else {
+            ivPerrito.setImageURI(Uri.fromFile(paseo.getMyImage()));
+        }
 
-
+        if(paseo.getDist() <= -0.5 || paseo.getDist() > 5.0002 ){
+           convertView.setVisibility(View.INVISIBLE);
+        }
         // Return the completed view to render on screen
         return convertView;
     }
