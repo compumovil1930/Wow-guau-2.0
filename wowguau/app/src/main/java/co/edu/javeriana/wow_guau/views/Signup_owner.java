@@ -7,17 +7,13 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,18 +29,6 @@ import android.widget.RadioGroup;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -93,10 +77,8 @@ public class Signup_owner extends AppCompatActivity {
 
     private DatePickerDialog.OnDateSetListener date;
     private Calendar calendar;
-    private Bitmap selectedImage;
     private Address address;
 
-    private FirebaseStorage storage;
     private StorageReference storageReference;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -110,14 +92,6 @@ public class Signup_owner extends AppCompatActivity {
     private static final int MY_PERMISSIONS_READ_EXTERNAL_STORAGE = 1;
 
     private static final int MY_PERMISSIONS_REQUEST_LOCATION = 4;
-    private static final int REQUEST_CHECK_SETTINGS = 5;
-
-    public final static int ADDRESS_PICKER = 8;
-
-    private FusedLocationProviderClient mFusedLocationClient;
-    private LocationRequest mLocationRequest;
-    private LocationCallback mLocationCallback;
-
 
     private static String[] PERMISSIONS = {
             android.Manifest.permission.CAMERA,
@@ -166,22 +140,6 @@ public class Signup_owner extends AppCompatActivity {
         ubicacionCliente = new GeoPoint(0,0);
 
         cliente = null;
-
-        //mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-        //mLocationRequest = createLocationRequest();
-
-        /*mLocationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                final Location location = locationResult.getLastLocation();
-                Log.i("LOCATION", "Location update in the callback: " + location);
-                if (location != null) {
-                    ubicacionCliente = new GeoPoint(location.getLatitude(), location.getLongitude());
-                    stopLocationUpdates();
-                }
-            }
-        };*/
-                    //db = FirebaseFirestore.getInstance();
 
         calendar = Calendar.getInstance();
 
@@ -233,14 +191,7 @@ public class Signup_owner extends AppCompatActivity {
                         toast.show();
                     }
                 }
-                /*if(user != null) {
-                    // subir a firebase y archivos
 
-                }
-                else{
-                    scrollView.fullScroll(ScrollView.FOCUS_UP);
-                    //tv_error.setTextSize(18);
-                }*/
             }
         });
         date = new DatePickerDialog.OnDateSetListener(){
@@ -484,17 +435,6 @@ public class Signup_owner extends AppCompatActivity {
                 }
                 return;
 
-            /*case REQUEST_CHECK_SETTINGS:
-                if (resultCode == RESULT_OK) {
-                    //startLocationUpdates(); //Se encendió la localización!!!
-                } else {
-                    //button_register.setEnabled(false);
-                    Toast.makeText(this,
-                            "Sin acceso a localización, hardware deshabilitado!",
-                            Toast.LENGTH_LONG).show();
-                }
-            return;*/
-
             case Permisos.ADDRESS_PICKER:
                 if (resultCode == RESULT_OK) {
 
@@ -587,10 +527,15 @@ public class Signup_owner extends AppCompatActivity {
                             }
                         }
                         if (!task.isSuccessful()) {
-                            Toast.makeText(Signup_owner.this, "Fallo la creación de usuario: "
-                                            + Objects.requireNonNull(task.getException()).toString(),
-                                    Toast.LENGTH_SHORT).show();
-                            Log.e(TAG, Objects.requireNonNull(task.getException().getMessage()));
+                            if(task.getException().getMessage().equals("The email address is already in use by another account.")) {
+                                Toast.makeText(Signup_owner.this, "Falló la creación de usuario: el " +
+                                        "email ya está siendo usando", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Signup_owner.this, "Falló la creación de usuario: "
+                                                + Objects.requireNonNull(task.getException()).toString(),
+                                        Toast.LENGTH_SHORT).show();
+                                Log.e(TAG, Objects.requireNonNull(task.getException().getMessage()));
+                            }
                             button_register.setEnabled(true);
                         }
                     }
@@ -622,71 +567,6 @@ public class Signup_owner extends AppCompatActivity {
                 });
 
     }
-
-    /*private void revisarActivacionGPS(){
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
-            LocationSettingsRequest.Builder builder = new
-                    LocationSettingsRequest.Builder().addLocationRequest(mLocationRequest);
-            SettingsClient client = LocationServices.getSettingsClient(this);
-            Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
-
-            task.addOnSuccessListener(this, new OnSuccessListener<LocationSettingsResponse>() {
-                @Override
-                public void onSuccess(LocationSettingsResponse locationSettingsResponse) {
-                    startLocationUpdates(); //Todas las condiciones para recibir localizaciones
-                }
-            });
-
-            task.addOnFailureListener(this, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    int statusCode = ((ApiException) e).getStatusCode();
-                    switch (statusCode) {
-                        case CommonStatusCodes.RESOLUTION_REQUIRED:
-                            // Location settings are not satisfied, but this can be fixed by showing the user a dialog.
-                            try {// Show the dialog by calling startResolutionForResult(),
-                                // and check the result in onActivityResult().
-                                ResolvableApiException resolvable = (ResolvableApiException) e;
-                                resolvable.startResolutionForResult(Signup_owner.this,
-                                        REQUEST_CHECK_SETTINGS);
-                            } catch (IntentSender.SendIntentException sendEx) {
-                                // Ignore the error.
-                            } break;
-                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                            // Location settings are not satisfied. No way to fix the settings so we won't show the dialog.
-                            break;
-                    }
-                }
-            });
-
-        }else{
-            Toast.makeText(this,
-                    "Sin acceso a localización, permiso denegado!",
-                    Toast.LENGTH_LONG).show();
-        }
-    }*/
-
-    /*private void startLocationUpdates() {
-        //Verificación de permiso!!
-        if (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, null);
-        }
-    }*/
-
-    /*protected LocationRequest createLocationRequest() {
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(1000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(1000); //máxima tasa de refresco
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        return mLocationRequest;
-    }*/
-
-    /*private void stopLocationUpdates(){
-        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-    }*/
 
     public void subirFoto(String ruta, Bitmap photo){
         db.setFirestoreSettings(settings);
