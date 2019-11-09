@@ -1,8 +1,6 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
-import android.graphics.Bitmap;
-
-import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.io.Serializable;
@@ -12,18 +10,16 @@ import java.util.Date;
 public abstract class Usuario implements Serializable {
     private String correo;
     private String nombre;
-    private int cedula;
+    private long cedula;
     private Date fechaNacimiento;
-    private int telefono;
+    private long telefono;
     private String genero;
     private Direccion direccion;
     private float saldo;
     private String direccionFoto;
 
-    @Exclude
-    private Bitmap foto;
 
-    public Usuario(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, Direccion direccion) {
+    public Usuario(String correo, String nombre, long cedula, Date fechaNacimiento, long telefono, String genero, Direccion direccion) {
         this.correo = correo;
         this.nombre = nombre;
         this.cedula = cedula;
@@ -53,11 +49,11 @@ public abstract class Usuario implements Serializable {
         this.nombre = nombre;
     }
 
-    public int getCedula() {
+    public long getCedula() {
         return cedula;
     }
 
-    public void setCedula(int cedula) {
+    public void setCedula(long cedula) {
         this.cedula = cedula;
     }
 
@@ -69,11 +65,11 @@ public abstract class Usuario implements Serializable {
         this.fechaNacimiento = fechaNacimiento;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(long telefono) {
         this.telefono = telefono;
     }
 
@@ -83,14 +79,6 @@ public abstract class Usuario implements Serializable {
 
     public void setGenero(String genero) {
         this.genero = genero;
-    }
-
-    public Bitmap getFoto() {
-        return foto;
-    }
-
-    public void setFoto(Bitmap foto) {
-        this.foto = foto;
     }
 
     public String getDireccionFoto() {

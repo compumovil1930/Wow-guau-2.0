@@ -1,7 +1,6 @@
-package co.edu.javeriana.wowguau_paseador.utils;
+package co.edu.javeriana.wow_guau.utils;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +13,8 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
@@ -26,63 +27,79 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-import co.edu.javeriana.wowguau_paseador.model.Paseador;
-import co.edu.javeriana.wowguau_paseador.views.MenuActivity;
+import co.edu.javeriana.wow_guau.model.Paseador;
+import co.edu.javeriana.wow_guau.model.Perro;
 
-public class FirebaseUtils {
+public class FirebaseUtils
+{
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private static FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
             .setTimestampsInSnapshotsEnabled(true)
             .build();
     private static StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
 
-    public static void guardarUsuario(Paseador paseador, String uid, Bitmap photo){
+    public static void  guardarPerro(Perro perro, final Bitmap photo)
+    {
+        final String ruta = perro.getDireccionFoto();
         db.setFirestoreSettings(settings);
-        // certificados
-        if(photo!=null)
-            subirFoto(paseador.getDireccionFoto(), photo);
-        db.collection("Paseadores").document(uid).set(paseador);
-    }
-    public static void buscarUsuario(final String uid, final Activity activity){
-        db.setFirestoreSettings(settings);
-        db.collection("Paseadores").document(uid).get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+        db.collection("Mascotas").add(perro)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>()
+                {
                     @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Intent i = new Intent(activity, MenuActivity.class);
-                        i.putExtra("uid", uid);
-                        activity.startActivity(i);
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(activity, "El usuario no existe como paseador", Toast.LENGTH_LONG).show();
+                    public void onSuccess(DocumentReference documentReference)
+                    {
+                        subirFoto(ruta+"dog_photo_"+documentReference.getId()+".jpg", photo);
+                        db.collection("Mascotas").document(documentReference.getId())
+                                .update("direccionFoto"
+                                        ,ruta+"dog_photo_"+documentReference.getId()+".jpg",
+                                        "perroID",documentReference.getId());
                     }
                 });
     }
-    public static void subirFoto(String ruta, Bitmap photo)
-    {
+
+
+    public static void subirFoto(String ruta, Bitmap photo){
         db.setFirestoreSettings(settings);
+
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = mStorageRef.child("images").child(ruta).putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener()
-        {
+        uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.i("ERROR", "No se pudo subir la foto");
             }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>()
-        {
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Log.i("INFO", taskSnapshot.getMetadata().toString());
             }
         });
     }
-    public static File descargarFotoImageView(String ruta, final ImageView perfil){
+    public static void descargarFotoImageView(String ruta, final ImageView perfil)
+    {
+        db.setFirestoreSettings(settings);
+        StorageReference photoRef = mStorageRef.child("images").child(ruta);
+        final long ONE_MEGABYTE = 1024 * 1024 * 5*5;
+        photoRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>()
+        {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                perfil.setImageBitmap(BitmapFactory.decodeByteArray(bytes, 0, bytes.length));
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle any errors
+            }
+        });
+    }
+
+    public static File descargarFotoImageViewOther(String ruta, final ImageView perfil){
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
         Log.i("PATH" , photoRef.toString());
@@ -104,23 +121,23 @@ public class FirebaseUtils {
 
         try {
             final File localFile = File.createTempFile("images", "jpg");
-        photoRef.getFile(localFile)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        // Successfully downloaded data to local file
-                        // ...
-                        perfil.setImageURI(Uri.fromFile(localFile));
+            photoRef.getFile(localFile)
+                    .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            // Successfully downloaded data to local file
+                            // ...
+                            perfil.setImageURI(Uri.fromFile(localFile));
 
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle failed download
-                // ...
-            }
-        });
-        return localFile;
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle failed download
+                    // ...
+                }
+            });
+            return localFile;
 
         } catch (IOException e) {
             e.printStackTrace();

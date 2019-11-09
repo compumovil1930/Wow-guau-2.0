@@ -1,25 +1,26 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
-public class Paseador extends Usuario{
+public class Paseador extends Usuario  implements Serializable {
     private String descripcion;
     private int experiencia;
     private List<String> direccionesCertificados;
     private boolean estado;
 
-    public Paseador(String correo, String nombre, int cedula, Date fechaNacimiento, int telefono, String genero, Direccion direccion, String descripcion, int experiencia) {
+    public Paseador(String correo, String nombre, long cedula, Date fechaNacimiento, long telefono, String genero, Direccion direccion, String descripcion, int experiencia) {
         super(correo, nombre, cedula, fechaNacimiento, telefono, genero, direccion);
         this.descripcion = descripcion;
         this.experiencia = experiencia;
-        this.direccionesCertificados = new ArrayList<>();
+        this.direccionesCertificados = new LinkedList<>();
         estado = false;
     }
 
     public Paseador() {
-        this.direccionesCertificados = new ArrayList<>();
+        this.direccionesCertificados = new LinkedList<>();
     }
 
     public String getDescripcion() {

@@ -7,7 +7,7 @@
     <string name="fpassword"><u>Olvidé mi contraseña</u></string>
     <string name="caccount">Crear cuenta</string>
 
-    <string name="bienvenido">Bienvenido, </string>
+    <string name="bienvenido">Bienvenido</string>
     <string name="qu_deseas_hacer">¿Qué deseas hacer?</string>
     <string name="dar_paseo">Empezar paseo</string>
     <string name="crear_paseo">Crear paseo</string>
@@ -38,10 +38,12 @@
     <string name="menu_historial">Historial</string>
 
     <!-- LoginActivity -->
-
+    <string name="solicitudes_de_paseo">Solicitudes de paseo</string>
     <string name="Facebook">Ingresar con Facebook</string>
     <string name="Twitter">Ingresar con Twitter</string>
     <string name="Google">Ingresar con Google</string>
     <string name="LoginImagen">Login</string>
 
+    <string name="facebook_app_id">2423075578019456</string>
+    <string name="fb_login_protocol_scheme">fb2423075578019456</string>
 </resources>

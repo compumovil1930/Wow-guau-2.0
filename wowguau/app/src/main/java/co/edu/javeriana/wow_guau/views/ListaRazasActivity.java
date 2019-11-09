@@ -28,7 +28,7 @@ public class ListaRazasActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_razas);
-        listView = findViewById(R.id.listView);
+        listView = findViewById(R.id.recycleView);
         et_search = findViewById(R.id.et_search);
 
         razas = new ArrayList<>();

@@ -86,6 +86,10 @@ public class MenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        //imageViewUsuario = findViewById(R.id.ivFotoUsuarioMenu);
+        //descargarFotoImageView(direccionFoto);
+        //no supe cómo montar la imagen en el menú de esta actividad
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
 
