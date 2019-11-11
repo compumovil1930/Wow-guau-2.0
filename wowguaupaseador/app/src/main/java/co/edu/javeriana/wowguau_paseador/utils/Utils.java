@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
@@ -24,5 +25,9 @@ public class Utils {
             // Handle the error
             return null;
         }
+    }
+    public static boolean isEmailValid(String correo) {
+        Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
+        return matcher.matches();
     }
 }

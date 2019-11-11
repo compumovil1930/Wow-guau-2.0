@@ -47,11 +47,11 @@ import co.edu.javeriana.wowguau_paseador.R;
 import co.edu.javeriana.wowguau_paseador.adapters.PaseoAdapter;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.model.Paseo;
+import co.edu.javeriana.wowguau_paseador.utils.Permisos;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PantallaInicioFragment extends Fragment {
-
     private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
@@ -66,17 +66,14 @@ public class PantallaInicioFragment extends Fragment {
 
     Paseador paseador;
 
-
     ArrayList<Paseo> lPaseos = new ArrayList<>();
     PaseoAdapter paseoAdapter ;
 
     LatLng mLoc;
 
     private FirebaseAuth mAuth;
-
     FirebaseUser mFireUser = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
 
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
@@ -116,29 +113,17 @@ public class PantallaInicioFragment extends Fragment {
     public PantallaInicioFragment() {
     }
 
-    private void pedirPermiso(){
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            if(ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                    Manifest.permission.ACCESS_FINE_LOCATION)){
-                Toast.makeText(getContext(),"La aplicación necesita permisos", Toast.LENGTH_LONG).show();
-            }
-            ActivityCompat.requestPermissions(getActivity(),
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    MY_PERMISSIONS_REQUEST_LOCATION);
-        } else {
-            startLocationUpdates();
-            // permission granted, so...
-        }
-    }
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
 
 
         mAuth = FirebaseAuth.getInstance();
-        paseador = ((MenuActivity)getActivity()).getPaseador();
+        ((MenuActivity)getActivity()).setFragmentRefreshListener(new MenuActivity.FragmentRefreshListener() {
+            @Override
+            public void onRefresh() {
+                paseador = ((MenuActivity)getActivity()).getPaseador();
+            }
+        });
 
         final View view = inflater.inflate(R.layout.fragment_pantalla_inicio, container, false);
         ((MenuActivity) getActivity()).getSupportActionBar().setTitle("Paseador");
@@ -162,7 +147,7 @@ public class PantallaInicioFragment extends Fragment {
         }
 
 
-        /*db.collection("Paseos")
+        db.collection("Paseos")
                 .whereEqualTo("uidPaseador",mAuth.getUid()).whereEqualTo("estado",true).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     private Paseo newPaseo(Map<String, Object> vals){
                         Paseo my_paseo = new Paseo((String) vals.get("uidPerro"),
@@ -238,7 +223,7 @@ public class PantallaInicioFragment extends Fragment {
                 });
 
             }
-        });*/
+        });
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mLocationRequest = createLocationRequest();
@@ -292,10 +277,12 @@ public class PantallaInicioFragment extends Fragment {
                 if(paseador.isEstado()){
 
                     mList.setVisibility(View.VISIBLE);
-                    pedirPermiso();
-                        btn_estado.setBackgroundColor(Color.parseColor("#DC143C"));
-                        btn_estado.setText("Dejar de Trabajar");
-                        btn_estado.setTextColor(Color.WHITE);
+                    Permisos.requestPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, "La aplicación necesita el permiso", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                        startLocationUpdates();
+                    btn_estado.setBackgroundColor(Color.parseColor("#DC143C"));
+                    btn_estado.setText("Dejar de Trabajar");
+                    btn_estado.setTextColor(Color.WHITE);
                 } else {
                     mList.setVisibility(View.INVISIBLE);
                     stopLocationUpdates();
@@ -315,14 +302,11 @@ public class PantallaInicioFragment extends Fragment {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startLocationUpdates();
                 } else {
                     Toast.makeText(getContext(),"La aplicación necesita permisos", Toast.LENGTH_LONG).show();

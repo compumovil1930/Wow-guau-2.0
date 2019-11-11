@@ -40,7 +40,10 @@ import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.HashMap;
+
 import co.edu.javeriana.wowguau_paseador.R;
+import co.edu.javeriana.wowguau_paseador.model.Direccion;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Utils;
@@ -58,6 +61,8 @@ public class MenuActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference docRef;
     private Paseador paseador;
+
+    private FragmentRefreshListener fragmentRefreshListener;
 
     private String TAG="MENU";
 
@@ -86,8 +91,7 @@ public class MenuActivity extends AppCompatActivity {
                 R.id.nav_inicio, R.id.nav_actualizar, R.id.nav_historial) //acá se agregan las otras opciones del menu
                 .setDrawerLayout(drawer)
                 .build();
-        Intent info = new Intent();
-        info.putExtra("user", paseador);
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
@@ -96,6 +100,7 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getBaseContext(), PerfilActivity.class);
+                i.putExtra("user", paseador);
                 startActivity(i);
             }
         });
@@ -113,9 +118,7 @@ public class MenuActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         if(getIntent().hasExtra("uid")) {
-            //paseador = new Paseador("algo@algo.com", "prueba", 0, null, 0, "", null, "", 0);//(Paseador) getIntent().getSerializableExtra("user");
             docRef = db.collection("Paseadores").document(getIntent().getStringExtra("uid"));
-
             registration = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot snapshot, @Nullable FirebaseFirestoreException e) {
@@ -126,7 +129,9 @@ public class MenuActivity extends AppCompatActivity {
 
                     if (snapshot != null && snapshot.exists()) {
                         Log.d(TAG, "Current data: " + snapshot.getData());
-                        paseador = snapshot.toObject(Paseador.class);
+                        Direccion dir = new Direccion(String.valueOf(((HashMap)snapshot.get("direccion")).get("direccion")), Double.parseDouble(((HashMap)snapshot.get("direccion")).get("latitud").toString()), Double.parseDouble(((HashMap)snapshot.get("direccion")).get("longitud").toString()));
+                        paseador = new Paseador(String.valueOf(snapshot.get("correo")), String.valueOf(snapshot.get("nombre")), Long.parseLong(snapshot.get("cedula").toString()), snapshot.getTimestamp("fechaNacimiento").toDate(), Long.parseLong(snapshot.get("telefono").toString()), String.valueOf(snapshot.get("genero")), dir, String.valueOf(snapshot.get("descripcion")), Integer.parseInt(snapshot.get("experiencia").toString()));
+                        paseador.setDireccionFoto(snapshot.get("direccionFoto").toString());
                         updateUI();
                     } else {
                         Log.d(TAG, "Current data: null");
@@ -147,7 +152,8 @@ public class MenuActivity extends AppCompatActivity {
         tv_h_nombre.setText(paseador.getNombre());
         tv_estado.setText(" "+(paseador.isEstado()? "Disponible": "No disponible"));
         tv_saldo.setText(paseador.getSaldo()+" petCoins");
-        FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
+        //FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
+        fragmentRefreshListener.onRefresh();
     }
 
     @Override
@@ -169,5 +175,16 @@ public class MenuActivity extends AppCompatActivity {
     public void setPaseador(Paseador paseador) {
         this.paseador = paseador;
         updateUI();
+    }
+    public FragmentRefreshListener getFragmentRefreshListener() {
+        return fragmentRefreshListener;
+    }
+
+    public void setFragmentRefreshListener(FragmentRefreshListener fragmentRefreshListener) {
+        this.fragmentRefreshListener = fragmentRefreshListener;
+    }
+
+    public interface FragmentRefreshListener{
+        void onRefresh();
     }
 }
