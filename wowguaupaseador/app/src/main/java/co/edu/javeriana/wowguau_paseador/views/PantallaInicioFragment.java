@@ -1,6 +1,7 @@
 package co.edu.javeriana.wowguau_paseador.views;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
@@ -8,7 +9,6 @@ import android.location.Location;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,14 +30,13 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,12 +47,12 @@ import co.edu.javeriana.wowguau_paseador.R;
 import co.edu.javeriana.wowguau_paseador.adapters.PaseoAdapter;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.model.Paseo;
+import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Permisos;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 public class PantallaInicioFragment extends Fragment {
-    private final int MY_PERMISSIONS_REQUEST_LOCATION = 0;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
@@ -131,6 +131,13 @@ public class PantallaInicioFragment extends Fragment {
         paseoAdapter = new PaseoAdapter(getContext(),lPaseos);
         mList = (ListView) view.findViewById(R.id.listaPaseos);
         mList.setAdapter(paseoAdapter);
+        mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i(TAG,"CLICKKKK");
+                FirebaseUtils.getPerro(paseoAdapter.getItem(position), getActivity());
+            }
+        });
 
         tv_bienvenido = view.findViewById(R.id.tv_bienvenido);
         btn_estado = view.findViewById(R.id.btn_estado);
@@ -243,7 +250,6 @@ public class PantallaInicioFragment extends Fragment {
                     mLoc = new LatLng(location.getLatitude(), location.getLongitude());
                     db.collection("Paseadores").document(mFireUser.getUid()).update(up);
 
-
                     for(int i=0;i<mList.getChildCount();++i){
                         Paseo p = paseoAdapter.getItem(i);
                         p.setPaseadorLoc(mLoc);
@@ -273,20 +279,18 @@ public class PantallaInicioFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 paseador.setEstado(!paseador.isEstado());
-
                 if(paseador.isEstado()){
-
                     mList.setVisibility(View.VISIBLE);
                     Permisos.requestPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, "La aplicación necesita el permiso", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
                     if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
                         startLocationUpdates();
-                    btn_estado.setBackgroundColor(Color.parseColor("#DC143C"));
+                    btn_estado.setBackgroundColor(getResources().getColor(R.color.red));
                     btn_estado.setText("Dejar de Trabajar");
                     btn_estado.setTextColor(Color.WHITE);
                 } else {
                     mList.setVisibility(View.INVISIBLE);
                     stopLocationUpdates();
-                    btn_estado.setBackgroundColor(Color.parseColor("#14C967"));
+                    btn_estado.setBackgroundColor(getResources().getColor(R.color.green));
                     btn_estado.setText("Comenzar a Trabajar");
                 }
                 Map<String, Object> up = new HashMap<>();
@@ -304,7 +308,7 @@ public class PantallaInicioFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
+            case Permisos.MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     startLocationUpdates();
@@ -315,9 +319,6 @@ public class PantallaInicioFragment extends Fragment {
                 }
                 return;
             }
-
-            // other 'case' lines to check for other
-            // permissions this app might request.
         }
     }
 }
