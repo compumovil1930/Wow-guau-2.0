@@ -3,6 +3,7 @@ package co.edu.javeriana.wowguau_paseador.views;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,13 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -49,6 +48,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
 
     Perro perro;
     String uidPerro;
+    String uidPaseo;
     Paseo paseo;
 
     @Override
@@ -80,6 +80,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
+                            uidPaseo = document.getId();
                             paseo = new Paseo((String) document.getData().get("uidPerro"),
                                     (String) document.getData().get("uidPaseador"),
                                     (long) document.getData().get("duracion"),
@@ -100,7 +101,10 @@ public class InfoPaseoActivity extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "ERES GENIAL", Toast.LENGTH_LONG).show();
+                Intent i = new Intent(InfoPaseoActivity.this, WalkToDogActivity.class);
+                i.putExtra("perro", perro);
+                i.putExtra("uidPaseo", uidPaseo);
+                startActivity(i);
             }
         });
         btn_rechazar.setOnClickListener(new View.OnClickListener() {
