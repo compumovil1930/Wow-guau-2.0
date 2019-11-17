@@ -111,6 +111,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                //TODO deberia quitar el paseo de mis paseos
             }
         });
     }

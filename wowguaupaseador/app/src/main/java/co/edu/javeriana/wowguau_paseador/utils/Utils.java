@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
