@@ -190,7 +190,10 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View v) {
                 // TODO enviar notificación
-
+                Intent i = new Intent(WalkToDogActivity.this, WalkingActivity.class);
+                i.putExtra("perro", perro);
+                i.putExtra("uidPaseo", uidPaseo);
+                startActivity(i);
             }
         });
     }
@@ -217,10 +220,12 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
     private void updateUI() {
+        db.collection("Paseos").document(uidPaseo).update("uidPaseador", mAuth.getUid());
         LatLng dogLocation = new LatLng(paseo.getLatitude(), paseo.getLongitude());
         dog = mMap.addMarker(new MarkerOptions().position(dogLocation)
                 .title(perro.getNombre())
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.dog_png)));
+                .icon(BitmapDescriptorFactory.fromBitmap(Utils.getBitmap(getDrawable(R.drawable.ic_dog))))
+                .flat(true));
         consumeRESTVolley();
     }
     /**
@@ -239,14 +244,15 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
         mMap.getUiSettings().setMyLocationButtonEnabled(true);
         mMap.getUiSettings().setZoomGesturesEnabled(true);
         paseador = mMap.addMarker(new MarkerOptions().position(myLocation)
-                .icon(BitmapDescriptorFactory.fromBitmap(Utils.getBitmap(getDrawable(R.drawable.ic_walking_dog)))));
+                .icon(BitmapDescriptorFactory.fromBitmap(Utils.getBitmap(getDrawable(R.drawable.ic_walking_man))))
+                .flat(true));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
         mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
     }
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(500); //máxima tasa de refresco
+        mLocationRequest.setFastestInterval(1000); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
@@ -327,7 +333,6 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
             for(int i=0;i<steps.length();++i) {
                 JSONObject punto = steps.getJSONObject(i);
                 result.add(new LatLng(((JSONObject)punto.get("end_location")).getDouble("lat"), ((JSONObject)punto.get("end_location")).getDouble("lng")));
-                Log.i("LATLNG", result.get(i).toString());
             }
 
             distance = "La distancia es: " + d/1000.0 + " Km a su objetivo";
