@@ -10,11 +10,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -23,12 +27,14 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
 
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.model.Paseo;
 import co.edu.javeriana.wowguau_paseador.model.Perro;
 import co.edu.javeriana.wowguau_paseador.views.MenuActivity;
 import co.edu.javeriana.wowguau_paseador.views.InfoPaseoActivity;
+import co.edu.javeriana.wowguau_paseador.views.WalkToDogActivity;
 
 public class FirebaseUtils {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -81,8 +87,32 @@ public class FirebaseUtils {
                     }
                 });
     }
-    public static void subirFoto(String ruta, Bitmap photo)
-    {
+    public static void checkPaseo(final String uid, final Activity activity, final Perro perro){
+        db.setFirestoreSettings(settings);
+        db.collection("Paseos").document(uid).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        if(documentSnapshot.get("uidPaseador").equals("")) {
+                            Intent i = new Intent(activity, WalkToDogActivity.class);
+                            i.putExtra("perro", perro);
+                            i.putExtra("uidPaseo", uid);
+                            activity.startActivity(i);
+                            activity.finish();
+                        }
+                        else{
+                            Toast.makeText(activity, "El paseo ya fue tomado", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(activity, "No existe paseo", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+    public static void subirFoto(String ruta, Bitmap photo) {
         db.setFirestoreSettings(settings);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         photo.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -105,7 +135,7 @@ public class FirebaseUtils {
     public static File descargarFotoImageView(String ruta, final ImageView perfil){
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
-        Log.i("PATH" , photoRef.toString());
+        //Log.i("PATH" , photoRef.toString());
 
         try {
             final File localFile = File.createTempFile("images", "jpg");
