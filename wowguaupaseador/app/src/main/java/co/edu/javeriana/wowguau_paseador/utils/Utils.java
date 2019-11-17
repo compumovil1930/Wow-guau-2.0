@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -48,5 +50,10 @@ public class Utils {
             diff--;
         }
         return diff;
+    }
+    public static LatLng midPoint(LatLng point1, LatLng point2){
+        double latitude = point1.latitude+point2.latitude;
+        double longitude = point1.longitude+point2.longitude;
+        return new LatLng(latitude/2, longitude/2);
     }
 }

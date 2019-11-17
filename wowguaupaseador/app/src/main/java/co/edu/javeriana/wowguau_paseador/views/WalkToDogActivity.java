@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -42,13 +43,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.Dash;
-import com.google.android.gms.maps.model.Gap;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PatternItem;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -58,14 +56,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.model.value.IntegerValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 import co.edu.javeriana.wowguau_paseador.R;
@@ -87,16 +84,11 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
     private GoogleMap mMap;
     private Geocoder mGeocoder;
-    private Address addressResult;
     private Location myCurrentLocation;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
     private LocationCallback mLocationCallback;
-
-    public static final double lowerLeftLatitude = 4.498952;
-    public static final double lowerLeftLongitude= -74.173742;
-    public static final double upperRightLatitude= 4.799442;
-    public static final double upperRigthLongitude= -74.012372;
+    private Polyline mLine;
 
     private FirebaseAuth mAuth;
     FirebaseUser mFireUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -123,19 +115,18 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
         uidPaseo = getIntent().getStringExtra("uidPaseo");
 
         mLocationCallback = new LocationCallback() {
-            boolean firstTime = true;
             @Override
             public void onLocationResult(LocationResult locationResult) {
                 Location location = locationResult.getLastLocation();
                 Log.i("LOCATION", "Location update in the callback: " + location);
                 if (location != null && paseador!=null) {
+                    if(paseo!=null) {
+                        consumeRESTVolley();
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(Utils.midPoint(paseador.getPosition(), dog.getPosition())));
+                        CameraUpdateFactory.zoomBy(0.5f);
+                    }
                     paseador.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     paseador.setVisible(true);
-                    if(firstTime) {
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(paseador.getPosition()));
-                        firstTime =false;
-                    }
-
                 }
             }
         };
@@ -250,12 +241,12 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
         paseador = mMap.addMarker(new MarkerOptions().position(myLocation)
                 .icon(BitmapDescriptorFactory.fromBitmap(Utils.getBitmap(getDrawable(R.drawable.ic_walking_dog)))));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
     }
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(6000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(6000); //máxima tasa de refresco
+        mLocationRequest.setInterval(1000); //tasa de refresco en milisegundos
+        mLocationRequest.setFastestInterval(500); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
@@ -332,7 +323,6 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
             d = steps.getJSONObject(0).getJSONObject("distance").getDouble("value");
             steps = steps.getJSONObject(0).getJSONArray("steps");
 
-            Log.i("steps", steps.toString() );
             result.add(new LatLng(((JSONObject)((JSONObject)steps.get(0)).get("start_location")).getDouble("lat"), ((JSONObject)((JSONObject)steps.get(0)).get("start_location")).getDouble("lng")));
             for(int i=0;i<steps.length();++i) {
                 JSONObject punto = steps.getJSONObject(i);
@@ -341,10 +331,9 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
             }
 
             distance = "La distancia es: " + d/1000.0 + " Km a su objetivo";
+            //mMap.moveCamera(CameraUpdateFactory.zoomTo((int)(15*d)));
 
-            Toast.makeText(getApplicationContext(),  distance ,Toast.LENGTH_LONG).show();
-
-            Log.i("ARREGLO", distance );
+            //Toast.makeText(getApplicationContext(),  distance ,Toast.LENGTH_LONG).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -352,15 +341,14 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
     }
 
     private void drawRoute(ArrayList<LatLng> result) {
+        if(mLine!=null)
+            mLine.remove();
         PolylineOptions line = new PolylineOptions();
         line.addAll(result);
         line.width(10);
         line.color(Color.BLUE);
-        List<PatternItem> patterns =  Arrays.asList(new Gap(20), new Dash(20));
-        //patterns.add( new Gap(20));
-        line.pattern(patterns);
         line.jointType(JointType.ROUND);
-        mMap.addPolyline(line);
+        mLine = mMap.addPolyline(line);
     }
 
 }

@@ -278,26 +278,28 @@ public class PantallaInicioFragment extends Fragment {
         btn_estado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paseador.setEstado(!paseador.isEstado());
-                if(paseador.isEstado()){
-                    mList.setVisibility(View.VISIBLE);
-                    Permisos.requestPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, "La aplicación necesita el permiso", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
-                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
-                        startLocationUpdates();
-                    btn_estado.setBackgroundColor(getResources().getColor(R.color.red));
-                    btn_estado.setText("Dejar de Trabajar");
-                    btn_estado.setTextColor(Color.WHITE);
-                } else {
-                    mList.setVisibility(View.INVISIBLE);
-                    stopLocationUpdates();
-                    btn_estado.setBackgroundColor(getResources().getColor(R.color.green));
-                    btn_estado.setText("Comenzar a Trabajar");
-                }
-                Map<String, Object> up = new HashMap<>();
-                up.put("estado",paseador.isEstado() );
-                db.collection("Paseadores").document(mFireUser.getUid()).update(up);
+                if(paseador != null) {
+                    paseador.setEstado(!paseador.isEstado());
+                    if (paseador.isEstado()) {
+                        mList.setVisibility(View.VISIBLE);
+                        Permisos.requestPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION, "La aplicación necesita el permiso", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
+                        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+                            startLocationUpdates();
+                        btn_estado.setBackgroundColor(getResources().getColor(R.color.red));
+                        btn_estado.setText("Dejar de Trabajar");
+                        btn_estado.setTextColor(Color.WHITE);
+                    } else {
+                        mList.setVisibility(View.INVISIBLE);
+                        stopLocationUpdates();
+                        btn_estado.setBackgroundColor(getResources().getColor(R.color.green));
+                        btn_estado.setText("Comenzar a Trabajar");
+                    }
+                    Map<String, Object> up = new HashMap<>();
+                    up.put("estado", paseador.isEstado());
+                    db.collection("Paseadores").document(mFireUser.getUid()).update(up);
 
-                ((MenuActivity) getActivity()).setPaseador(paseador);
+                    ((MenuActivity) getActivity()).setPaseador(paseador);
+                }
                 //Log.i("INFO", "OPRIMI");
             }
         });
