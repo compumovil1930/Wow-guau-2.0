@@ -5,9 +5,10 @@ import android.graphics.Bitmap;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Paseo {
+public class Paseo implements Serializable {
     String uidPerro;
     String uidPaseador;
     long duracionMinutos;
@@ -22,6 +23,9 @@ public class Paseo {
     double dist;
     LatLng paseadorLoc;
     File myImage;
+
+    public Paseo() {
+    }
 
     public Paseo(String uidPerro, String uidPaseador, long duracionMinutos, long costo, String direccion,
                  Double latitude, Double longitude, Boolean estado, String nomPerro, String uriPerrito){
@@ -53,10 +57,6 @@ public class Paseo {
 
     public void setDist(double dist) {
         this.dist = dist;
-    }
-
-    public void setDuracionMinutos(long duracionMinutos) {
-        this.duracionMinutos = duracionMinutos;
     }
 
     public LatLng getPaseadorLoc() {

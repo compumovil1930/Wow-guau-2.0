@@ -1,8 +1,6 @@
 package co.edu.javeriana.wowguau_paseador.model;
 
-import android.graphics.Bitmap;
-
-import com.google.firebase.firestore.Exclude;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
 import java.io.Serializable;

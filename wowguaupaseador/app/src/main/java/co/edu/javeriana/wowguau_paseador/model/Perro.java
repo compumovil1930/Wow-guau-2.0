@@ -13,6 +13,20 @@ public class Perro  implements Serializable {
     private String direccionCarnetVacunas;
     private String observaciones;
 
+    public Perro() {
+    }
+
+    public Perro(String direccionFoto, String nombre, String raza, String tamano, Date fechaNacimiento, String sexo, String direccionCarnetVacunas, String observaciones) {
+        this.direccionFoto = direccionFoto;
+        this.nombre = nombre;
+        this.raza = raza;
+        this.tamano = tamano;
+        this.fechaNacimiento = fechaNacimiento;
+        this.sexo = sexo;
+        this.direccionCarnetVacunas = direccionCarnetVacunas;
+        this.observaciones = observaciones;
+    }
+
     public Perro(String nombre, String raza, String tamano, Date fechaNacimiento, String sexo, String observaciones) {
         this.nombre = nombre;
         this.raza = raza;

@@ -132,8 +132,8 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
                         (String) vals.get("nombre"),
                         (String) vals.get("uidPaseador"),
                         new LatLng(
-                        (Double)((Map<String, Object>) vals.get("direccion")).get("latitud"),
-                        (Double) ((Map<String, Object>) vals.get("direccion")).get("longitud")
+                        (Double)((Map<String, Object>) vals.get("localizacion")).get("latitud"),
+                        (Double) ((Map<String, Object>) vals.get("localizacion")).get("longitud")
                         ),
                         (String) vals.get("direccionFoto"));
                 return my_paseador;
@@ -171,7 +171,7 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
 
                             for( int i=0; i<mPaseadorAdapter.getCount();++i){
                                 PaseadorClassAdapter temp = mPaseadorAdapter.getItem(i);
-                                if(temp.getUidPaseador() == my_paseador.getUidPaseador()){
+                                if(temp.getUidPaseador().equals(my_paseador.getUidPaseador())){
                                     mPaseadorAdapter.remove(temp);
                                     break;
                                 }

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -44,17 +45,14 @@ public class PaseoAdapter extends ArrayAdapter<Paseo> {
         TextView tvCosto = (TextView) convertView.findViewById(R.id.tv_costo_paseo);
         TextView tvDireccion = (TextView) convertView.findViewById(R.id.tv_direccion_paseo);
         TextView tvDistancia = convertView.findViewById(R.id.tv_dist_paseo);
-
         ImageView ivPerrito = (ImageView) convertView.findViewById(R.id.iv_paseo);
-
 
         // Populate the data into the template view using the data object
         tvNombre.setText(paseo.getNomPerro());
         tvDistancia.setText(String.valueOf(paseo.getDist()) + " km");
         tvDuracion.setText(String.valueOf(paseo.getDuracionMinutos()) + " min");
-        tvCosto.setText(String.valueOf(paseo.getCosto()));
+        tvCosto.setText(String.valueOf(paseo.getCosto())+" petCoins");
         tvDireccion.setText(paseo.getDireccion());
-
 
         if(paseo.getMyImage() == null){
             paseo.setMyImage(FirebaseUtils.descargarFotoImageView( paseo.getUriPerrito(),ivPerrito));

@@ -110,29 +110,6 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         mCallbackManager = CallbackManager.Factory.create();
 
-        /*LoginButton loginButton = findViewById(R.id.login_button_facebook);
-        loginButton.setReadPermissions("email", "public_profile");
-        loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
-                handleFacebookAccessToken(loginResult.getAccessToken());
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d(TAG, "facebook:onCancel");
-                // ...
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d(TAG, "facebook:onError", error);
-                // ...
-            }
-        });
-        */
-
         btn_login = findViewById(R.id.btn_login);
         btn_crear_cuenta = findViewById(R.id.btn_crear_cuenta);
         tv_fpassword = findViewById(R.id.tv_fpassword);
@@ -172,15 +149,6 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.LENGTH_SHORT).show();
                     signInUser(email, password);
                 }
-
-                /*Intent i;
-                if(editTextEmail.getText().toString().equals("dueno")){ // verificar que sea dueno en firebase
-                    i = new Intent(getApplicationContext(), MenuActivity.class);
-                    startActivity(i);
-                }
-                else{
-                    Toast.makeText(getBaseContext(), "No eres un dueño", Toast.LENGTH_LONG).show();
-                }*/
             }
         });
 
@@ -523,7 +491,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         loginManager.logInWithReadPermissions(LoginActivity.this, Arrays.asList("email", "public_profile"));
-
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
