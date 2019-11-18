@@ -51,6 +51,8 @@ public class ActividadPerfilPerro extends AppCompatActivity
     TextView textViewCompletitudObjetivo;
     ImageView imageViewCompletitudObjetivo;
 
+    String nombrePerro, fotoPerro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -72,6 +74,8 @@ public class ActividadPerfilPerro extends AppCompatActivity
         textViewCompletitudObjetivo = findViewById(R.id.tv_completitud_objetivo);
         imageViewCompletitudObjetivo = findViewById(R.id.imageView);
 
+        btnActualizar.setEnabled(false);
+
         uidPerro = getIntent().getStringExtra("idPerro");
 
         db = FirebaseFirestore.getInstance();
@@ -85,7 +89,12 @@ public class ActividadPerfilPerro extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getApplicationContext(),"Funcionalidad a Implementar",Toast.LENGTH_LONG).show();
+                /*Toast.makeText(getApplicationContext(),"Funcionalidad a Implementar",Toast.LENGTH_LONG).show();*/
+                Intent intent = new Intent(view.getContext(),ActivitySolicitarPaseo.class);
+                intent.putExtra("idPerro",uidPerro);
+                intent.putExtra("nombrePerro",nombrePerro);
+                intent.putExtra("fotoPerro",fotoPerro);
+                startActivity(intent);
             }
         });
 
@@ -135,6 +144,13 @@ public class ActividadPerfilPerro extends AppCompatActivity
                                     btnMonitorear.setTextColor(Color.GRAY);
                                     btnMonitorear.setClickable(false);
                                 }
+
+                                nombrePerro = document.getString("nombre");
+                                fotoPerro = document.getString("direccionFoto");
+                                Log.d("Nombre perro:", nombrePerro);
+                                Log.d("Foto perro:", fotoPerro);
+
+                                btnActualizar.setEnabled(true);
 
                             }
                         }

@@ -119,4 +119,14 @@
     <string name="distancia_obj">Distancia (en km)</string>
     <string name="completitud_objetivo">Completitud</string>
 
+    <!-- Solicitar paseo -->
+
+    <string name="solicitar_paseo">Solicitar paseo</string>
+    <string name="btn_direccion_casa">Desde dirección de mi casa</string>
+    <string name="btn_direccion_aca">Desde ubicación actual</string>
+    <string name="btn_desde_donde">No has seleccionado ubicación</string>
+    <string name="duracion_solicitud_paseo">Tiempo solicitado para paseo (min)</string>
+    <string name="distancia_solicitud_paseo">Distancia solicitada para paseo (km)</string>
+    <string name="monedas_ofrecidas_paseo">Monedas requeridas para el paseo</string>
+
 </resources>
