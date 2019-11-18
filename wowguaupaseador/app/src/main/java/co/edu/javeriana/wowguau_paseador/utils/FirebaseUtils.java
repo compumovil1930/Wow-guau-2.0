@@ -132,7 +132,7 @@ public class FirebaseUtils {
     public static File descargarFotoImageView(String ruta, final ImageView perfil){
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
-        //Log.i("PATH" , photoRef.toString());
+        Log.i("PATH" , photoRef.toString());
 
         try {
             final File localFile = File.createTempFile("images", "jpg");

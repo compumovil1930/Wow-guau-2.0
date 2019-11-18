@@ -81,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
 
-        Permisos.requestPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION, "I need to read the location because I want to spy you", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
+        Permisos.requestPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION, "Necesito leer tu ubicación", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
         if (ContextCompat.checkSelfPermission(MapsActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             setLocationOn();
 

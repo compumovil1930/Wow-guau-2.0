@@ -165,7 +165,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                     }
                 });
 
-        Permisos.requestPermission(WalkToDogActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, "I need to read the location because I want to spy you", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
+        Permisos.requestPermission(WalkToDogActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, "Necesito leer tu ubicación", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
         if (ContextCompat.checkSelfPermission(WalkToDogActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setLocationOn();
             startLocationUpdates();

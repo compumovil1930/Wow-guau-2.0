@@ -28,20 +28,20 @@ public class CameraUtils {
         myAlertDialog.setTitle("Cargar foto");
         myAlertDialog.setMessage("De dónde quieres cargar la imagen?");
 
-        myAlertDialog.setPositiveButton("Gallery",
+        myAlertDialog.setPositiveButton("Galeria",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Permisos.requestPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE, "I need to read the storage because I want to spy you", Permisos.MY_PERMISSIONS_REQUEST_READ_STORAGE);
+                        Permisos.requestPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE, "Necesito leer tu memoria", Permisos.MY_PERMISSIONS_REQUEST_READ_STORAGE);
                         if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                             CameraUtils.pickImage(context);
                         }
                     }
                 });
 
-        myAlertDialog.setNegativeButton("Camera",
+        myAlertDialog.setNegativeButton("Camara",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface arg0, int arg1) {
-                        Permisos.requestPermission(context, Manifest.permission.CAMERA, "I need your camera because I want to spy you", Permisos.MY_PERMISSIONS_REQUEST_CAMERA);
+                        Permisos.requestPermission(context, Manifest.permission.CAMERA, "Necesito tu camara para tomar una foto", Permisos.MY_PERMISSIONS_REQUEST_CAMERA);
                         if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
                             CameraUtils.takePicture(context);
                         }
