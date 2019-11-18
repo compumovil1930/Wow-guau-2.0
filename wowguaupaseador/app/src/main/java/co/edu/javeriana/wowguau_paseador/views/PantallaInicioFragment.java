@@ -157,7 +157,8 @@ public class PantallaInicioFragment extends Fragment {
                 .whereEqualTo("uidPaseador", "").whereEqualTo("estado",true).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     private Paseo newPaseo(Map<String, Object> vals){
                         Paseo my_paseo = new Paseo((String) vals.get("uidPerro"),
-                                "",(long) vals.get("duracion"), (long) vals.get("costo"),
+                                "", (String) vals.get("uidDueno"),
+                                (long) vals.get("duracion"), (long) vals.get("costo"),
                                 (String)((Map<String, Object>) vals.get("direccion")).get("direccion"),
                                 (Double)((Map<String, Object>) vals.get("direccion")).get("latitud"),
                                 (Double) ((Map<String, Object>) vals.get("direccion")).get("longitud"),

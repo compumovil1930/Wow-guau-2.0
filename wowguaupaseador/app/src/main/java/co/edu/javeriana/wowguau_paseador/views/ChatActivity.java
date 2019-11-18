@@ -109,6 +109,7 @@ public class ChatActivity extends AppCompatActivity {
                                             doc.getString("senderId")
                                     )
                             );
+                            Log.i(TAG, doc.getString("text")+" "+doc.getString("imageUrl")+" "+doc.getString("senderId"));
                         }
                         updateUI();
                     }
@@ -187,7 +188,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("CHAT", "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
+        Log.d(TAG, "onActivityResult: requestCode=" + requestCode + ", resultCode=" + resultCode);
 
         if (requestCode == Permisos.IMAGE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
@@ -198,9 +199,9 @@ public class ChatActivity extends AppCompatActivity {
                         Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         Log.d("CHAT", "Uri: " + uri.toString());
 
-                        Mensaje tempMessage = new Mensaje(null, "photo_"+uidChat+"_"+mensajes.size()+".jpg", mAuth.getUid());
+                        Mensaje tempMessage = new Mensaje(null, "Chat/photo_"+uidChat+"_"+mensajes.size()+".jpg", mAuth.getUid());
                         FirebaseUtils.sendMessage(tempMessage, uidChat);
-                        FirebaseUtils.subirFoto("photo_"+uidChat+"_"+mensajes.size()+".jpg", selectedImage);
+                        FirebaseUtils.subirFoto("Chat/photo_"+uidChat+"_"+mensajes.size()+".jpg", selectedImage);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
