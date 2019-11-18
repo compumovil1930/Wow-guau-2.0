@@ -51,7 +51,7 @@ import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
 import co.edu.javeriana.wowguau_paseador.utils.Permisos;
 
 public class ChatActivity extends AppCompatActivity {
-    private Button btn_send;
+    private ImageButton btn_send;
     private RecyclerView mMessageRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private ProgressBar mProgressBar;
