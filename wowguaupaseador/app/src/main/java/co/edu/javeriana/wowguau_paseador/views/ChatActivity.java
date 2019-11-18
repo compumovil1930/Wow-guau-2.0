@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private String uidPaseador;
+    private String uidDueno;
     private String uidChat;
     private List<Mensaje> mensajes;
     private MensajeAdapter mensajeAdapter;
@@ -86,8 +86,8 @@ public class ChatActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        uidPaseador = "efgh";//getIntent().getStringExtra("uidPaseador");
-        uidChat = "abcd"+"+"+uidPaseador;
+        uidDueno = getIntent().getStringExtra("uidDueno");
+        uidChat = mAuth.getUid()+"+"+uidDueno;
 
         db.collection("Chats")
                 .whereEqualTo("id", uidChat)
@@ -136,7 +136,7 @@ public class ChatActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Mensaje mensaje = new Mensaje(et_mensaje.getText().toString(), null, "abcd");
+                Mensaje mensaje = new Mensaje(et_mensaje.getText().toString(), null, mAuth.getUid());
                 FirebaseUtils.sendMessage(mensaje, uidChat);
                 et_mensaje.setText("");
             }
@@ -153,7 +153,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        mensajeAdapter = new MensajeAdapter("abcd", mensajes);
+        mensajeAdapter = new MensajeAdapter(mAuth.getUid(), mensajes);
         mMessageRecyclerView.setAdapter(mensajeAdapter);
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
     }
@@ -162,9 +162,9 @@ public class ChatActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
-        /*if(currentUser == null){
+        if(currentUser == null){
             startActivity(new Intent(ChatActivity.this, LoginActivity.class));
-        }*/
+        }
     }
 
     @Override
@@ -198,7 +198,7 @@ public class ChatActivity extends AppCompatActivity {
                         Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                         Log.d("CHAT", "Uri: " + uri.toString());
 
-                        Mensaje tempMessage = new Mensaje(null, "photo_"+uidChat+"_"+mensajes.size()+".jpg", "abcd");
+                        Mensaje tempMessage = new Mensaje(null, "photo_"+uidChat+"_"+mensajes.size()+".jpg", mAuth.getUid());
                         FirebaseUtils.sendMessage(tempMessage, uidChat);
                         FirebaseUtils.subirFoto("photo_"+uidChat+"_"+mensajes.size()+".jpg", selectedImage);
                     } catch (FileNotFoundException e) {

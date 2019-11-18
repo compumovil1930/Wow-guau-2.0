@@ -134,7 +134,6 @@ public class PantallaInicioFragment extends Fragment {
         mList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i(TAG,"CLICKKKK");
                 FirebaseUtils.getPerro(paseoAdapter.getItem(position), getActivity());
             }
         });
