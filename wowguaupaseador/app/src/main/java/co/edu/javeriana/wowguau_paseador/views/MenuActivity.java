@@ -144,7 +144,8 @@ public class MenuActivity extends AppCompatActivity {
     }
     @Override
     protected void onDestroy() {
-        registration.remove();
+        if(registration!=null)
+            registration.remove();
         super.onDestroy();
     }
 
