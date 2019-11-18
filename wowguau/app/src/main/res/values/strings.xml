@@ -129,4 +129,7 @@
     <string name="distancia_solicitud_paseo">Distancia solicitada para paseo (km)</string>
     <string name="monedas_ofrecidas_paseo">Monedas requeridas para el paseo</string>
 
+    <string name="hint_mensaje">Escribir mensaje&#8230;</string>
+    <string name="error_mensaje_vacio">Porfavor escribe un mensaje</string>
+    <string name="error_enviar_mensaje">Error al enviar mensaje</string>
 </resources>

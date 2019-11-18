@@ -1,4 +1,4 @@
-package co.edu.javeriana.wowguau_paseador.views;
+package co.edu.javeriana.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,11 +31,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.javeriana.wowguau_paseador.R;
-import co.edu.javeriana.wowguau_paseador.adapters.MensajeAdapter;
-import co.edu.javeriana.wowguau_paseador.model.Mensaje;
-import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
-import co.edu.javeriana.wowguau_paseador.utils.Permisos;
+import co.edu.javeriana.wow_guau.R;
+import co.edu.javeriana.wow_guau.adapters.MensajeAdapter;
+import co.edu.javeriana.wow_guau.model.Mensaje;
+import co.edu.javeriana.wow_guau.utils.FirebaseUtils;
+import co.edu.javeriana.wow_guau.utils.Permisos;
 
 public class ChatActivity extends AppCompatActivity {
     private ImageButton btn_send;
@@ -49,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private String uidDueno;
+    private String uidPaseador;
     private String uidChat;
     private List<Mensaje> mensajes;
     private MensajeAdapter mensajeAdapter;
@@ -73,8 +73,8 @@ public class ChatActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        uidDueno = getIntent().getStringExtra("uidDueno");
-        uidChat = mAuth.getUid()+"+"+uidDueno;
+        uidPaseador = getIntent().getStringExtra("uidPaseador");
+        uidChat = uidPaseador+"+"+mAuth.getUid();
 
         db.collection("Chats")
                 .whereEqualTo("id", uidChat)
