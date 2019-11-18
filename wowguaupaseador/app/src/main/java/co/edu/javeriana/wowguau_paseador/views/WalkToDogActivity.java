@@ -83,7 +83,6 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
     Marker dog;
 
     private GoogleMap mMap;
-    private Geocoder mGeocoder;
     private Location myCurrentLocation;
     private FusedLocationProviderClient mFusedLocationClient;
     private LocationRequest mLocationRequest;
@@ -107,10 +106,11 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
         btn_llegue = findViewById(R.id.btn_llegue);
         btn_comenzar = findViewById(R.id.btn_comenzar);
+
         myCurrentLocation = new Location("");
-        mGeocoder = new Geocoder(getBaseContext());
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         mLocationRequest = createLocationRequest();
+
         perro = (Perro) getIntent().getSerializableExtra("perro");
         uidPaseo = getIntent().getStringExtra("uidPaseo");
 

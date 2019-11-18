@@ -48,4 +48,7 @@
     <string name="fb_login_protocol_scheme">fb2423075578019456</string>
     <string name="title_activity_position_dog">Map</string>
     <string name="title_activity_walking">Walking</string>
+    <string name="hint_mensaje">Escribir mensaje&#8230;</string>
+    <string name="error_mensaje_vacio">Porfavor escribe un mensaje</string>
+    <string name="error_enviar_mensaje">Error al enviar mensaje</string>
 </resources>

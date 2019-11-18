@@ -50,7 +50,7 @@
         map:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/btn_messages"
         android:layout_width="50dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

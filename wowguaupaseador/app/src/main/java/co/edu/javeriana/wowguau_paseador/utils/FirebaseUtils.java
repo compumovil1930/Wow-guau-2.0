@@ -10,15 +10,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -27,8 +23,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
+import java.util.Calendar;
 
+import co.edu.javeriana.wowguau_paseador.model.Mensaje;
 import co.edu.javeriana.wowguau_paseador.model.Paseador;
 import co.edu.javeriana.wowguau_paseador.model.Paseo;
 import co.edu.javeriana.wowguau_paseador.model.Perro;
@@ -167,5 +164,11 @@ public class FirebaseUtils {
                 .into(perfil);
 
          */
+    }
+    public static void sendMessage(Mensaje mensaje, String uidChat){
+        mensaje.setTime(Calendar.getInstance().getTime());
+        mensaje.setId(uidChat);
+        db.setFirestoreSettings(settings);
+        db.collection("Chats").add(mensaje);
     }
 }
