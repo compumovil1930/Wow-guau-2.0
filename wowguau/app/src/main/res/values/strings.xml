@@ -109,4 +109,14 @@
     <string name="FotoUsuario">Foto usuario</string>
     <string name="CargarFotoUsuario">Cargar foto</string>
 
+    <!-- Establecer objetivos -->
+
+    <string name="titulo_establecer_objetivos">Establece un objetivo diario para tu consentido</string>
+    <string name="objetivo_tiempo">Establecer por tiempo de actividad (min)</string>
+    <string name="objetivo_distancia">Establecer por distancia recorrida (km)</string>
+    <string name="boton_establecer_objetivo">Establecer objetivo</string>
+    <string name="tiempo_obj">Tiempo (en minutos)</string>
+    <string name="distancia_obj">Distancia (en km)</string>
+    <string name="completitud_objetivo">Completitud</string>
+
 </resources>
