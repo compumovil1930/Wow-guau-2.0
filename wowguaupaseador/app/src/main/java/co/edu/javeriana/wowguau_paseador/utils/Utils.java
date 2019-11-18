@@ -3,16 +3,20 @@ package co.edu.javeriana.wowguau_paseador.utils;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.provider.Settings.System.DATE_FORMAT;
 import static java.util.Calendar.DATE;
 import static java.util.Calendar.MONTH;
 import static java.util.Calendar.YEAR;
@@ -55,5 +59,12 @@ public class Utils {
         double latitude = point1.latitude+point2.latitude;
         double longitude = point1.longitude+point2.longitude;
         return new LatLng(latitude/2, longitude/2);
+    }
+    public static String longToString(long milliseconds){
+        int seconds = (int) (milliseconds / 1000) % 60 ;
+        int minutes = (int) ((milliseconds / (1000*60)) % 60);
+        int hours   = (int) ((milliseconds / (1000*60*60)) % 24);
+        String time = hours+":"+minutes+":"+seconds;
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 }

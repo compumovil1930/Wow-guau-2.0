@@ -155,10 +155,10 @@ public class PantallaInicioFragment extends Fragment {
 
 
         db.collection("Paseos")
-                .whereEqualTo("uidPaseador",mAuth.getUid()).whereEqualTo("estado",true).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                .whereEqualTo("uidPaseador", "").whereEqualTo("estado",true).addSnapshotListener(new EventListener<QuerySnapshot>() {
                     private Paseo newPaseo(Map<String, Object> vals){
                         Paseo my_paseo = new Paseo((String) vals.get("uidPerro"),
-                                (String) vals.get("uidPaseador"),(long) vals.get("duracion"), (long) vals.get("costo"),
+                                "",(long) vals.get("duracion"), (long) vals.get("costo"),
                                 (String)((Map<String, Object>) vals.get("direccion")).get("direccion"),
                                 (Double)((Map<String, Object>) vals.get("direccion")).get("latitud"),
                                 (Double) ((Map<String, Object>) vals.get("direccion")).get("longitud"),

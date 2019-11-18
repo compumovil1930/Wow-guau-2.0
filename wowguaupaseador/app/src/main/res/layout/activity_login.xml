@@ -127,7 +127,6 @@
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/clInicioSesionGoogle"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4">
