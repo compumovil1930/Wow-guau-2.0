@@ -74,7 +74,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
         btn_rechazar = findViewById(R.id.btn_rechazar);
 
         db.collection("Paseos")
-                .whereEqualTo("uidPaseador",mAuth.getUid()).whereEqualTo("estado",true).whereEqualTo("uidPerro", uidPerro)
+                .whereEqualTo("uidPaseador","").whereEqualTo("estado",true).whereEqualTo("uidPerro", uidPerro)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -82,7 +82,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             uidPaseo = document.getId();
                             paseo = new Paseo((String) document.getData().get("uidPerro"),
-                                    (String) document.getData().get("uidPaseador"),
+                                    "", (String) document.getData().get("uidDueno"),
                                     (long) document.getData().get("duracion"),
                                     (long) document.getData().get("costo"),
                                     (String)((Map<String, Object>) document.getData().get("direccion")).get("direccion"),
@@ -101,10 +101,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(InfoPaseoActivity.this, WalkToDogActivity.class);
-                i.putExtra("perro", perro);
-                i.putExtra("uidPaseo", uidPaseo);
-                startActivity(i);
+                FirebaseUtils.checkPaseo(uidPaseo, InfoPaseoActivity.this, perro);
             }
         });
         btn_rechazar.setOnClickListener(new View.OnClickListener() {
@@ -125,7 +122,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
         tv_nombre.setText(perro.getNombre());
         tv_raza.setText(perro.getRaza());
         tv_tamano.setText(perro.getTamano());
-        tv_edad.setText(Utils.getAge(perro.getFechaNacimiento())+" Años");
+        tv_edad.setText(Utils.getAge(perro.getFechaNacimiento())+" Meses");
         tv_genero.setText(perro.getSexo());
         tv_observaciones.setText(perro.getObservaciones());
         tv_distancia.setText(String.valueOf(paseo.getDist()) + " km");
