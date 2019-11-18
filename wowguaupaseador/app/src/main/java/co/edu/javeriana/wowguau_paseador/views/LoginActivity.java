@@ -110,7 +110,8 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signInUser(et_email.getText().toString(), et_password.getText().toString());
+                startActivity(new Intent(LoginActivity.this, ChatActivity.class));
+                //signInUser(et_email.getText().toString(), et_password.getText().toString());
             }
         });
 
