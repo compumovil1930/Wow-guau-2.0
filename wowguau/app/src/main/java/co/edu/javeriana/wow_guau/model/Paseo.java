@@ -13,8 +13,17 @@ public class Paseo {
     private String uidPerro;
     private String uriPerro;
     Map<String, Object> direccion;
+    private String uidDueno;
 
     public Paseo() {
+    }
+
+    public String getUidDueno() {
+        return uidDueno;
+    }
+
+    public void setUidDueno(String uidDueno) {
+        this.uidDueno = uidDueno;
     }
 
     public long getCosto() {

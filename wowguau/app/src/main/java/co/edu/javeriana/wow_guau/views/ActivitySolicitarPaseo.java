@@ -120,8 +120,8 @@ public class ActivitySolicitarPaseo extends AppCompatActivity {
 
         geocoder = new Geocoder(getBaseContext());
 
-        Log.i("Nombre perro:", nombrePerro);
-        Log.i("Foto perro:", fotoPerro);
+        //Log.i("Nombre perro:", nombrePerro);
+        //Log.i("Foto perro:", fotoPerro);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
@@ -289,6 +289,8 @@ public class ActivitySolicitarPaseo extends AppCompatActivity {
         paseo.setUidPerro( uidPerro );
         paseo.setNomPerro( nombrePerro );
         paseo.setUriPerro( fotoPerro );
+        paseo.setUidPaseador("");
+        paseo.setUidDueno( currentUser.getUid() );
 
         DocumentReference referencia = db.collection("Paseos").document();
 
