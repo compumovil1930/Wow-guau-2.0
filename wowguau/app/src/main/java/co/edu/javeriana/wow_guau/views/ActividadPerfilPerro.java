@@ -3,6 +3,7 @@ package co.edu.javeriana.wow_guau.views;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -45,6 +46,13 @@ public class ActividadPerfilPerro extends AppCompatActivity
     Button btnMonitorear;
     String uidPerro;
 
+    Button buttonEstablecerObjetivos;
+
+    TextView textViewCompletitudObjetivo;
+    ImageView imageViewCompletitudObjetivo;
+
+    String nombrePerro, fotoPerro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -61,6 +69,12 @@ public class ActividadPerfilPerro extends AppCompatActivity
         textViewObs = findViewById(R.id.txtViewObs);
         btnActualizar = findViewById(R.id.btnActualizar);
         btnMonitorear = findViewById(R.id.btnMonitorear);
+        buttonEstablecerObjetivos = findViewById(R.id.btn_ir_establecer_objetivos);
+
+        textViewCompletitudObjetivo = findViewById(R.id.tv_completitud_objetivo);
+        imageViewCompletitudObjetivo = findViewById(R.id.imageView);
+
+        btnActualizar.setEnabled(false);
 
         uidPerro = getIntent().getStringExtra("idPerro");
 
@@ -69,11 +83,27 @@ public class ActividadPerfilPerro extends AppCompatActivity
 
         fillData();
 
+        determinarEstadoObjetivo();
+
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-                Toast.makeText(getApplicationContext(),"Funcionalidad a Implementar",Toast.LENGTH_LONG).show();
+                /*Toast.makeText(getApplicationContext(),"Funcionalidad a Implementar",Toast.LENGTH_LONG).show();*/
+                Intent intent = new Intent(view.getContext(),ActivitySolicitarPaseo.class);
+                intent.putExtra("idPerro",uidPerro);
+                intent.putExtra("nombrePerro",nombrePerro);
+                intent.putExtra("fotoPerro",fotoPerro);
+                startActivity(intent);
+            }
+        });
+
+        buttonEstablecerObjetivos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),ActivityEstablecerObjetivo.class);
+                intent.putExtra("idPerro",uidPerro);
+                startActivity(intent);
             }
         });
     }
@@ -115,6 +145,13 @@ public class ActividadPerfilPerro extends AppCompatActivity
                                     btnMonitorear.setClickable(false);
                                 }
 
+                                nombrePerro = document.getString("nombre");
+                                fotoPerro = document.getString("direccionFoto");
+                                Log.d("Nombre perro:", nombrePerro);
+                                Log.d("Foto perro:", fotoPerro);
+
+                                btnActualizar.setEnabled(true);
+
                             }
                         }
                         else
@@ -123,5 +160,13 @@ public class ActividadPerfilPerro extends AppCompatActivity
                         }
                     }
                 });
+    }
+
+    private void determinarEstadoObjetivo(){
+
+        textViewCompletitudObjetivo.setText("No ha completado el objetivo diario");
+        imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_completado);
+        //imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_no_completado);
+
     }
 }
