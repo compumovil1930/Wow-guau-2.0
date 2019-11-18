@@ -150,6 +150,7 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         paseo = new Paseo((String) documentSnapshot.getData().get("uidPerro"),
                                 (String) documentSnapshot.getData().get("uidPaseador"),
+                                (String) documentSnapshot.getData().get("uidDueno"),
                                 (long) documentSnapshot.getData().get("duracion"),
                                 (long) documentSnapshot.getData().get("costo"),
                                 (String)((Map<String, Object>) documentSnapshot.getData().get("direccion")).get("direccion"),
@@ -179,6 +180,7 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WalkingActivity.this, ChatActivity.class);
+                i.putExtra("uidDueno", paseo.getUidDueno());
                 startActivity(i);
             }
         });

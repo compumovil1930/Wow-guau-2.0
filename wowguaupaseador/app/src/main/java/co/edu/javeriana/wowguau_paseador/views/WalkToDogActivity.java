@@ -38,6 +38,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,6 +46,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -122,8 +124,15 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 if (location != null && paseador!=null) {
                     if(paseo!=null) {
                         consumeRESTVolley();
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(Utils.midPoint(paseador.getPosition(), dog.getPosition())));
-                        CameraUpdateFactory.zoomBy(0.5f);
+                        //mMap.moveCamera(CameraUpdateFactory.newLatLng(Utils.midPoint(paseador.getPosition(), dog.getPosition())));
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(dog.getPosition());
+                        builder.include(paseador.getPosition());
+                        LatLngBounds bounds = Utils.createBoundsWithMinDiagonal(dog, paseador);
+
+                        int padding = 20; // offset from edges of the map in pixels
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                        mMap.animateCamera(cu);
                     }
                     paseador.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     paseador.setVisible(true);
@@ -137,6 +146,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         paseo = new Paseo((String) documentSnapshot.getData().get("uidPerro"),
                                 (String) documentSnapshot.getData().get("uidPaseador"),
+                                (String) documentSnapshot.getData().get("uidDueno"),
                                 (long) documentSnapshot.getData().get("duracion"),
                                 (long) documentSnapshot.getData().get("costo"),
                                 (String)((Map<String, Object>) documentSnapshot.getData().get("direccion")).get("direccion"),
@@ -247,7 +257,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 .icon(BitmapDescriptorFactory.fromBitmap(Utils.getBitmap(getDrawable(R.drawable.ic_walking_man))))
                 .flat(true));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();

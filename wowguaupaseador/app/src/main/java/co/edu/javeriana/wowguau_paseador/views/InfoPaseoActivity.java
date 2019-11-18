@@ -82,7 +82,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             uidPaseo = document.getId();
                             paseo = new Paseo((String) document.getData().get("uidPerro"),
-                                    "",
+                                    "", (String) document.getData().get("uidDueno"),
                                     (long) document.getData().get("duracion"),
                                     (long) document.getData().get("costo"),
                                     (String)((Map<String, Object>) document.getData().get("direccion")).get("direccion"),
@@ -122,7 +122,7 @@ public class InfoPaseoActivity extends AppCompatActivity {
         tv_nombre.setText(perro.getNombre());
         tv_raza.setText(perro.getRaza());
         tv_tamano.setText(perro.getTamano());
-        tv_edad.setText(Utils.getAge(perro.getFechaNacimiento())+" Años");
+        tv_edad.setText(Utils.getAge(perro.getFechaNacimiento())+" Meses");
         tv_genero.setText(perro.getSexo());
         tv_observaciones.setText(perro.getObservaciones());
         tv_distancia.setText(String.valueOf(paseo.getDist()) + " km");

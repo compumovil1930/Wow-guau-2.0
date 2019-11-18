@@ -80,9 +80,12 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeV
                 this.mensaje.setText(mensaje.getText());
                 this.mensaje.setVisibility(TextView.VISIBLE);
                 this.imagen.setVisibility(ImageView.INVISIBLE);
+                this.imagen.setMaxHeight(0);
             }else if(mensaje.getImageUrl()!=null){
                 this.mensaje.setVisibility(TextView.INVISIBLE);
+                this.mensaje.setHeight(0);
                 this.imagen.setVisibility(ImageView.VISIBLE);
+                this.imagen.setMaxWidth(500);
                 FirebaseUtils.descargarFotoImageView(mensaje.getImageUrl(), this.imagen);
             }
         }
