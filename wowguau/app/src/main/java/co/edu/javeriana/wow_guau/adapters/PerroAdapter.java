@@ -1,18 +1,13 @@
-package co.edu.javeriana.wow_guau.views;
+package co.edu.javeriana.wow_guau.adapters;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 
 import co.edu.javeriana.wow_guau.R;

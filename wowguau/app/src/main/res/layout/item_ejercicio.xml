@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:background="@drawable/custom_button"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/txtViewDistancia"
+        android:text="Distancia:"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtViewEstado"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/txtViewEstado"
+        android:text="Estado:"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/img_objetivo_no_completado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtViewFechaEjercicio"
+        app:layout_constraintTop_toBottomOf="@id/txtViewDistancia"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/txtViewFechaEjercicio"
+        android:text="Fecha:"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/txtViewTiempo"
+        app:layout_constraintTop_toBottomOf="@id/txtViewEstado"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"/>
+
+    <TextView
+        android:id="@+id/txtViewTiempo"
+        android:text="Tiempo:"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtViewFechaEjercicio"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="24dp"
+        android:padding="5dp"
+        android:layout_margin="5dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

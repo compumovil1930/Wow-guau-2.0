@@ -26,7 +26,8 @@
         android:roundIcon="@drawable/pawprint"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ChatActivity"></activity>
+        <activity android:name=".views.ActividadHistorialEjercicios"></activity>
+        <activity android:name=".views.ChatActivity" />
         <activity android:name=".views.ActivitySolicitarPaseo" />
         <activity android:name=".views.ActivityEstablecerObjetivo" />
         <activity android:name=".views.ActividadPerfilPerro" />
