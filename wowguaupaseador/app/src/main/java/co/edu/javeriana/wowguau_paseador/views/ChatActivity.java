@@ -51,10 +51,11 @@ public class ChatActivity extends AppCompatActivity {
 
     private String uidDueno;
     private String uidChat;
-    private List<Mensaje> mensajes;
+    private List<Mensaje> mensajes = new ArrayList<>();;
     private MensajeAdapter mensajeAdapter;
 
     private String TAG = "CHAT";
+    private boolean firstTime=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +72,7 @@ public class ChatActivity extends AppCompatActivity {
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
+        mLinearLayoutManager.setReverseLayout(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         uidDueno = getIntent().getStringExtra("uidDueno");
@@ -87,18 +89,21 @@ public class ChatActivity extends AppCompatActivity {
                             return;
                         }
 
-                        mensajes = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : snapshots) {
-                            mensajes.add(
-                                    new Mensaje(
-                                            doc.getString("text"),
-                                            doc.getString("imageUrl"),
-                                            doc.getString("senderId")
-                                    )
-                            );
-                            Log.i(TAG, doc.getString("text")+" "+doc.getString("imageUrl")+" "+doc.getString("senderId"));
+                            if(!containsMensaje(doc.getId())) {
+                                mensajes.add(
+                                        new Mensaje(
+                                                doc.getId(),
+                                                doc.getString("text"),
+                                                doc.getString("imageUrl"),
+                                                doc.getString("senderId")
+                                        )
+                                );
+                                Log.i(TAG, doc.getString("text") + " " + doc.getString("imageUrl") + " " + doc.getString("senderId"));
+                            }
                         }
-                        updateUI();
+                        if(firstTime)
+                            updateUI();
                     }
                 });
 
@@ -144,6 +149,7 @@ public class ChatActivity extends AppCompatActivity {
         mensajeAdapter = new MensajeAdapter(mAuth.getUid(), mensajes);
         mMessageRecyclerView.setAdapter(mensajeAdapter);
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
+        firstTime = false;
     }
 
     @Override
@@ -195,5 +201,13 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+    protected boolean containsMensaje(String id){
+        for(Mensaje msj: mensajes){
+            if(msj.getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -12,6 +12,12 @@ public class Mensaje {
     public Mensaje() {
     }
 
+    public Mensaje(String id, String text, String imageUrl, String senderId) {
+        this.id = id;
+        this.text = text;
+        this.imageUrl = imageUrl;
+        this.senderId = senderId;
+    }
     public Mensaje(String text, String imageUrl, String senderId) {
         this.text = text;
         this.imageUrl = imageUrl;

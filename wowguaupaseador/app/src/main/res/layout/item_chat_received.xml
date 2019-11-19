@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:adjustViewBounds="true"
-        android:background="@color/colorPrimary"
+        android:background="@android:color/transparent"
         android:scaleType="fitCenter" />
 
 </LinearLayout>
