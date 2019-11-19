@@ -49,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private String uidDueno;
+    private String uidPaseo;
     private String uidChat;
     private List<Mensaje> mensajes = new ArrayList<>();;
     private MensajeAdapter mensajeAdapter;
@@ -72,12 +72,13 @@ public class ChatActivity extends AppCompatActivity {
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
-        mLinearLayoutManager.setReverseLayout(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        uidDueno = getIntent().getStringExtra("uidDueno");
-        uidChat = mAuth.getUid()+"+"+uidDueno;
+        uidPaseo = getIntent().getStringExtra("uidPaseo");
 
+        uidChat = uidPaseo;
+        Log.i("IDChat", uidChat);
+        /*
         db.collection("Chats")
                 .whereEqualTo("id", uidChat)
                 .orderBy("time", Query.Direction.ASCENDING)
@@ -107,6 +108,55 @@ public class ChatActivity extends AppCompatActivity {
                     }
                 });
 
+
+         */
+
+        db.collection("Chats")
+                .whereEqualTo("id", uidChat)
+                .orderBy("time", Query.Direction.ASCENDING)
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(QuerySnapshot snapshots, FirebaseFirestoreException e) {
+                        if (e != null) {
+                            Log.e(TAG, "Listen failed.", e);
+                            return;
+                        }
+
+                        mensajes = new ArrayList<>();
+                        for (QueryDocumentSnapshot doc : snapshots) {
+                            mensajes.add(
+                                    new Mensaje(
+                                            doc.getString("text"),
+                                            doc.getString("imageUrl"),
+                                            doc.getString("senderId")
+                                    )
+                            );
+                            Log.i(TAG, doc.getString("text")+" "+doc.getString("imageUrl")+" "+doc.getString("senderId"));
+                        }
+                        updateUI();
+                    }
+                });
+        /*
+        et_mensaje.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() > 0) {
+                    btn_send.setEnabled(true);
+                } else {
+                    btn_send.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+         */
         et_mensaje.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,11 +195,11 @@ public class ChatActivity extends AppCompatActivity {
         });
     }
 
+
     private void updateUI() {
         mensajeAdapter = new MensajeAdapter(mAuth.getUid(), mensajes);
         mMessageRecyclerView.setAdapter(mensajeAdapter);
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-        firstTime = false;
     }
 
     @Override

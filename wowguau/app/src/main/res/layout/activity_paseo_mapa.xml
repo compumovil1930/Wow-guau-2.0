@@ -26,7 +26,7 @@
         app:layout_constraintGuide_percent="0.87" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_chat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chat"

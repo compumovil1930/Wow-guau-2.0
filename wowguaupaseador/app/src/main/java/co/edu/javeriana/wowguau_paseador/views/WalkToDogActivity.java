@@ -215,7 +215,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WalkToDogActivity.this, ChatActivity.class);
-                i.putExtra("uidDueno", uidDueno);
+                i.putExtra("uidPaseo", uidPaseo);
                 startActivity(i);
             }
         });

@@ -3,8 +3,11 @@ package co.edu.javeriana.wow_guau.views;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -35,6 +38,7 @@ public class paseoMapaActivity extends FragmentActivity implements OnMapReadyCal
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     PaseoClassAdapter mPaseo;
     Marker paseadorMarker;
+    Button btnChat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,17 @@ public class paseoMapaActivity extends FragmentActivity implements OnMapReadyCal
             }
         });
 
+        btnChat = findViewById(R.id.button_chat);
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(),ChatActivity.class);
+                i.putExtra("uidPaseo",mPaseo.getUidPaseo());
+                startActivity(i);
+
+            }
+        });
 
         Log.i("Paseo",mPaseo.getUidPaseo());
     }

@@ -180,7 +180,7 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WalkingActivity.this, ChatActivity.class);
-                i.putExtra("uidDueno", paseo.getUidDueno());
+                i.putExtra("uidPaseo", uidPaseo);
                 startActivity(i);
             }
         });
