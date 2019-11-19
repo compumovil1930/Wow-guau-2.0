@@ -12,12 +12,15 @@
         android:id="@+id/chat_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="end"
         android:padding="8dp" />
 
     <ImageView
         android:id="@+id/chat_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
         android:adjustViewBounds="true"
         android:background="@color/colorPrimary"
         android:scaleType="fitCenter" />

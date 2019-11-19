@@ -77,7 +77,7 @@ import co.edu.javeriana.wowguau_paseador.utils.Utils;
 public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCallback {
     Button btn_llegue;
     Button btn_comenzar;
-    ImageButton btn_messages;
+    ImageButton btn_message;
 
     Perro perro;
     Paseo paseo;
@@ -111,7 +111,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
         btn_llegue = findViewById(R.id.btn_llegue);
         btn_comenzar = findViewById(R.id.btn_comenzar);
-        btn_messages = findViewById(R.id.btn_messages);
+        btn_message = findViewById(R.id.btn_message);
 
         myCurrentLocation = new Location("");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -211,7 +211,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 startActivity(i);
             }
         });
-        btn_messages.setOnClickListener(new View.OnClickListener() {
+        btn_message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WalkToDogActivity.this, ChatActivity.class);
