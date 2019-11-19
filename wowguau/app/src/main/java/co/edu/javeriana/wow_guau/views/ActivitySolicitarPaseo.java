@@ -274,14 +274,19 @@ public class ActivitySolicitarPaseo extends AppCompatActivity {
         Map<String, Object> direccion = new HashMap<>();
 
         if(donde.equals("aca")){
-            direccion.put("direcion", direccionUbicacionActual);
+            direccion.put("direccion", direccionUbicacionActual);
             direccion.put("latitud", ubicacionActual.getLatitude());
             direccion.put("longitud", ubicacionActual.getLongitude());
         }else{
-            direccion.put("direcion", direccionCliente);
+            direccion.put("direccion", direccionCliente);
             direccion.put("latitud", latitudCliente);
             direccion.put("longitud", longitudCliente);
         }
+        paseo.setAceptado(false);
+        paseo.setCalificacion(-1);
+        paseo.setCalificado(false);
+        paseo.setComentarioCalificacion("");
+
         paseo.setDireccion(direccion);
         paseo.setCosto( Long.valueOf(editTextMonedas.getText().toString()) );
         paseo.setDuracion( Long.valueOf( editTextDuracion.getText().toString() ) );

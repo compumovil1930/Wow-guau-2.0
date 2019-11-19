@@ -243,7 +243,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
         }
     }
     private void updateUI() {
-        db.collection("Paseos").document(uidPaseo).update("uidPaseador", mAuth.getUid());
+        db.collection("Paseos").document(uidPaseo).update("uidPaseador", mAuth.getUid(), "aceptado", true);
         LatLng dogLocation = new LatLng(paseo.getLatitude(), paseo.getLongitude());
         dog = mMap.addMarker(new MarkerOptions().position(dogLocation)
                 .title(perro.getNombre())

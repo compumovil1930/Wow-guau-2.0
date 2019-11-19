@@ -91,6 +91,9 @@ public class InfoPaseoActivity extends AppCompatActivity {
                                     (Boolean) document.getData().get("estado"),
                                     (String) document.getData().get("nomPerro"),
                                     (String) document.getData().get("uriPerro"));
+
+
+
                             updateUI();
                         }
                     } else {

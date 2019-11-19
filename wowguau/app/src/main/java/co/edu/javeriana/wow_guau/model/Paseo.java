@@ -15,7 +15,44 @@ public class Paseo {
     Map<String, Object> direccion;
     private String uidDueno;
 
+    private boolean aceptado;
+    private double calificacion;
+    private boolean calificado;
+    private String comentarioCalificacion;
+
     public Paseo() {
+    }
+
+    public boolean isAceptado() {
+        return aceptado;
+    }
+
+    public void setAceptado(boolean aceptado) {
+        this.aceptado = aceptado;
+    }
+
+    public double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public boolean isCalificado() {
+        return calificado;
+    }
+
+    public void setCalificado(boolean calificado) {
+        this.calificado = calificado;
+    }
+
+    public String getComentarioCalificacion() {
+        return comentarioCalificacion;
+    }
+
+    public void setComentarioCalificacion(String comentarioCalificacion) {
+        this.comentarioCalificacion = comentarioCalificacion;
     }
 
     public String getUidDueno() {
