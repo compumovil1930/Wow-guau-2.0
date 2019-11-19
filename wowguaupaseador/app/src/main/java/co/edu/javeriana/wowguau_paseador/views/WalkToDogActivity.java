@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -76,10 +77,12 @@ import co.edu.javeriana.wowguau_paseador.utils.Utils;
 public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCallback {
     Button btn_llegue;
     Button btn_comenzar;
+    ImageButton btn_messages;
 
     Perro perro;
     Paseo paseo;
     String uidPaseo;
+    String uidDueno;
 
     Marker paseador;
     Marker dog;
@@ -108,6 +111,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
         btn_llegue = findViewById(R.id.btn_llegue);
         btn_comenzar = findViewById(R.id.btn_comenzar);
+        btn_messages = findViewById(R.id.btn_messages);
 
         myCurrentLocation = new Location("");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -115,6 +119,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
         perro = (Perro) getIntent().getSerializableExtra("perro");
         uidPaseo = getIntent().getStringExtra("uidPaseo");
+        uidDueno = getIntent().getStringExtra("uidDueno");
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -203,6 +208,14 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 Intent i = new Intent(WalkToDogActivity.this, WalkingActivity.class);
                 i.putExtra("perro", perro);
                 i.putExtra("uidPaseo", uidPaseo);
+                startActivity(i);
+            }
+        });
+        btn_messages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WalkToDogActivity.this, ChatActivity.class);
+                i.putExtra("uidDueno", uidDueno);
                 startActivity(i);
             }
         });

@@ -94,6 +94,7 @@ public class FirebaseUtils {
                             Intent i = new Intent(activity, WalkToDogActivity.class);
                             i.putExtra("perro", perro);
                             i.putExtra("uidPaseo", uid);
+                            i.putExtra("uidDueno", documentSnapshot.get("uidDueno").toString());
                             activity.startActivity(i);
                             activity.finish();
                         }

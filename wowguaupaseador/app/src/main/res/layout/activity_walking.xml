@@ -53,7 +53,7 @@
 
     <ImageButton
         android:id="@+id/btn_messages"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
@@ -61,6 +61,6 @@
         map:layout_constraintBottom_toTopOf="@+id/map"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        map:srcCompat="@drawable/message" />
+        android:src="@drawable/message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
