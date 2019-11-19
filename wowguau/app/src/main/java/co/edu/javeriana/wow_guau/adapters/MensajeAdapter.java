@@ -37,6 +37,7 @@ public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeV
                     R.layout.item_chat_sent,
                     parent,
                     false);
+
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(
                     R.layout.item_chat_received,

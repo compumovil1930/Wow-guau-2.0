@@ -49,7 +49,7 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private String uidPaseador;
+    private String uidPaseo;
     private String uidChat;
     private List<Mensaje> mensajes;
     private MensajeAdapter mensajeAdapter;
@@ -73,8 +73,8 @@ public class ChatActivity extends AppCompatActivity {
         mLinearLayoutManager.setStackFromEnd(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        uidPaseador = getIntent().getStringExtra("uidPaseador");
-        uidChat = uidPaseador+"+"+mAuth.getUid();
+        uidPaseo = getIntent().getStringExtra("uidPaseo");
+        uidChat = uidPaseo;
 
         db.collection("Chats")
                 .whereEqualTo("id", uidChat)
