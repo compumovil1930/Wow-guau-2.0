@@ -44,7 +44,7 @@ public class PantallaInicioFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-                Intent i= new Intent(getActivity(), ActividadBusquedaPaseos.class);
+                Intent i= new Intent(getActivity(), PaseosActivosActivity.class);
                 startActivity(i);
             }
         });

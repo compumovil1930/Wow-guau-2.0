@@ -128,5 +128,6 @@
     <string name="duracion_solicitud_paseo">Tiempo solicitado para paseo (min)</string>
     <string name="distancia_solicitud_paseo">Distancia solicitada para paseo (km)</string>
     <string name="monedas_ofrecidas_paseo">Monedas requeridas para el paseo</string>
+    <string name="title_activity_paseo_mapa">Map</string>
 
 </resources>

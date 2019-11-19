@@ -148,18 +148,21 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
                 }
 
                 for (  DocumentChange dc: queryDocumentSnapshots.getDocumentChanges() ) {
+                    Log.d("Paseador ", "Add: " + dc.getDocument().getData());
                     switch (dc.getType()){
 
                         case ADDED: {
                             Map<String,Object> vals = dc.getDocument().getData();
                             vals.put("uidPaseador",dc.getDocument().getId());
 
+
+
                             PaseadorClassAdapter my_paseador = newPaseador(vals);
                             my_paseador.setUsuarioLocalizacion(mLoc);
                             my_paseador.calcDist();
                             mPaseadorAdapter.add(my_paseador);
 
-                            Log.d(TAG, "Add: " + dc.getDocument().getData());
+
                             break;
                         }
 
@@ -242,8 +245,8 @@ public class ActividadBusquedaPaseadores extends AppCompatActivity {
 
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(6000); //tasa de refresco en milisegundos
-        mLocationRequest.setFastestInterval(6000); //máxima tasa de refresco
+        mLocationRequest.setInterval(1500); //tasa de refresco en milisegundos
+        mLocationRequest.setFastestInterval(1500); //máxima tasa de refresco
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         return mLocationRequest;
     }
