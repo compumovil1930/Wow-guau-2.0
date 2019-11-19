@@ -37,14 +37,14 @@ public class PaseadorAdapter extends ArrayAdapter<PaseadorClassAdapter> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_paseador_adapter, parent, false);
         }
         // Lookup view for data population
-        TextView tvNombre = (TextView) convertView.findViewById(R.id.tv_item_paseador_nombre);
+        TextView tvNombre = convertView.findViewById(R.id.tv_item_paseador_nombre);
         TextView tvDistancia = convertView.findViewById(R.id.tv_item_paseador_distancia);
-        ImageView ivPerrito = (ImageView) convertView.findViewById(R.id.iv_item_paseador_imagen);
+        ImageView ivPerrito = convertView.findViewById(R.id.iv_item_paseador_imagen);
 
         // Populate the data into the template view using the data object
         tvNombre.setText(paseador.getNombre());
 
-        tvDistancia.setText(String.valueOf(paseador.getDist()) + " km");
+        tvDistancia.setText(paseador.getDist() + " km");
 
         if(paseador.getmImage() == null){
             paseador.setmImage(FirebaseUtils.descargarFotoImageViewOther( paseador.getUriPhoto(),ivPerrito));

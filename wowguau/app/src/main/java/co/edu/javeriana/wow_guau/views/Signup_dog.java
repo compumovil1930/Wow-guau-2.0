@@ -142,12 +142,7 @@ public class Signup_dog extends AppCompatActivity
         spinnerAdapter= new ArrayAdapter<String>(this,R.layout.spinner_item, tamanos){
             @Override
             public boolean isEnabled(int position){
-                if(position == 0){
-                    return false;
-                }
-                else{
-                    return true;
-                }
+                return position != 0;
             }
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {

@@ -14,7 +14,7 @@
         app:layout_constraintGuide_percent="0.15321477" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cesar Millan"
@@ -49,7 +49,7 @@
                 android:padding="10dp">
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/iv_perfil"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     app:srcCompat="@drawable/ic_man_profile" />
@@ -69,7 +69,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView10"
+                    android:id="@+id/tv_nombre1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
@@ -90,7 +90,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView9"
+                    android:id="@+id/tv_ciudad"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"
@@ -133,7 +133,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/tv_experiencia"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.7"

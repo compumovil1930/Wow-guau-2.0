@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET " />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -26,8 +25,30 @@
         android:roundIcon="@mipmap/ic_launcher_paw"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.ActividadPerfilPerro"></activity>
 
+
+        <activity android:name=".views.CalificacionActivity"></activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".views.paseoMapaActivity"
+            android:label="@string/title_activity_paseo_mapa" />
+        <activity android:name=".views.PaseosActivosActivity" />
+        <activity android:name=".views.ActivitySolicitarPaseo" />
+        <activity android:name=".views.ActivityEstablecerObjetivo" />
+        <activity android:name=".views.ActividadPerfilPerro" />
+        <activity android:name=".views.ActividadHistorialEjercicios"></activity>
+        <activity android:name=".views.ChatActivity" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -70,9 +91,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCcEmAZxUI57AO78ttYm4ptggp7548Y2Nk" />
 
         <activity
             android:name=".views.MapsActivity"
@@ -121,7 +139,7 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".views.ActividadSeleccionMascota"
+            android:name=".views.ActividadSeleccionMascotaMonitoreo"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity

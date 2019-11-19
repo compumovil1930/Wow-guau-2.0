@@ -5,11 +5,13 @@ import android.graphics.Bitmap;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class Paseo {
+public class Paseo implements Serializable {
     String uidPerro;
     String uidPaseador;
+    String uidDueno;
     long duracionMinutos;
     long costo;
     String direccion;
@@ -23,12 +25,53 @@ public class Paseo {
     LatLng paseadorLoc;
     File myImage;
 
-    public Paseo(String uidPerro, String uidPaseador, long duracionMinutos, long costo, String direccion,
+    private boolean aceptado;
+    private double calificacion;
+    private boolean calificado;
+    private String comentarioCalificacion;
+
+    public boolean isAceptado() {
+        return aceptado;
+    }
+
+    public void setAceptado(boolean aceptado) {
+        this.aceptado = aceptado;
+    }
+
+    public double getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(double calificacion) {
+        this.calificacion = calificacion;
+    }
+
+    public boolean isCalificado() {
+        return calificado;
+    }
+
+    public void setCalificado(boolean calificado) {
+        this.calificado = calificado;
+    }
+
+    public String getComentarioCalificacion() {
+        return comentarioCalificacion;
+    }
+
+    public void setComentarioCalificacion(String comentarioCalificacion) {
+        this.comentarioCalificacion = comentarioCalificacion;
+    }
+
+    public Paseo() {
+    }
+
+    public Paseo(String uidPerro, String uidPaseador, String uidDueno, long duracionMinutos, long costo, String direccion,
                  Double latitude, Double longitude, Boolean estado, String nomPerro, String uriPerrito){
         this.uriPerrito = uriPerrito;
         this.nomPerro = nomPerro;
         this.uidPerro = uidPerro;
         this.uidPaseador = uidPaseador;
+        this.uidDueno = uidDueno;
         this.duracionMinutos = duracionMinutos;
         this.costo = costo;
         this.direccion = direccion;
@@ -43,30 +86,6 @@ public class Paseo {
         return dist;
     }
 
-    public File getMyImage() {
-        return myImage;
-    }
-
-    public void setMyImage(File myImage) {
-        this.myImage = myImage;
-    }
-
-    public void setDist(double dist) {
-        this.dist = dist;
-    }
-
-    public void setDuracionMinutos(long duracionMinutos) {
-        this.duracionMinutos = duracionMinutos;
-    }
-
-    public LatLng getPaseadorLoc() {
-        return paseadorLoc;
-    }
-
-    public void setPaseadorLoc(LatLng paseadorLoc) {
-        this.paseadorLoc = paseadorLoc;
-    }
-
     public String getUidPerro() {
         return uidPerro;
     }
@@ -79,23 +98,23 @@ public class Paseo {
         return uidPaseador;
     }
 
-    public String getUriPerrito() {
-        return uriPerrito;
-    }
-
-    public void setUriPerrito(String uriPerrito) {
-        this.uriPerrito = uriPerrito;
-    }
-
     public void setUidPaseador(String uidPaseador) {
         this.uidPaseador = uidPaseador;
+    }
+
+    public String getUidDueno() {
+        return uidDueno;
+    }
+
+    public void setUidDueno(String uidDueno) {
+        this.uidDueno = uidDueno;
     }
 
     public long getDuracionMinutos() {
         return duracionMinutos;
     }
 
-    public void setDuracionMinutos(int duracionMinutos) {
+    public void setDuracionMinutos(long duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
     }
 
@@ -105,22 +124,6 @@ public class Paseo {
 
     public void setCosto(long costo) {
         this.costo = costo;
-    }
-
-    public String getNomPaseador() {
-        return nomPaseador;
-    }
-
-    public void setNomPaseador(String nomPaseador) {
-        this.nomPaseador = nomPaseador;
-    }
-
-    public String getNomPerro() {
-        return nomPerro;
-    }
-
-    public void setNomPerro(String nomPerro) {
-        this.nomPerro = nomPerro;
     }
 
     public String getDireccion() {
@@ -153,6 +156,50 @@ public class Paseo {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public String getNomPerro() {
+        return nomPerro;
+    }
+
+    public void setNomPerro(String nomPerro) {
+        this.nomPerro = nomPerro;
+    }
+
+    public String getNomPaseador() {
+        return nomPaseador;
+    }
+
+    public void setNomPaseador(String nomPaseador) {
+        this.nomPaseador = nomPaseador;
+    }
+
+    public String getUriPerrito() {
+        return uriPerrito;
+    }
+
+    public void setUriPerrito(String uriPerrito) {
+        this.uriPerrito = uriPerrito;
+    }
+
+    public void setDist(double dist) {
+        this.dist = dist;
+    }
+
+    public LatLng getPaseadorLoc() {
+        return paseadorLoc;
+    }
+
+    public void setPaseadorLoc(LatLng paseadorLoc) {
+        this.paseadorLoc = paseadorLoc;
+    }
+
+    public File getMyImage() {
+        return myImage;
+    }
+
+    public void setMyImage(File myImage) {
+        this.myImage = myImage;
     }
 
     public void calcDist(){

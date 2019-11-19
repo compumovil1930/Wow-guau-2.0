@@ -16,8 +16,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/txtViewNombre"
+        app:layout_constraintBottom_toTopOf="@id/cl_completitud_objetivo"
         app:srcCompat="@drawable/loading_icon" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_completitud_objetivo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/txtViewNombre"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgViewPerfilPerro">
+
+        <TextView
+            android:id="@+id/tv_completitud_objetivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/completitud_objetivo"
+            android:textColor="@color/browser_actions_text_color"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:contentDescription="@string/completitud_objetivo"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/tv_completitud_objetivo"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/txtViewNombre"
@@ -26,7 +61,7 @@
         android:textSize="24sp"
         android:padding="5dp"
         android:textColor="#000000"
-        app:layout_constraintTop_toBottomOf="@id/imgViewPerfilPerro"
+        app:layout_constraintTop_toBottomOf="@id/cl_completitud_objetivo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/txtViewRaza"/>
@@ -89,31 +124,80 @@
         app:layout_constraintTop_toBottomOf="@id/txtViewSexo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnMonitorear" />
+        app:layout_constraintBottom_toTopOf="@id/cl_bot1" />
 
-    <Button
-        android:id="@+id/btnMonitorear"
-        android:layout_width="0dp"
-        android:padding="5dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bot1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:text="Monitorear"
-        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtViewObs"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnActualizar"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/cl_bot2">
 
-    <Button
-        android:id="@+id/btnActualizar"
-        android:layout_width="0dp"
-        android:padding="5dp"
-        android:textColor="#000000"
-        android:text="Actualizar"
+        <Button
+            android:id="@+id/btnMonitorear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="Monitorear"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btnActualizar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnActualizar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="@string/solicitar_paseo"
+            android:textColor="#000000"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btnMonitorear"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_bot2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/txtViewObs"
-        app:layout_constraintStart_toEndOf="@id/btnMonitorear"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_bot1">
+
+        <Button
+            android:id="@+id/btn_ir_establecer_objetivos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_establecer_objetivo"
+            android:textColor="@color/browser_actions_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btn_ver_historial_ejercicio"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btn_ver_historial_ejercicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ejercicios"
+            android:textColor="@color/browser_actions_text_color"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/btn_ir_establecer_objetivos"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

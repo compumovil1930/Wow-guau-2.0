@@ -359,11 +359,7 @@ public class Signup_owner extends AppCompatActivity {
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
-        if (date == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return date != null;
     }
 
     public static boolean isNumeric(String strNum) {

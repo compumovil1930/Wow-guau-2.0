@@ -109,4 +109,29 @@
     <string name="FotoUsuario">Foto usuario</string>
     <string name="CargarFotoUsuario">Cargar foto</string>
 
+    <!-- Establecer objetivos -->
+
+    <string name="titulo_establecer_objetivos">Establece un objetivo diario para tu consentido</string>
+    <string name="objetivo_tiempo">Establecer por tiempo de actividad (min)</string>
+    <string name="objetivo_distancia">Establecer por distancia recorrida (km)</string>
+    <string name="boton_establecer_objetivo">Establecer objetivo</string>
+    <string name="tiempo_obj">Tiempo (en minutos)</string>
+    <string name="distancia_obj">Distancia (en km)</string>
+    <string name="completitud_objetivo">Completitud</string>
+
+    <!-- Solicitar paseo -->
+
+    <string name="solicitar_paseo">Solicitar paseo</string>
+    <string name="btn_direccion_casa">Desde dirección de mi casa</string>
+    <string name="btn_direccion_aca">Desde ubicación actual</string>
+    <string name="btn_desde_donde">No has seleccionado ubicación</string>
+    <string name="duracion_solicitud_paseo">Tiempo solicitado para paseo (min)</string>
+    <string name="distancia_solicitud_paseo">Distancia solicitada para paseo (km)</string>
+    <string name="monedas_ofrecidas_paseo">Monedas requeridas para el paseo</string>
+    <string name="title_activity_paseo_mapa">Map</string>
+
+    <string name="hint_mensaje">Escribir mensaje&#8230;</string>
+    <string name="error_mensaje_vacio">Porfavor escribe un mensaje</string>
+    <string name="error_enviar_mensaje">Error al enviar mensaje</string>
+    <string name="ejercicios_de_tu_consentido">Ejercicios de tu consentido</string>
 </resources>

@@ -67,7 +67,7 @@ public class ActividadPerfilPaseador extends AppCompatActivity {
                 Map<String,Object> doc = documentSnapshot.getData();
                 long xp = (long) doc.get("experiencia");
 
-                experiencia.setText( String.valueOf(xp) + " años");
+                experiencia.setText(xp + " años");
                 descripcion.setText( (String) doc.get("descripcion"));
                 String dis = (Boolean) doc.get("estado") ? "Disponible" : "No Disponible";
                 disponibilidad.setText(dis);

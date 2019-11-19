@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //startActivity(new Intent(LoginActivity.this, ChatActivity.class));
                 signInUser(et_email.getText().toString(), et_password.getText().toString());
             }
         });
@@ -195,17 +196,13 @@ public class LoginActivity extends AppCompatActivity {
         }else{
             et_password.setError(null);
         }
-        if(!isEmailValid(correo)){
+        if(!Utils.isEmailValid(correo)){
             et_email.setError("Mal escrito");
             valid = false;
         }else{
             et_email.setError(null);
         }
         return valid;
-    }
-    private boolean isEmailValid(String correo) {
-        Matcher matcher = Utils.VALID_EMAIL_ADDRESS_REGEX.matcher(correo);
-        return matcher.matches();
     }
     private void signInUser(String correo, String contrasena){
         if(validateForm()){
