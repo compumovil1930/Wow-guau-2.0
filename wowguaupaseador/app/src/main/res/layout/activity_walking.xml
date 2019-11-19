@@ -23,6 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:textSize="18sp"
+        map:layout_constraintEnd_toStartOf="@+id/btn_messages"
+        map:layout_constraintHorizontal_bias="0.0"
         map:layout_constraintStart_toEndOf="@+id/textView5"
         map:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +53,7 @@
 
     <ImageButton
         android:id="@+id/btn_messages"
-        android:layout_width="50dp"
+        android:layout_width="70dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:background="@android:color/transparent"
@@ -59,6 +61,6 @@
         map:layout_constraintBottom_toTopOf="@+id/map"
         map:layout_constraintEnd_toEndOf="parent"
         map:layout_constraintTop_toTopOf="parent"
-        map:srcCompat="@drawable/ic_msg" />
+        android:src="@drawable/message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

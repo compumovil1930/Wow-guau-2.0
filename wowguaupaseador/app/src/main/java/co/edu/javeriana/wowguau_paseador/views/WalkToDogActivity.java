@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -38,6 +39,7 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.location.SettingsClient;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -45,6 +47,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
@@ -74,10 +77,12 @@ import co.edu.javeriana.wowguau_paseador.utils.Utils;
 public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCallback {
     Button btn_llegue;
     Button btn_comenzar;
+    ImageButton btn_message;
 
     Perro perro;
     Paseo paseo;
     String uidPaseo;
+    String uidDueno;
 
     Marker paseador;
     Marker dog;
@@ -106,6 +111,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
         btn_llegue = findViewById(R.id.btn_llegue);
         btn_comenzar = findViewById(R.id.btn_comenzar);
+        btn_message = findViewById(R.id.btn_message);
 
         myCurrentLocation = new Location("");
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -113,6 +119,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
 
         perro = (Perro) getIntent().getSerializableExtra("perro");
         uidPaseo = getIntent().getStringExtra("uidPaseo");
+        uidDueno = getIntent().getStringExtra("uidDueno");
 
         mLocationCallback = new LocationCallback() {
             @Override
@@ -122,8 +129,15 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 if (location != null && paseador!=null) {
                     if(paseo!=null) {
                         consumeRESTVolley();
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(Utils.midPoint(paseador.getPosition(), dog.getPosition())));
-                        CameraUpdateFactory.zoomBy(0.5f);
+                        //mMap.moveCamera(CameraUpdateFactory.newLatLng(Utils.midPoint(paseador.getPosition(), dog.getPosition())));
+                        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+                        builder.include(dog.getPosition());
+                        builder.include(paseador.getPosition());
+                        LatLngBounds bounds = Utils.createBoundsWithMinDiagonal(dog, paseador);
+
+                        int padding = 20; // offset from edges of the map in pixels
+                        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+                        mMap.animateCamera(cu);
                     }
                     paseador.setPosition(new LatLng(location.getLatitude(), location.getLongitude()));
                     paseador.setVisible(true);
@@ -137,6 +151,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         paseo = new Paseo((String) documentSnapshot.getData().get("uidPerro"),
                                 (String) documentSnapshot.getData().get("uidPaseador"),
+                                (String) documentSnapshot.getData().get("uidDueno"),
                                 (long) documentSnapshot.getData().get("duracion"),
                                 (long) documentSnapshot.getData().get("costo"),
                                 (String)((Map<String, Object>) documentSnapshot.getData().get("direccion")).get("direccion"),
@@ -155,7 +170,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                     }
                 });
 
-        Permisos.requestPermission(WalkToDogActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, "I need to read the location because I want to spy you", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
+        Permisos.requestPermission(WalkToDogActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, "Necesito leer tu ubicación", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
         if (ContextCompat.checkSelfPermission(WalkToDogActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setLocationOn();
             startLocationUpdates();
@@ -193,6 +208,14 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 Intent i = new Intent(WalkToDogActivity.this, WalkingActivity.class);
                 i.putExtra("perro", perro);
                 i.putExtra("uidPaseo", uidPaseo);
+                startActivity(i);
+            }
+        });
+        btn_message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(WalkToDogActivity.this, ChatActivity.class);
+                i.putExtra("uidDueno", uidDueno);
                 startActivity(i);
             }
         });
@@ -247,7 +270,7 @@ public class WalkToDogActivity extends FragmentActivity implements OnMapReadyCal
                 .icon(BitmapDescriptorFactory.fromBitmap(Utils.getBitmap(getDrawable(R.drawable.ic_walking_man))))
                 .flat(true));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(myLocation));
-        mMap.moveCamera(CameraUpdateFactory.zoomTo(17));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
     protected LocationRequest createLocationRequest() {
         LocationRequest mLocationRequest = new LocationRequest();

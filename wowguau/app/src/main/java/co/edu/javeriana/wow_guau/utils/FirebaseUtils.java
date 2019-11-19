@@ -26,7 +26,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 
+import co.edu.javeriana.wow_guau.model.Mensaje;
 import co.edu.javeriana.wow_guau.model.Paseador;
 import co.edu.javeriana.wow_guau.model.Perro;
 
@@ -149,5 +151,11 @@ public class FirebaseUtils
                 .into(perfil);
 
          */
+    }
+    public static void sendMessage(Mensaje mensaje, String uidChat){
+        mensaje.setTime(Calendar.getInstance().getTime());
+        mensaje.setId(uidChat);
+        db.setFirestoreSettings(settings);
+        db.collection("Chats").add(mensaje);
     }
 }

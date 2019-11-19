@@ -44,6 +44,7 @@ public class ActividadPerfilPerro extends AppCompatActivity
     TextView textViewObs;
     Button btnActualizar;
     Button btnMonitorear;
+    Button btnHistorial;
     String uidPerro;
 
     Button buttonEstablecerObjetivos;
@@ -70,6 +71,7 @@ public class ActividadPerfilPerro extends AppCompatActivity
         btnActualizar = findViewById(R.id.btnActualizar);
         btnMonitorear = findViewById(R.id.btnMonitorear);
         buttonEstablecerObjetivos = findViewById(R.id.btn_ir_establecer_objetivos);
+        btnHistorial = findViewById(R.id.btn_ver_historial_ejercicio);
 
         textViewCompletitudObjetivo = findViewById(R.id.tv_completitud_objetivo);
         imageViewCompletitudObjetivo = findViewById(R.id.imageView);
@@ -106,6 +108,18 @@ public class ActividadPerfilPerro extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        btnHistorial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent i = new Intent(getApplicationContext(),ActividadHistorialEjercicios.class);
+                i.putExtra("idPerro",uidPerro);
+                startActivity(i);
+            }
+        });
+
+
     }
 
     public void fillData()
@@ -162,7 +176,8 @@ public class ActividadPerfilPerro extends AppCompatActivity
                 });
     }
 
-    private void determinarEstadoObjetivo(){
+    private void determinarEstadoObjetivo()
+    {
 
         textViewCompletitudObjetivo.setText("No ha completado el objetivo diario");
         imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_completado);

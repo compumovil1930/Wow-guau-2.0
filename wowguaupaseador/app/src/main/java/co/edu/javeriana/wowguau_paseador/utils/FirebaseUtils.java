@@ -94,6 +94,7 @@ public class FirebaseUtils {
                             Intent i = new Intent(activity, WalkToDogActivity.class);
                             i.putExtra("perro", perro);
                             i.putExtra("uidPaseo", uid);
+                            i.putExtra("uidDueno", documentSnapshot.get("uidDueno").toString());
                             activity.startActivity(i);
                             activity.finish();
                         }
@@ -132,7 +133,7 @@ public class FirebaseUtils {
     public static File descargarFotoImageView(String ruta, final ImageView perfil){
         db.setFirestoreSettings(settings);
         StorageReference photoRef = mStorageRef.child("images").child(ruta);
-        //Log.i("PATH" , photoRef.toString());
+        Log.i("PATH" , photoRef.toString());
 
         try {
             final File localFile = File.createTempFile("images", "jpg");

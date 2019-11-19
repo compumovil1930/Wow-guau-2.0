@@ -11,6 +11,7 @@ import java.util.Comparator;
 public class Paseo implements Serializable {
     String uidPerro;
     String uidPaseador;
+    String uidDueno;
     long duracionMinutos;
     long costo;
     String direccion;
@@ -27,12 +28,13 @@ public class Paseo implements Serializable {
     public Paseo() {
     }
 
-    public Paseo(String uidPerro, String uidPaseador, long duracionMinutos, long costo, String direccion,
+    public Paseo(String uidPerro, String uidPaseador, String uidDueno, long duracionMinutos, long costo, String direccion,
                  Double latitude, Double longitude, Boolean estado, String nomPerro, String uriPerrito){
         this.uriPerrito = uriPerrito;
         this.nomPerro = nomPerro;
         this.uidPerro = uidPerro;
         this.uidPaseador = uidPaseador;
+        this.uidDueno = uidDueno;
         this.duracionMinutos = duracionMinutos;
         this.costo = costo;
         this.direccion = direccion;
@@ -47,26 +49,6 @@ public class Paseo implements Serializable {
         return dist;
     }
 
-    public File getMyImage() {
-        return myImage;
-    }
-
-    public void setMyImage(File myImage) {
-        this.myImage = myImage;
-    }
-
-    public void setDist(double dist) {
-        this.dist = dist;
-    }
-
-    public LatLng getPaseadorLoc() {
-        return paseadorLoc;
-    }
-
-    public void setPaseadorLoc(LatLng paseadorLoc) {
-        this.paseadorLoc = paseadorLoc;
-    }
-
     public String getUidPerro() {
         return uidPerro;
     }
@@ -79,23 +61,23 @@ public class Paseo implements Serializable {
         return uidPaseador;
     }
 
-    public String getUriPerrito() {
-        return uriPerrito;
-    }
-
-    public void setUriPerrito(String uriPerrito) {
-        this.uriPerrito = uriPerrito;
-    }
-
     public void setUidPaseador(String uidPaseador) {
         this.uidPaseador = uidPaseador;
+    }
+
+    public String getUidDueno() {
+        return uidDueno;
+    }
+
+    public void setUidDueno(String uidDueno) {
+        this.uidDueno = uidDueno;
     }
 
     public long getDuracionMinutos() {
         return duracionMinutos;
     }
 
-    public void setDuracionMinutos(int duracionMinutos) {
+    public void setDuracionMinutos(long duracionMinutos) {
         this.duracionMinutos = duracionMinutos;
     }
 
@@ -105,22 +87,6 @@ public class Paseo implements Serializable {
 
     public void setCosto(long costo) {
         this.costo = costo;
-    }
-
-    public String getNomPaseador() {
-        return nomPaseador;
-    }
-
-    public void setNomPaseador(String nomPaseador) {
-        this.nomPaseador = nomPaseador;
-    }
-
-    public String getNomPerro() {
-        return nomPerro;
-    }
-
-    public void setNomPerro(String nomPerro) {
-        this.nomPerro = nomPerro;
     }
 
     public String getDireccion() {
@@ -153,6 +119,50 @@ public class Paseo implements Serializable {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public String getNomPerro() {
+        return nomPerro;
+    }
+
+    public void setNomPerro(String nomPerro) {
+        this.nomPerro = nomPerro;
+    }
+
+    public String getNomPaseador() {
+        return nomPaseador;
+    }
+
+    public void setNomPaseador(String nomPaseador) {
+        this.nomPaseador = nomPaseador;
+    }
+
+    public String getUriPerrito() {
+        return uriPerrito;
+    }
+
+    public void setUriPerrito(String uriPerrito) {
+        this.uriPerrito = uriPerrito;
+    }
+
+    public void setDist(double dist) {
+        this.dist = dist;
+    }
+
+    public LatLng getPaseadorLoc() {
+        return paseadorLoc;
+    }
+
+    public void setPaseadorLoc(LatLng paseadorLoc) {
+        this.paseadorLoc = paseadorLoc;
+    }
+
+    public File getMyImage() {
+        return myImage;
+    }
+
+    public void setMyImage(File myImage) {
+        this.myImage = myImage;
     }
 
     public void calcDist(){

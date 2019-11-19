@@ -1,4 +1,4 @@
-package co.edu.javeriana.wowguau_paseador.views;
+package co.edu.javeriana.wow_guau.views;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,11 +31,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import co.edu.javeriana.wowguau_paseador.R;
-import co.edu.javeriana.wowguau_paseador.adapters.MensajeAdapter;
-import co.edu.javeriana.wowguau_paseador.model.Mensaje;
-import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
-import co.edu.javeriana.wowguau_paseador.utils.Permisos;
+import co.edu.javeriana.wow_guau.R;
+import co.edu.javeriana.wow_guau.adapters.MensajeAdapter;
+import co.edu.javeriana.wow_guau.model.Mensaje;
+import co.edu.javeriana.wow_guau.utils.FirebaseUtils;
+import co.edu.javeriana.wow_guau.utils.Permisos;
 
 public class ChatActivity extends AppCompatActivity {
     private ImageButton btn_send;
@@ -49,13 +49,12 @@ public class ChatActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private String uidDueno;
+    private String uidPaseador;
     private String uidChat;
-    private List<Mensaje> mensajes = new ArrayList<>();;
+    private List<Mensaje> mensajes;
     private MensajeAdapter mensajeAdapter;
 
     private String TAG = "CHAT";
-    private boolean firstTime=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,11 +71,10 @@ public class ChatActivity extends AppCompatActivity {
 
         mLinearLayoutManager = new LinearLayoutManager(this);
         mLinearLayoutManager.setStackFromEnd(true);
-        mLinearLayoutManager.setReverseLayout(true);
         mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        uidDueno = getIntent().getStringExtra("uidDueno");
-        uidChat = mAuth.getUid()+"+"+uidDueno;
+        uidPaseador = getIntent().getStringExtra("uidPaseador");
+        uidChat = uidPaseador+"+"+mAuth.getUid();
 
         db.collection("Chats")
                 .whereEqualTo("id", uidChat)
@@ -89,21 +87,18 @@ public class ChatActivity extends AppCompatActivity {
                             return;
                         }
 
+                        mensajes = new ArrayList<>();
                         for (QueryDocumentSnapshot doc : snapshots) {
-                            if(!containsMensaje(doc.getId())) {
-                                mensajes.add(
-                                        new Mensaje(
-                                                doc.getId(),
-                                                doc.getString("text"),
-                                                doc.getString("imageUrl"),
-                                                doc.getString("senderId")
-                                        )
-                                );
-                                Log.i(TAG, doc.getString("text") + " " + doc.getString("imageUrl") + " " + doc.getString("senderId"));
-                            }
+                            mensajes.add(
+                                    new Mensaje(
+                                            doc.getString("text"),
+                                            doc.getString("imageUrl"),
+                                            doc.getString("senderId")
+                                    )
+                            );
+                            Log.i(TAG, doc.getString("text")+" "+doc.getString("imageUrl")+" "+doc.getString("senderId"));
                         }
-                        if(firstTime)
-                            updateUI();
+                        updateUI();
                     }
                 });
 
@@ -149,7 +144,6 @@ public class ChatActivity extends AppCompatActivity {
         mensajeAdapter = new MensajeAdapter(mAuth.getUid(), mensajes);
         mMessageRecyclerView.setAdapter(mensajeAdapter);
         mProgressBar.setVisibility(ProgressBar.INVISIBLE);
-        firstTime = false;
     }
 
     @Override
@@ -201,13 +195,5 @@ public class ChatActivity extends AppCompatActivity {
                 }
             }
         }
-    }
-    protected boolean containsMensaje(String id){
-        for(Mensaje msj: mensajes){
-            if(msj.getId().equals(id)){
-                return true;
-            }
-        }
-        return false;
     }
 }

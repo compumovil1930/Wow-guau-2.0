@@ -1,4 +1,4 @@
-package co.edu.javeriana.wowguau_paseador.adapters;
+package co.edu.javeriana.wow_guau.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-import co.edu.javeriana.wowguau_paseador.R;
-import co.edu.javeriana.wowguau_paseador.model.Mensaje;
-import co.edu.javeriana.wowguau_paseador.utils.FirebaseUtils;
+import co.edu.javeriana.wow_guau.R;
+import co.edu.javeriana.wow_guau.model.Mensaje;
+import co.edu.javeriana.wow_guau.utils.FirebaseUtils;
 
 
 public class MensajeAdapter extends RecyclerView.Adapter<MensajeAdapter.MensajeViewHolder> {

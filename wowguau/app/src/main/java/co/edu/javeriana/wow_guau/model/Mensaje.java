@@ -1,4 +1,4 @@
-package co.edu.javeriana.wowguau_paseador.model;
+package co.edu.javeriana.wow_guau.model;
 
 import java.util.Date;
 
@@ -12,12 +12,6 @@ public class Mensaje {
     public Mensaje() {
     }
 
-    public Mensaje(String id, String text, String imageUrl, String senderId) {
-        this.id = id;
-        this.text = text;
-        this.imageUrl = imageUrl;
-        this.senderId = senderId;
-    }
     public Mensaje(String text, String imageUrl, String senderId) {
         this.text = text;
         this.imageUrl = imageUrl;

@@ -121,7 +121,7 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
             }
         };
 
-        Permisos.requestPermission(WalkingActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, "I need to read the location because I want to spy you", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
+        Permisos.requestPermission(WalkingActivity.this, Manifest.permission.ACCESS_FINE_LOCATION, "Necesito leer tu ubicación", Permisos.MY_PERMISSIONS_REQUEST_LOCATION);
         if (ContextCompat.checkSelfPermission(WalkingActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             setLocationOn();
             startLocationUpdates();
@@ -150,6 +150,7 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         paseo = new Paseo((String) documentSnapshot.getData().get("uidPerro"),
                                 (String) documentSnapshot.getData().get("uidPaseador"),
+                                (String) documentSnapshot.getData().get("uidDueno"),
                                 (long) documentSnapshot.getData().get("duracion"),
                                 (long) documentSnapshot.getData().get("costo"),
                                 (String)((Map<String, Object>) documentSnapshot.getData().get("direccion")).get("direccion"),
@@ -179,6 +180,7 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(WalkingActivity.this, ChatActivity.class);
+                i.putExtra("uidDueno", paseo.getUidDueno());
                 startActivity(i);
             }
         });
