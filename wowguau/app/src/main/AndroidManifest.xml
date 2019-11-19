@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_paw"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light">
 
 
         <activity android:name=".views.CalificacionActivity"></activity>
@@ -43,12 +43,18 @@
         <activity
             android:name=".views.paseoMapaActivity"
             android:label="@string/title_activity_paseo_mapa" />
-        <activity android:name=".views.PaseosActivosActivity" />
-        <activity android:name=".views.ActivitySolicitarPaseo" />
-        <activity android:name=".views.ActivityEstablecerObjetivo" />
-        <activity android:name=".views.ActividadPerfilPerro" />
-        <activity android:name=".views.ActividadHistorialEjercicios"></activity>
-        <activity android:name=".views.ChatActivity" />
+        <activity android:name=".views.PaseosActivosActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.ActivitySolicitarPaseo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.ActivityEstablecerObjetivo"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.ActividadPerfilPerro"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.ActividadHistorialEjercicios"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".views.ChatActivity"
+            android:screenOrientation="portrait"/>
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
