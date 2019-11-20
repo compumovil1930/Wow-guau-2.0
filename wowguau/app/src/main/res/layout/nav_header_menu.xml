@@ -23,22 +23,56 @@
         android:scaleType="fitCenter"
         app:srcCompat="@drawable/ic_man_profile" />
 
-    <TextView
-        android:id="@+id/tv_h_nombre"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_estado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Estado: " />
+        <TextView
+            android:id="@+id/tv_h_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="Cesar Milan"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_saldo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Saldo: " />
+        <TextView
+            android:id="@+id/tv_estado"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Estado: "
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_h_nombre" />
+
+        <TextView
+            android:id="@+id/estado"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:visibility="invisible"
+            app:layout_constraintStart_toEndOf="@+id/tv_estado"
+            app:layout_constraintTop_toBottomOf="@+id/tv_h_nombre" />
+
+        <TextView
+            android:id="@+id/tv_saldo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Saldo: "
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estado" />
+
+        <TextView
+            android:id="@+id/saldo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_saldo"
+            app:layout_constraintTop_toBottomOf="@+id/tv_estado" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

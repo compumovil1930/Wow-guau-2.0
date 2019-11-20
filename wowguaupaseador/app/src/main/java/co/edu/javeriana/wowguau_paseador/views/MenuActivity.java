@@ -41,6 +41,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import co.edu.javeriana.wowguau_paseador.R;
 import co.edu.javeriana.wowguau_paseador.model.Direccion;
@@ -61,7 +62,6 @@ public class MenuActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private DocumentReference docRef;
     private Paseador paseador;
-
     private FragmentRefreshListener fragmentRefreshListener;
 
     private String TAG="MENU";
@@ -150,11 +150,25 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void updateUI(){
-        tv_h_nombre.setText(paseador.getNombre());
-        tv_estado.setText(" "+(paseador.isEstado()? "Disponible": "No disponible"));
-        tv_saldo.setText(paseador.getSaldo()+" petCoins");
+
+        db.collection("Paseadores").document(mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                Map<String,Object> vals = documentSnapshot.getData();
+                paseador.setNombre( (String) vals.get("nombre"));
+                paseador.setSaldo( (long) vals.get("saldo"));
+                paseador.setEstado((boolean) vals.get("estado"));
+
+                tv_h_nombre.setText(paseador.getNombre());
+                tv_estado.setText(" "+(paseador.isEstado()? "Disponible": "No disponible"));
+                tv_saldo.setText(paseador.getSaldo()+" petCoins");
+                fragmentRefreshListener.onRefresh();
+            }
+        });
+
         //FirebaseUtils.descargarFotoImageView( paseador.getDireccionFoto(), iv_perfil);
-        fragmentRefreshListener.onRefresh();
+
     }
 
     @Override

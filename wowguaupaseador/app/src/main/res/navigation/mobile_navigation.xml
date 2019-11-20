@@ -22,4 +22,11 @@
         android:name="co.edu.javeriana.wowguau_paseador.views.HistorialFragment"
         android:label="@string/menu_historial"
         tools:layout="@layout/fragment_historial" />
+
+    <fragment
+        android:id="@+id/nav_money"
+        android:name="co.edu.javeriana.wowguau_paseador.views.RetirarFragment"
+        android:label="@string/menu_historial"
+        tools:layout="@layout/fragment_money" />
+
 </navigation>

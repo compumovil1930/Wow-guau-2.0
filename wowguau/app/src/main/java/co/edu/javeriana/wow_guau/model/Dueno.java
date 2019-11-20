@@ -10,6 +10,16 @@ public class Dueno extends Usuario {
 
     List<Perro> Mascotas;
     GeoPoint ubicacion;
+    long saldo;
+
+
+    public long getSaldo() {
+        return saldo;
+    }
+
+    public void setSaldo(long saldo) {
+        this.saldo = saldo;
+    }
 
     public Dueno(){}
 

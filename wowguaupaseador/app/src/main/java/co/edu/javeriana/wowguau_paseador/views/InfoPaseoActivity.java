@@ -11,14 +11,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.Map;
 
@@ -104,7 +111,56 @@ public class InfoPaseoActivity extends AppCompatActivity {
         btn_aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseUtils.checkPaseo(uidPaseo, InfoPaseoActivity.this, perro);
+
+                final DocumentReference paseadorRef = db.collection("Paseadores").document(mAuth.getCurrentUser().getUid());
+                final DocumentReference duenoRef = db.collection("Clientes").document(paseo.getUidDueno());
+
+                db.runTransaction(new Transaction.Function<Void>() {
+                    @Override
+                    public Void apply(Transaction transaction) throws FirebaseFirestoreException {
+
+
+                        DocumentSnapshot snapshotPaseador = transaction.get(paseadorRef);
+                        DocumentSnapshot snapshotDueno = transaction.get(duenoRef);
+
+                        // Note: this could be done without a transaction
+                        //       by updating the population using FieldValue.increment()
+                        long saldoPaseador = snapshotPaseador.getLong("saldo");
+                        long saldoDueno = snapshotDueno.getLong("saldo");
+
+                        long costo = paseo.getCosto();
+
+                        if(saldoDueno>=costo){
+                            saldoDueno-=costo;
+                            saldoPaseador+=costo;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "No se puede aceptar el paseo por fondos", Toast.LENGTH_LONG ).show();
+                            throw new FirebaseFirestoreException("Fallo", FirebaseFirestoreException.Code.CANCELLED );
+                        }
+
+                        //double newPopulation = snapshot.getDouble("population") + 1;
+                        transaction.update(paseadorRef, "saldo", saldoPaseador);
+                        transaction.update(duenoRef, "saldo", saldoDueno);
+                        // Success
+                        return null;
+                    }
+                }).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        FirebaseUtils.checkPaseo(uidPaseo, InfoPaseoActivity.this, perro);
+                        Log.d("", "Transaction success!");
+                        Toast.makeText(getApplicationContext(), "Transacción exitosa", Toast.LENGTH_LONG ).show();
+                    }
+                })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("", "Transaction failure.", e);
+                                Toast.makeText(getApplicationContext(), "Insuficiente Saldo", Toast.LENGTH_LONG ).show();
+                            }
+                        });
+
+
             }
         });
         btn_rechazar.setOnClickListener(new View.OnClickListener() {
