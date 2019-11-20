@@ -182,7 +182,9 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
             @Override
             public void onClick(View v) {
                 db.collection("Paseos").document(uidPaseo).update("estado", false);
-                // TODO qué hago?
+                Intent i= new Intent(WalkingActivity.this, MenuActivity.class);
+                i.putExtra("uid", mAuth.getUid());
+                startActivity(i);
             }
         });
         btn_messages.setOnClickListener(new View.OnClickListener() {
