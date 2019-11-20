@@ -52,6 +52,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import co.edu.javeriana.wowguau_paseador.R;
@@ -112,6 +113,14 @@ public class WalkingActivity extends FragmentActivity implements OnMapReadyCallb
                 Location location = locationResult.getLastLocation();
                 Log.i("LOCATION", "Location update in the callback: " + location);
                 if (location != null && paseador!=null) {
+                    Map<String, Object> up = new HashMap<>();
+                    Map<String, Object> myloc = new HashMap<>();
+                    myloc.put("latitud",location.getLatitude());
+                    myloc.put("longitud",location.getLongitude());
+                    up.put("localizacion",  myloc);
+                    //mLoc = new LatLng(location.getLatitude(), location.getLongitude());
+                    db.collection("Paseadores").document(mFireUser.getUid()).update(up);
+
                     if(paseo!=null) {
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(paseador.getPosition()));
                     }
