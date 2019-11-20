@@ -3,6 +3,7 @@ package co.edu.javeriana.wow_guau.views;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -152,6 +153,10 @@ public class ActivityEstablecerObjetivo extends AppCompatActivity {
                         Log.d(TAG, "DocumentSnapshot successfully written!");
                         Toast.makeText(ActivityEstablecerObjetivo.this, "Objetivo registrado con éxito",
                                 Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ActivityEstablecerObjetivo.this, ActividadPerfilPerro.class);
+                        intent.putExtra("idPerro",uidPerro);
+                        startActivity(intent);
                         finish();
                     }
                 })
