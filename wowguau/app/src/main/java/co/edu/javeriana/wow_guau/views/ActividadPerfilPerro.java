@@ -23,6 +23,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import co.edu.javeriana.wow_guau.R;
@@ -54,6 +55,8 @@ public class ActividadPerfilPerro extends AppCompatActivity
 
     String nombrePerro, fotoPerro;
 
+    long distanciaObjetivo, tiempoObjetivo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -76,6 +79,9 @@ public class ActividadPerfilPerro extends AppCompatActivity
         textViewCompletitudObjetivo = findViewById(R.id.tv_completitud_objetivo);
         imageViewCompletitudObjetivo = findViewById(R.id.imageView);
 
+        textViewCompletitudObjetivo.setVisibility(View.GONE);
+        imageViewCompletitudObjetivo.setVisibility(View.GONE);
+
         btnActualizar.setEnabled(false);
 
         uidPerro = getIntent().getStringExtra("idPerro");
@@ -85,7 +91,7 @@ public class ActividadPerfilPerro extends AppCompatActivity
 
         fillData();
 
-        determinarEstadoObjetivo();
+        //determinarEstadoObjetivo();
 
         btnActualizar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +112,7 @@ public class ActividadPerfilPerro extends AppCompatActivity
                 Intent intent = new Intent(view.getContext(),ActivityEstablecerObjetivo.class);
                 intent.putExtra("idPerro",uidPerro);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -167,6 +174,7 @@ public class ActividadPerfilPerro extends AppCompatActivity
                                 btnActualizar.setEnabled(true);
 
                             }
+                            determinarEstadoObjetivo();
                         }
                         else
                         {
@@ -176,11 +184,128 @@ public class ActividadPerfilPerro extends AppCompatActivity
                 });
     }
 
-    private void determinarEstadoObjetivo()
-    {
+    private void determinarEstadoObjetivo(){
 
-        textViewCompletitudObjetivo.setText("No ha completado el objetivo diario");
-        imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_completado);
+        db.collection("Ejercicios")
+                .whereEqualTo("estado",true)
+                .whereEqualTo("idPerro", uidPerro)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
+                    {
+                        if(task.isSuccessful()){
+                            int contador = 0;
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                contador = contador+1;
+                                distanciaObjetivo = document.getLong("distancia");
+                                tiempoObjetivo = document.getLong("tiempo");
+                            }
+                            if(contador == 0){
+                                textViewCompletitudObjetivo.setText("No has establecido objetivo de ejercicio");
+                                imageViewCompletitudObjetivo.setVisibility(View.GONE);
+                                textViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                            }else{
+                                Log.i("Perfil perro", "distanciaObjetivo: "+distanciaObjetivo);
+                                Log.i("Perfil perro", "tiempoObjetivo: "+tiempoObjetivo);
+                                buscarInformacionPaseos();
+                            }
+                        }
+                        else{
+                            Log.d("Errror Perron", "Error al buscar ejercicios ", task.getException());
+                        }
+                    }
+                });
+
+        //imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_no_completado);
+
+    }
+
+    private void buscarInformacionPaseos(){
+
+        if(distanciaObjetivo!=0){
+            textViewCompletitudObjetivo.setVisibility(View.GONE);
+            imageViewCompletitudObjetivo.setVisibility(View.GONE);
+        }
+
+        db.collection("Paseos")
+                .whereEqualTo("estado",false)
+                .whereEqualTo("uidPerro", uidPerro)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>()
+                {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task)
+                    {
+                        if(task.isSuccessful()){
+                            long distanciaAcumulada = 0;
+                            long tiempoAcumulado = 0;
+                            boolean b = false;
+                            Date dateObj = Calendar.getInstance().getTime();
+                            String fechaHoy = new SimpleDateFormat("dd/MM/yyyy").format(dateObj);
+                            Date datePaseo = null;
+                            for(QueryDocumentSnapshot document : task.getResult()) {
+                                b = true;
+                                Log.i("Perfil perro", "paseoEncontrado: "+document.getData().toString());
+
+                                if (document.getDate("fecha") != null){
+                                    datePaseo = document.getDate("fecha");
+                                    String fechaPaseo = new SimpleDateFormat("dd/MM/yyyy").format(datePaseo);
+                                    if (fechaHoy.equals(fechaPaseo)){
+                                        if(tiempoObjetivo != 0){
+                                            tiempoAcumulado = tiempoAcumulado + document.getLong("duracion");
+                                        }
+                                        if(distanciaObjetivo!=0){
+                                            distanciaAcumulada = distanciaAcumulada + document.getLong("distanciaRecorrida");
+                                        }
+                                    }
+                                }
+                            }
+                            if(b){
+                                if(tiempoObjetivo != 0){
+                                    if(tiempoAcumulado >= tiempoObjetivo){
+                                        textViewCompletitudObjetivo.setText("Se ha completado el objetivo diario");
+                                        imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_completado);
+                                        imageViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                        textViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                    }else{
+                                        textViewCompletitudObjetivo.setText("No se ha completado el objetivo diario");
+                                        imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_no_completado);
+                                        imageViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                        textViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                                if(distanciaObjetivo != 0){
+                                    if(distanciaAcumulada >= distanciaObjetivo){
+                                        textViewCompletitudObjetivo.setText("Se ha completado el objetivo diario");
+                                        imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_completado);
+                                        imageViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                        textViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                    }else{
+                                        textViewCompletitudObjetivo.setText("No se ha completado el objetivo diario");
+                                        imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_no_completado);
+                                        imageViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                        textViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                                Log.i("Perfil perro", "tiempoAcumulado: "+tiempoAcumulado);
+                                Log.i("Perfil perro", "distanciaAcumulada: "+distanciaAcumulada);
+                            }else{
+                                textViewCompletitudObjetivo.setText("No se ha completado el objetivo diario");
+                                imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_no_completado);
+                                imageViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                                textViewCompletitudObjetivo.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else{
+                            Log.d("Errror Perron", "Error al buscar ejercicios ", task.getException());
+                        }
+                    }
+                });
+
+        //textViewCompletitudObjetivo.setText("No se ha completado el objetivo diario");
+        //imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_completado);
         //imageViewCompletitudObjetivo.setImageResource(R.drawable.img_objetivo_no_completado);
 
     }

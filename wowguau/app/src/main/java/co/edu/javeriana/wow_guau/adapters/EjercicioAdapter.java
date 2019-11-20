@@ -81,15 +81,15 @@ public class EjercicioAdapter extends RecyclerView.Adapter<EjercicioAdapter.MyVi
         holder.txtViewDistancia.setText("Distancia : " + ejercicio.getDistancia());
         if(ejercicio.isEstado())
         {
-            holder.txtViewEstado.setText("Estado : No Completado");
+            holder.txtViewEstado.setText("Estado : Activo");
             holder.txtViewEstado.
-                    setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.img_objetivo_no_completado,0);
+                    setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.img_objetivo_completado,0);
         }
         else
         {
-            holder.txtViewEstado.setText("Estado : Completado");
+            holder.txtViewEstado.setText("Estado : No activo");
             holder.txtViewEstado.
-                    setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.img_objetivo_completado,0);
+                    setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.img_objetivo_no_completado,0);
 
         }
 
