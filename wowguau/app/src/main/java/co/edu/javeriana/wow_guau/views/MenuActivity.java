@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,7 +23,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.FirebaseFirestoreSettings;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -35,9 +39,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Map;
 
 import co.edu.javeriana.wow_guau.R;
 
@@ -61,6 +67,11 @@ public class MenuActivity extends AppCompatActivity {
     private FirebaseFirestoreSettings settings = new FirebaseFirestoreSettings.Builder()
             .build();
     private StorageReference mStorageRef = FirebaseStorage.getInstance().getReference();
+
+    private TextView tv_h_nombre;
+    private ImageView iv_perfil;
+    private TextView tv_estado;
+    private TextView tv_saldo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +103,10 @@ public class MenuActivity extends AppCompatActivity {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         View headerview = navigationView.getHeaderView(0);
+        tv_h_nombre = headerview.findViewById(R.id.tv_h_nombre);
+        //iv_perfil = headerview.findViewById(R.id.iv_perfil);
+        tv_estado = headerview.findViewById(R.id.estado);
+        tv_saldo = headerview.findViewById(R.id.saldo);
 
         imageViewUsuario = headerview.findViewById(R.id.ivFotoUsuarioMenu);
         if(latitudUsuario != 0 && longitudUsuario!= 0){
@@ -128,6 +143,27 @@ public class MenuActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        db.collection("Clientes").document(mAuth.getCurrentUser().getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+            @Override
+            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+
+                Map<String,Object> vals = documentSnapshot.getData();
+
+    /*
+                paseador.setNombre( );
+                paseador.setSaldo( );
+                paseador.setEstado((boolean) vals.get("estado"));
+
+
+     */
+                tv_h_nombre.setText((String) vals.get("nombre"));
+                //tv_estado.setText(" "+(paseador.isEstado()? "Disponible": "No disponible"));
+                tv_saldo.setText((long) vals.get("saldo") + " petCoins");
+                //fragmentRefreshListener.onRefresh();
+            }
+        });
+
     }
 
     @Override
