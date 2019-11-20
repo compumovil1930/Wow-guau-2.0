@@ -1,5 +1,6 @@
 package co.edu.javeriana.wow_guau.model;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,8 @@ public class Paseo {
     private String uriPerro;
     Map<String, Object> direccion;
     private String uidDueno;
+    private Date fecha;
+    private long distanciaRecorrida;
 
     private boolean aceptado;
     private double calificacion;
@@ -21,6 +24,22 @@ public class Paseo {
     private String comentarioCalificacion;
 
     public Paseo() {
+    }
+
+    public long getDistanciaRecorrida() {
+        return distanciaRecorrida;
+    }
+
+    public void setDistanciaRecorrida(long distanciaRecorrida) {
+        this.distanciaRecorrida = distanciaRecorrida;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public boolean isAceptado() {

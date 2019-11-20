@@ -54,6 +54,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -212,22 +214,6 @@ public class ActivitySolicitarPaseo extends AppCompatActivity {
             }
         });
 
-        /*editTextDuracion.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_DONE){
-                    String duracionText = editTextDuracion.getText().toString();
-                    if (!duracionText.isEmpty()) {
-                        calcularCostoPaseo();
-                    } else {
-                        Toast.makeText(ActivitySolicitarPaseo.this, "No se ha ingresado " +
-                                "duración", Toast.LENGTH_SHORT).show();
-                        editTextMonedas.setText("");
-                    }
-                }
-                return false;
-            }
-        });*/
     }
 
     private void calcularCostoPaseo(){
@@ -296,6 +282,9 @@ public class ActivitySolicitarPaseo extends AppCompatActivity {
         paseo.setUriPerro( fotoPerro );
         paseo.setUidPaseador("");
         paseo.setUidDueno( currentUser.getUid() );
+        Date dateObj = Calendar.getInstance().getTime();
+        paseo.setFecha(dateObj);
+        paseo.setDistanciaRecorrida(0);
 
         DocumentReference referencia = db.collection("Paseos").document();
 
