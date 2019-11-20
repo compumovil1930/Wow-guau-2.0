@@ -167,7 +167,6 @@ public class HistorialFragment extends Fragment {
                             Map<String,Object> vals = dc.getDocument().getData();
                             Paseo my_paseo = newPaseo(vals);
                             my_paseo.setPaseadorLoc(mLoc);
-                            my_paseo.calcDist();
                             paseoAdapter.add(my_paseo);
 
                             Log.d(TAG, "Add: " + dc.getDocument().getData());
@@ -239,11 +238,9 @@ public class HistorialFragment extends Fragment {
                         p.setPaseadorLoc(mLoc);
                         p.calcDist();
                         View v = mList.getChildAt(i);
-                        if(p.getDist()<=5.0 && p.getDist() != -1.0){
-                            TextView tempTv = v.findViewById(R.id.tv_dist_paseo);
-                            tempTv.setText(p.getDist() + " km");
-                            v.setVisibility(View.VISIBLE);
-                        }
+                        TextView tempTv = v.findViewById(R.id.tv_dist_paseo);
+                        tempTv.setText(p.getDist() + " km");
+                        v.setVisibility(View.VISIBLE);
                     }
 
                     paseoAdapter.sort(new Comparator<Paseo>() {
