@@ -25,9 +25,8 @@
         android:roundIcon="@mipmap/ic_launcher_paw"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-
-
-        <activity android:name=".views.CalificacionActivity"></activity>
+        <activity android:name=".views.ActivityGrafica"></activity>
+        <activity android:name=".views.CalificacionActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -43,18 +42,25 @@
         <activity
             android:name=".views.paseoMapaActivity"
             android:label="@string/title_activity_paseo_mapa" />
-        <activity android:name=".views.PaseosActivosActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.ActivitySolicitarPaseo"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.ActivityEstablecerObjetivo"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.ActividadPerfilPerro"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.ActividadHistorialEjercicios"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".views.ChatActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".views.PaseosActivosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ActivitySolicitarPaseo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ActivityEstablecerObjetivo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ActividadPerfilPerro"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ActividadHistorialEjercicios"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".views.ChatActivity"
+            android:screenOrientation="portrait" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
@@ -97,7 +103,6 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/.
         -->
-
         <activity
             android:name=".views.MapsActivity"
             android:configChanges="orientation"

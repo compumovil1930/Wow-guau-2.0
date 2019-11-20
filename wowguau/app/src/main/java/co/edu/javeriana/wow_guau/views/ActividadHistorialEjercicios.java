@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +38,9 @@ public class ActividadHistorialEjercicios extends AppCompatActivity implements E
     private ArrayList<Ejercicio> listaEjercicios;
     private EjercicioAdapter mEjercicioAdapter;
 
+    Button btnVerGrafica;
+
+    String idPerro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -45,6 +50,7 @@ public class ActividadHistorialEjercicios extends AppCompatActivity implements E
 
         listaEjercicios = new ArrayList<Ejercicio>();
         mRecyclerView = findViewById(R.id.recycleViewListEjercicios);
+        btnVerGrafica = findViewById(R.id.button_grafica);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -55,13 +61,25 @@ public class ActividadHistorialEjercicios extends AppCompatActivity implements E
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
 
+        idPerro = getIntent().getStringExtra("idPerro");
+
         fillEjercicios();
+
+        btnVerGrafica.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(),ActivityGrafica.class);
+                intent.putExtra("idPerro",idPerro);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void fillEjercicios()
     {
         db.collection("Ejercicios")
-                .whereEqualTo("idPerro",getIntent().getStringExtra("idPerro"))
+                .whereEqualTo("idPerro",idPerro)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
